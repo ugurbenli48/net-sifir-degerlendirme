@@ -139,7 +139,7 @@ def display_comparison(stage_key, pair_idx):
             [f"Kriter {criterion_a[0].upper()}: {criterion_a[1]}", 
              "Eşit önemde",
              f"Kriter {criterion_b[0].upper()}: {criterion_b[1]}"],
-            key=f"choice_{pair_key}",
+            key=f"choice_{stage_key}_{pair_key}",
             index=1
         )
         
@@ -151,7 +151,7 @@ def display_comparison(stage_key, pair_idx):
                 options=[1, 2, 3],
                 value=2,
                 format_func=lambda x: {1: "Zayıf tercih", 2: "Orta düzey", 3: "Çok güçlü"}[x],
-                key=f"importance_{pair_key}"
+                key=f"importance_{stage_key}_{pair_key}"
             )
     
     # Yanıtı kaydet ve devam et
