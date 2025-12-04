@@ -381,7 +381,7 @@ def display_results():
         st.warning("⚠️ Lütfen tüm aşamaları tamamlayın.")
 
 def save_results_to_server():
-    """Sonuçları Google Sheets'e kaydet"""
+    """Sonuçları Google Sheets'e kaydet (sadece JSON olarak)"""
     try:
         # Google Sheets credentials
         credentials_dict = st.secrets.get("gcp_service_account", None)
@@ -405,40 +405,16 @@ def save_results_to_server():
         
         sheet = client.open_by_key(spreadsheet_id).sheet1
         
-        # Veri hazırla
+        # Veri hazırla - SADECE 4 SÜTUN
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         expert_name = st.session_state.expert_name
         expert_org = st.session_state.get('expert_org', '')
         
-        # Tüm yanıtları tek satıra flatten et
-        responses = st.session_state.responses
+        # Tüm veriyi JSON olarak
+        json_data = json.dumps(st.session_state.responses, ensure_ascii=False)
         
-        # Row verisi
-        row_data = [timestamp, expert_name, expert_org]
-        
-        # Stage 2 yanıtları (253 karşılaştırma)
-        stage2_responses = responses.get('stage2', {})
-        for key in sorted(stage2_responses.keys()):
-            row_data.append(stage2_responses[key])
-        
-        # Stage 3 yanıtları (21 karşılaştırma)
-        stage3_responses = responses.get('stage3', {})
-        for key in sorted(stage3_responses.keys()):
-            row_data.append(stage3_responses[key])
-        
-        # Stage 4 yanıtları (10 karşılaştırma)
-        stage4_responses = responses.get('stage4', {})
-        for key in sorted(stage4_responses.keys()):
-            row_data.append(stage4_responses[key])
-        
-        # Stage comparison yanıtları (3 karşılaştırma)
-        stage_comp_responses = responses.get('stage_comparison', {})
-        for key in sorted(stage_comp_responses.keys()):
-            row_data.append(stage_comp_responses[key])
-        
-        # JSON olarak da ekle (yedek)
-        json_data = json.dumps(responses, ensure_ascii=False)
-        row_data.append(json_data)
+        # Tek satır, 4 sütun
+        row_data = [timestamp, expert_name, expert_org, json_data]
         
         # Satırı ekle
         sheet.append_row(row_data)
