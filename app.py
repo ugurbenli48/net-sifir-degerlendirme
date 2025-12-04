@@ -224,7 +224,7 @@ def welcome_page():
     st.markdown("""
     ### Hoş Geldiniz!
     
-    Bu sistem, Net Sıfır Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
+    Bu sistem, Net Zero Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
     
     #### 📋 Değerlendirme Aşamaları:
     1. **2. Aşama** - Tema Önceliği (23 kriter)
