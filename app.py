@@ -13,7 +13,7 @@ except ImportError:
 
 # Sayfa yapılandırması
 st.set_page_config(
-    page_title="Net Zero Proje Değerlendirme",
+    page_title="Net Sıfır Proje Değerlendirme",
     page_icon="🌱",
     layout="wide"
 )
@@ -23,59 +23,42 @@ CRITERIA = {
     "stage2": {
         "name": "2. Aşama - Tema Önceliği",
         "criteria": [
-            ("a", "Düşük Karbonlu Alternatif Yakıtlar", "Açıklama: Elektrifikasyonun mümkün olmadığı ulaşım modlarında kullanılmak üzere yeşil hidrojen, biyoyakıtlar ve sentetik e-yakıtlar gibi düşük karbonlu alternatif yakıtların geliştirilmesi ve uygulanması."),
-            ("b", "Yük Taşımacılığının Karbonsuzlaştırılması", "Açıklama: Lojistik araçlarının alternatif yakıtlı/elektrikli lojistik araçlarına geçilmesi."),
-            ("c", "Hidrojen/Elektrikli Araç Filo Dönüşümü", "Açıklama: Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
-            ("d", "Toplu Taşıma", "Açıklama: Düşük karbonlu toplu taşıma seçeneklerinin payını artırılması."),
-            ("e", "Yürüme ve Bisiklet Altyapısı", "Açıklama: Yaya dostu kentsel alanlar ve bisiklet yollarının geliştirilmesi."),
-            ("f", "Paylaşımlı Mobilite", "Açıklama: Bisiklet paylaşımı ve e-scooter sistemleri."),
-            ("g", "Yük Lojistiği", "Açıklama: Demiryolu, denizyolu ve karayolunu birleştiren multimodal lojistik merkezleriyle tedarik zincirlerinin optimize edilmesi."),
-            ("h", "Mobility-as-a-Service (MaaS)", "Açıklama: Sorunsuz ve düşük karbonlu bir seyahat deneyimi için çok modlu ulaşım seçeneklerini tek bir dijital platforma entegre edilmesi."),
-            ("i", "Akıllı Araç, Şarj Altyapısı", "Açıklama: Şarj altyapısına sahip elektrikli araçlar, akıllı şarj altyapısı, talep yönetimi, gece/boş saat tarifesi, batarya yönetimi ve enerji optimizasyonu. Yolcu, toplu taşıma ve yük taşımacılığı için elektrikli araçları (EV'ler) ve hibrit teknolojileri kullanımı."),
-            ("j", "Yeşil Liman / Havalimanı", "Açıklama: Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden yeşil liman/havalimanı sayısını artırılması."),
-            ("k", "Demiryolu Modernizasyonu", "Açıklama: Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendirmesi ve modernizasyonu."),
-            ("l", "Araç Filolarında Enerji İzleme", "Açıklama: Gerçek zamanlı enerji tüketimi takibi, sürüş optimizasyonu, rota planlama ve telemetri tabanlı enerji tasarruf sistemleri."),
-            ("m", "Davranışsal Değişim Girişimleri", "Açıklama: Elektrikli araç (EV) kullanımına yönelik vergi indirimleri veya yüksek emisyonlu eski araçlar için hurdaya ayırma programlarının varlığı."),
-            ("n", "İstihdam ve Ekonomiye Katkı", "Açıklama: Projenin yeni iş olanakları, tedarik zinciri katkısı ve ekonomik döngüye etkisi."),
-            ("o", "Erişilebilirlik ve Kapsayıcılık", "Açıklama: Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
-            ("p", "Acil Durum Lojistiği", "Açıklama: Afet sonrası kritik malzeme, sağlık hizmeti ve tahliye taşımalarının ulaşım sistemi tarafından desteklenebilirliği."),
-            ("q", "Akıllı Altyapı İzleme", "Açıklama: Köprü, tünel, yol, raylı sistem gibi kritik altyapılarda IoT tabanlı sismik, yapısal sağlık ve sel sensörleri kullanımı."),
-            ("r", "Akıllı Ulaşım Sistemleri (AUS)", "Açıklama: Trafik akışını optimize etmek, tıkanıklığı ve emisyonları azaltmak amacıyla Araçtan Araca (V2V) ve Araçtan Altyapıya (V2I) iletişim teknolojilerinin uygulanması ile akıllı şehir altyapısıyla entegre otonom elektrikli araçların araştırılması ve dağıtımı."),
-            ("s", "Dijital Lojistik Yönetimi", "Açıklama: Dijital yük takibi, akıllı depo operasyonları, gerçek zamanlı lojistik optimizasyonu."),
-            ("t", "Siber Güvenlik", "Açıklama: Ulaşım veri altyapılarının güvenliği, kimlik doğrulama, şifreleme, kesintisiz hizmet güvenliği."),
-            ("u", "Trafik İzleme ve Yapay Zeka", "Açıklama: Görüntü işleme, AI tabanlı ihlal tespiti, trafik yoğunluk tahmini, olay tespiti."),
-            ("v", "Sürdürülebilir Mobilite Platformları", "Açıklama: Karbon hesaplama uygulamaları, sürdürülebilir güzergah önerileri, mobil uygulama entegrasyonları."),
-            ("w", "Akıllı Otopark Yönetimi", "Açıklama: Gerçek zamanlı otopark doluluk verisi, yönlendirme panoları, dijital ödeme ve rezervasyon sistemleri."),
+            ("a", "Düşük Karbonlu Alternatif Yakıtlar", "Elektrifikasyonun mümkün olmadığı ulaşım modlarında kullanılmak üzere yeşil hidrojen, biyoyakıtlar ve sentetik e-yakıtlar gibi düşük karbonlu alternatif yakıtların geliştirilmesi ve uygulanması."),
+            ("b", "Yük Taşımacılığının Karbonsuzlaştırılması", "Lojistik araçlarının alternatif yakıtlı/elektrikli lojistik araçlarına geçilmesi."),
+            ("c", "Hidrojen/Elektrikli Araç Filo Dönüşümü", "Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
+            ("d", "Toplu Taşıma", "Düşük karbonlu toplu taşıma seçeneklerinin payını artırılması."),
+            ("e", "Yürüme ve Bisiklet Altyapısı", "Yaya dostu kentsel alanlar ve bisiklet yollarının geliştirilmesi."),
+            ("f", "Paylaşımlı Mobilite", "Bisiklet paylaşımı ve e-scooter sistemleri."),
         ]
     },
     "stage3": {
         "name": "3. Aşama - Olgunluk Değerlendirmesi",
         "criteria": [
-            ("a", "Teknik Açıklamaların Varlığı", "Açıklama: Projenin teknik bileşenlerinin yeterince açıklanıp açıklanmadığını ve verilen teknik bilgilerin proje gereksinimleriyle uyumu değerlendirilir."),
-            ("b", "CAPEX/OPEX Analizi", "Açıklama: Projenin sermaye (CAPEX) ve işletme (OPEX) maliyetlerinin analiz edilip edilmediğini ve karar sürecini destekleyecek maliyet yapısının net olarak ortaya konup konmadığı değerlendirilir."),
-            ("c", "Finansal Analizin Varlığı", "Açıklama: Projenin finansal fizibilitesinin ve karar sürecini destekleyecek analizlerin mevcut olup olmadığı değerlendirilir."),
-            ("d", "Uygulama/Yatırım Kararı", "Açıklama: Proje için daha önce alınmış uygulama veya yatırım kararlarının varlığını ve hazırlık düzeyinin değerlendirilmesi."),
-            ("e", "İzin/Ruhsat Durumu", "Açıklama: Gerekli izin, ruhsat ve onay süreçlerinin tamamlanma durumunun değerlendirilmesi."),
-            ("f", "Zaman Planı Gerçekçiliği", "Açıklama: Projenin önerilen takviminin uygulanabilirliğini, faaliyetlerin süre tahminlerinin gerçekçiliğinin değerlendirilmesi."),
-            ("g", "Risk Yönetimi Planı", "Açıklama: Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
+            ("a", "Teknik Açıklamaların Varlığı", "Projenin teknik bileşenlerinin yeterince açıklanıp açıklanmadığını ve verilen teknik bilgilerin proje gereksinimleriyle uyumu değerlendirilir."),
+            ("b", "CAPEX/OPEX Analizi", "Projenin sermaye (CAPEX) ve işletme (OPEX) maliyetlerinin analiz edilip edilmediğini ve karar sürecini destekleyecek maliyet yapısının net olarak ortaya konup konmadığı değerlendirilir."),
+            ("c", "Finansal Analizin Varlığı", "Projenin finansal fizibilitesinin ve karar sürecini destekleyecek analizlerin mevcut olup olmadığı değerlendirilir."),
+            ("d", "Uygulama/Yatırım Kararı", "Proje için daha önce alınmış uygulama veya yatırım kararlarının varlığını ve hazırlık düzeyinin değerlendirilmesi."),
+            ("e", "İzin/Ruhsat Durumu", "Gerekli izin, ruhsat ve onay süreçlerinin tamamlanma durumunun değerlendirilmesi."),
+            ("f", "Zaman Planı Gerçekçiliği", "Projenin önerilen takviminin uygulanabilirliğini, faaliyetlerin süre tahminlerinin gerçekçiliğinin değerlendirilmesi."),
+            ("g", "Risk Yönetimi Planı", "Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
         ]
     },
     "stage4": {
         "name": "4. Aşama - Etki ve Kalite",
         "criteria": [
-            ("a", "Ölçek Etkisi", "Açıklama: Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
-            ("b", "Çevresel Etki", "Açıklama: Projenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
-            ("c", "Çarpan Etkisi", "Açıklama: Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
-            ("d", "İnovasyon ve Uyarlanabilirlik", "Açıklama: Projenin inovatif yapısını, pilot uygulama niteliğini ve farklı bölge veya koşullara ölçeklenebilir ve uyarlanabilir olma kapasitesini değerlendirir."),
-            ("e", "Sürdürülebilirlik", "Açıklama: Projenin uzun vadede sürdürülebilirliğini, operasyonel devamlılığını ve kalıcı etki yaratma kapasitesini değerlendirir."),
+            ("a", "Ölçek Etkisi", "Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
+            ("b", "Çevresel Etki", "Projenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
+            ("c", "Çarpan Etkisi", "Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
+            ("d", "İnovasyon ve Uyarlanabilirlik", "Projenin inovatif yapısını, pilot uygulama niteliğini ve farklı bölge veya koşullara ölçeklenebilir ve uyarlanabilir olma kapasitesini değerlendirir."),
+            ("e", "Sürdürülebilirlik", "Projenin uzun vadede sürdürülebilirliğini, operasyonel devamlılığını ve kalıcı etki yaratma kapasitesini değerlendirir."),
         ]
     },
     "stage_comparison": {
         "name": "Aşamalar Arası Karşılaştırma",
         "criteria": [
-            ("a", "2. Aşama - Tema Önceliği", "Açıklama: Projenin hangi temaya odaklandığı ve bu temanın öncelik düzeyi."),
-            ("b", "3. Aşama - Olgunluk Değerlendirmesi", "Açıklama: Projenin teknik, finansal ve operasyonel olgunluk seviyesi."),
-            ("c", "4. Aşama - Etki ve Kalite", "Açıklama: Projenin sosyal, ekonomik, çevresel etkisi ve teknik kalitesi."),
+            ("a", "2. Aşama - Tema Önceliği", "Projenin hangi temaya odaklandığı ve bu temanın öncelik düzeyi."),
+            ("b", "3. Aşama - Olgunluk Değerlendirmesi", "Projenin teknik, finansal ve operasyonel olgunluk seviyesi."),
+            ("c", "4. Aşama - Etki ve Kalite", "Projenin sosyal, ekonomik, çevresel etkisi ve teknik kalitesi."),
         ]
     }
 }
@@ -218,7 +201,7 @@ def display_comparison(stage_key, pair_idx):
 
 def welcome_page():
     """Karşılama sayfası"""
-    st.title("🌱 Net Zero Proje Değerlendirme Sistemi")
+    st.title("🌱 Net Sıfır Proje Değerlendirme Sistemi")
     st.markdown("---")
     
     st.markdown("""
@@ -267,7 +250,7 @@ def welcome_page():
 
 def main_evaluation():
     """Ana değerlendirme sayfası"""
-    st.title("🌱 Net Zero Proje Değerlendirme")
+    st.title("🌱 Net Sıfır Proje Değerlendirme")
     
     st.markdown(f"**Uzman:** {st.session_state.expert_name}")
     
@@ -331,7 +314,19 @@ def main_evaluation():
             completed = display_comparison("stage_comparison", st.session_state['pair_idx_stage_comparison'])
             if completed:
                 st.success("🎉 Tüm değerlendirme tamamlandı!")
-                st.balloons()
+                
+                # Otomatik kaydet (henüz kaydedilmemişse)
+                if not st.session_state.get('auto_saved', False):
+                    with st.spinner('Değerlendirmeniz kaydediliyor...'):
+                        success = save_results_to_server()
+                        if success:
+                            st.session_state.auto_saved = True
+                            st.success("✅ Değerlendirmeniz otomatik olarak kaydedildi!")
+                            st.balloons()
+                        else:
+                            st.error("⚠️ Otomatik kayıt başarısız. Lütfen 'Sonuçlar' sekmesinden manuel olarak kaydedin.")
+                else:
+                    st.info("✅ Değerlendirmeniz daha önce kaydedildi.")
         else:
             st.warning("⚠️ Önce 4. Aşamayı tamamlayın.")
     
