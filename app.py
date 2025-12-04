@@ -16,59 +16,59 @@ CRITERIA = {
     "stage2": {
         "name": "2. Aşama - Tema Önceliği",
         "criteria": [
-            ("a", "Düşük Karbonlu Alternatif Yakıtlar"),
-            ("b", "Yük Taşımacılığının Karbonsuzlaştırılması"),
-            ("c", "Hidrojen/Elektrikli Araç Filo Dönüşümü"),
-            ("d", "Toplu Taşıma"),
-            ("e", "Yürüme ve Bisiklet Altyapısı"),
-            ("f", "Paylaşımlı Mobilite"),
-            ("g", "Yük Lojistiği"),
-            ("h", "Mobility-as-a-Service (MaaS)"),
-            ("i", "Akıllı Araç, Şarj Altyapısı"),
-            ("j", "Yeşil Liman / Havalimanı"),
-            ("k", "Demiryolu Modernizasyonu"),
-            ("l", "Araç Filolarında Enerji İzleme"),
-            ("m", "Davranışsal Değişim Girişimleri"),
-            ("n", "İstihdam ve Ekonomiye Katkı"),
-            ("o", "Erişilebilirlik ve Kapsayıcılık"),
-            ("p", "Acil Durum Lojistiği"),
-            ("q", "Akıllı Altyapı İzleme"),
-            ("r", "Akıllı Ulaşım Sistemleri (AUS)"),
-            ("s", "Dijital Lojistik Yönetimi"),
-            ("t", "Siber Güvenlik"),
-            ("u", "Trafik İzleme ve Yapay Zeka"),
-            ("v", "Sürdürülebilir Mobilite Platformları"),
-            ("w", "Akıllı Otopark Yönetimi"),
+            ("a", "Düşük Karbonlu Alternatif Yakıtlar", "Elektrifikasyonun mümkün olmadığı ulaşım modlarında kullanılmak üzere yeşil hidrojen, biyoyakıtlar ve sentetik e-yakıtlar gibi düşük karbonlu alternatif yakıtların geliştirilmesi ve uygulanması."),
+            ("b", "Yük Taşımacılığının Karbonsuzlaştırılması", "Lojistik araçlarının alternatif yakıtlı/elektrikli lojistik araçlarına geçilmesi."),
+            ("c", "Hidrojen/Elektrikli Araç Filo Dönüşümü", "Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
+            ("d", "Toplu Taşıma", "Düşük karbonlu toplu taşıma seçeneklerinin payını artırılması."),
+            ("e", "Yürüme ve Bisiklet Altyapısı", "Yaya dostu kentsel alanlar ve bisiklet yollarının geliştirilmesi."),
+            ("f", "Paylaşımlı Mobilite", "Bisiklet paylaşımı ve e-scooter sistemleri."),
+            ("g", "Yük Lojistiği", "Demiryolu, denizyolu ve karayolunu birleştiren multimodal lojistik merkezleriyle tedarik zincirlerinin optimize edilmesi."),
+            ("h", "Mobility-as-a-Service (MaaS)", "Sorunsuz ve düşük karbonlu bir seyahat deneyimi için çok modlu ulaşım seçeneklerini tek bir dijital platforma entegre edilmesi."),
+            ("i", "Akıllı Araç, Şarj Altyapısı", "Şarj altyapısına sahip elektrikli araçlar, akıllı şarj altyapısı, talep yönetimi, gece/boş saat tarifesi, batarya yönetimi ve enerji optimizasyonu. Yolcu, toplu taşıma ve yük taşımacılığı için elektrikli araçları (EV'ler) ve hibrit teknolojileri kullanımı."),
+            ("j", "Yeşil Liman / Havalimanı", "Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden yeşil liman/havalimanı sayısını artırılması."),
+            ("k", "Demiryolu Modernizasyonu", "Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendirmesi ve modernizasyonu."),
+            ("l", "Araç Filolarında Enerji İzleme", "Gerçek zamanlı enerji tüketimi takibi, sürüş optimizasyonu, rota planlama ve telemetri tabanlı enerji tasarruf sistemleri."),
+            ("m", "Davranışsal Değişim Girişimleri", "Elektrikli araç (EV) kullanımına yönelik vergi indirimleri veya yüksek emisyonlu eski araçlar için hurdaya ayırma programlarının varlığı."),
+            ("n", "İstihdam ve Ekonomiye Katkı", "Projenin yeni iş olanakları, tedarik zinciri katkısı ve ekonomik döngüye etkisi."),
+            ("o", "Erişilebilirlik ve Kapsayıcılık", "Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
+            ("p", "Acil Durum Lojistiği", "Afet sonrası kritik malzeme, sağlık hizmeti ve tahliye taşımalarının ulaşım sistemi tarafından desteklenebilirliği."),
+            ("q", "Akıllı Altyapı İzleme", "Köprü, tünel, yol, raylı sistem gibi kritik altyapılarda IoT tabanlı sismik, yapısal sağlık ve sel sensörleri kullanımı."),
+            ("r", "Akıllı Ulaşım Sistemleri (AUS)", "Trafik akışını optimize etmek, tıkanıklığı ve emisyonları azaltmak amacıyla Araçtan Araca (V2V) ve Araçtan Altyapıya (V2I) iletişim teknolojilerinin uygulanması ile akıllı şehir altyapısıyla entegre otonom elektrikli araçların araştırılması ve dağıtımı."),
+            ("s", "Dijital Lojistik Yönetimi", "Dijital yük takibi, akıllı depo operasyonları, gerçek zamanlı lojistik optimizasyonu."),
+            ("t", "Siber Güvenlik", "Ulaşım veri altyapılarının güvenliği, kimlik doğrulama, şifreleme, kesintisiz hizmet güvenliği."),
+            ("u", "Trafik İzleme ve Yapay Zeka", "Görüntü işleme, AI tabanlı ihlal tespiti, trafik yoğunluk tahmini, olay tespiti."),
+            ("v", "Sürdürülebilir Mobilite Platformları", "Karbon hesaplama uygulamaları, sürdürülebilir güzergah önerileri, mobil uygulama entegrasyonları."),
+            ("w", "Akıllı Otopark Yönetimi", "Gerçek zamanlı otopark doluluk verisi, yönlendirme panoları, dijital ödeme ve rezervasyon sistemleri."),
         ]
     },
     "stage3": {
         "name": "3. Aşama - Olgunluk Değerlendirmesi",
         "criteria": [
-            ("a", "Teknik Açıklamaların Varlığı"),
-            ("b", "CAPEX/OPEX Analizi Mevcudiyeti"),
-            ("c", "Finansal Analizin Varlığı"),
-            ("d", "Uygulama/Yatırım Kararı"),
-            ("e", "İzin/Ruhsat Durumu"),
-            ("f", "Zaman Planı Gerçekçiliği"),
-            ("g", "Risk Yönetimi Planı"),
+            ("a", "Teknik Açıklamaların Varlığı", "Projenin teknik bileşenlerinin yeterince açıklanıp açıklanmadığını ve verilen teknik bilgilerin proje gereksinimleriyle uyumu değerlendirilir."),
+            ("b", "CAPEX/OPEX Analizi", "Projenin sermaye (CAPEX) ve işletme (OPEX) maliyetlerinin analiz edilip edilmediğini ve karar sürecini destekleyecek maliyet yapısının net olarak ortaya konup konmadığı değerlendirilir."),
+            ("c", "Finansal Analizin Varlığı", "Projenin finansal fizibilitesinin ve karar sürecini destekleyecek analizlerin mevcut olup olmadığı değerlendirilir."),
+            ("d", "Uygulama/Yatırım Kararı", "Proje için daha önce alınmış uygulama veya yatırım kararlarının varlığını ve hazırlık düzeyinin değerlendirilmesi."),
+            ("e", "İzin/Ruhsat Durumu", "Gerekli izin, ruhsat ve onay süreçlerinin tamamlanma durumunun değerlendirilmesi."),
+            ("f", "Zaman Planı Gerçekçiliği", "Projenin önerilen takviminin uygulanabilirliğini, faaliyetlerin süre tahminlerinin gerçekçiliğinin değerlendirilmesi."),
+            ("g", "Risk Yönetimi Planı", "Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
         ]
     },
     "stage4": {
         "name": "4. Aşama - Etki ve Kalite",
         "criteria": [
-            ("a", "Ölçek Etkisi"),
-            ("b", "Çevresel Etki"),
-            ("c", "Çarpan Etkisi"),
-            ("d", "İnovasyon ve Uyarlanabilirlik"),
-            ("e", "Sürdürülebilirlik"),
+            ("a", "Ölçek Etkisi", "Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
+            ("b", "Çevresel Etki", "Projenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
+            ("c", "Çarpan Etkisi", "Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
+            ("d", "İnovasyon ve Uyarlanabilirlik", "Projenin inovatif yapısını, pilot uygulama niteliğini ve farklı bölge veya koşullara ölçeklenebilir ve uyarlanabilir olma kapasitesini değerlendirir."),
+            ("e", "Sürdürülebilirlik", "Projenin uzun vadede sürdürülebilirliğini, operasyonel devamlılığını ve kalıcı etki yaratma kapasitesini değerlendirir."),
         ]
     },
     "stage_comparison": {
         "name": "Aşamalar Arası Karşılaştırma",
         "criteria": [
-            ("a", "2. Aşama - Tema Önceliği"),
-            ("b", "3. Aşama - Olgunluk Değerlendirmesi"),
-            ("c", "4. Aşama - Etki ve Kalite"),
+            ("a", "2. Aşama - Tema Önceliği", "Projenin hangi temaya odaklandığı ve bu temanın öncelik düzeyi."),
+            ("b", "3. Aşama - Olgunluk Değerlendirmesi", "Projenin teknik, finansal ve operasyonel olgunluk seviyesi."),
+            ("c", "4. Aşama - Etki ve Kalite", "Projenin sosyal, ekonomik, çevresel etkisi ve teknik kalitesi."),
         ]
     }
 }
@@ -117,13 +117,13 @@ def display_comparison(stage_key, pair_idx):
     col1, col2, col3 = st.columns([2, 1, 2])
     
     with col1:
-        st.info(f"**{criterion_a[0].upper()}**\n\n{criterion_a[1]}")
+        st.info(f"**Kriter {criterion_a[0].upper()}**\n\n**{criterion_a[1]}**\n\n_{criterion_a[2]}_")
     
     with col2:
         st.markdown("<h3 style='text-align: center;'>VS</h3>", unsafe_allow_html=True)
     
     with col3:
-        st.success(f"**{criterion_b[0].upper()}**\n\n{criterion_b[1]}")
+        st.success(f"**Kriter {criterion_b[0].upper()}**\n\n**{criterion_b[1]}**\n\n_{criterion_b[2]}_")
     
     st.markdown("---")
     
@@ -136,9 +136,9 @@ def display_comparison(stage_key, pair_idx):
         # Önce hangisinin önemli olduğunu seç
         choice = st.radio(
             "Daha önemli olan kriter:",
-            [f"{criterion_a[0].upper()}: {criterion_a[1]}", 
+            [f"Kriter {criterion_a[0].upper()}: {criterion_a[1]}", 
              "Eşit önemde",
-             f"{criterion_b[0].upper()}: {criterion_b[1]}"],
+             f"Kriter {criterion_b[0].upper()}: {criterion_b[1]}"],
             key=f"choice_{pair_key}",
             index=1
         )
@@ -159,12 +159,12 @@ def display_comparison(stage_key, pair_idx):
     
     with col_prev:
         if pair_idx > 0:
-            if st.button("⬅️ Önceki"):
+            if st.button("⬅️ Önceki", key=f"prev_{stage_key}_{pair_idx}"):
                 st.session_state[f'pair_idx_{stage_key}'] = pair_idx - 1
                 st.rerun()
     
     with col_next:
-        if st.button("Devam ➡️" if pair_idx < len(pairs) - 1 else "Bu Aşamayı Tamamla ✓"):
+        if st.button("Devam ➡️" if pair_idx < len(pairs) - 1 else "Bu Aşamayı Tamamla ✓", key=f"next_{stage_key}_{pair_idx}"):
             # Yanıtı kaydet
             if choice == "Eşit önemde":
                 response = "0"
@@ -263,7 +263,7 @@ def main_evaluation():
         completed = display_comparison("stage2", st.session_state['pair_idx_stage2'])
         if completed:
             st.success("✅ 2. Aşama tamamlandı!")
-            if st.button("3. Aşamaya Geç ➡️"):
+            if st.button("3. Aşamaya Geç ➡️", key="goto_stage3"):
                 st.session_state['pair_idx_stage3'] = 0
                 st.rerun()
     
@@ -277,7 +277,7 @@ def main_evaluation():
             completed = display_comparison("stage3", st.session_state['pair_idx_stage3'])
             if completed:
                 st.success("✅ 3. Aşama tamamlandı!")
-                if st.button("4. Aşamaya Geç ➡️"):
+                if st.button("4. Aşamaya Geç ➡️", key="goto_stage4"):
                     st.session_state['pair_idx_stage4'] = 0
                     st.rerun()
         else:
@@ -293,7 +293,7 @@ def main_evaluation():
             completed = display_comparison("stage4", st.session_state['pair_idx_stage4'])
             if completed:
                 st.success("✅ 4. Aşama tamamlandı!")
-                if st.button("Aşamalar Arası Karşılaştırmaya Geç ➡️"):
+                if st.button("Aşamalar Arası Karşılaştırmaya Geç ➡️", key="goto_stage_comparison"):
                     st.session_state['pair_idx_stage_comparison'] = 0
                     st.rerun()
         else:
