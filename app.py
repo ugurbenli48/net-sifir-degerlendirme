@@ -234,14 +234,7 @@ def main_evaluation():
     """Ana değerlendirme sayfası"""
     st.title("🌱 Net Sıfır Proje Değerlendirme")
     
-    # Header bilgisi
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.markdown(f"**Uzman:** {st.session_state.expert_name}")
-    with col2:
-        if st.button("💾 Kaydet ve Çık"):
-            export_results()
-            return
+    st.markdown(f"**Uzman:** {st.session_state.expert_name}")
     
     st.markdown("---")
     
@@ -263,9 +256,7 @@ def main_evaluation():
         completed = display_comparison("stage2", st.session_state['pair_idx_stage2'])
         if completed:
             st.success("✅ 2. Aşama tamamlandı!")
-            if st.button("3. Aşamaya Geç ➡️", key="goto_stage3"):
-                st.session_state['pair_idx_stage3'] = 0
-                st.rerun()
+            st.info("👉 Üstteki **'3️⃣ Olgunluk'** sekmesine tıklayarak devam edin.")
     
     # 3. Aşama
     with tabs[1]:
@@ -277,9 +268,7 @@ def main_evaluation():
             completed = display_comparison("stage3", st.session_state['pair_idx_stage3'])
             if completed:
                 st.success("✅ 3. Aşama tamamlandı!")
-                if st.button("4. Aşamaya Geç ➡️", key="goto_stage4"):
-                    st.session_state['pair_idx_stage4'] = 0
-                    st.rerun()
+                st.info("👉 Üstteki **'4️⃣ Etki ve Kalite'** sekmesine tıklayarak devam edin.")
         else:
             st.warning("⚠️ Önce 2. Aşamayı tamamlayın.")
     
@@ -293,9 +282,7 @@ def main_evaluation():
             completed = display_comparison("stage4", st.session_state['pair_idx_stage4'])
             if completed:
                 st.success("✅ 4. Aşama tamamlandı!")
-                if st.button("Aşamalar Arası Karşılaştırmaya Geç ➡️", key="goto_stage_comparison"):
-                    st.session_state['pair_idx_stage_comparison'] = 0
-                    st.rerun()
+                st.info("👉 Üstteki **'🔗 Aşamalar Arası'** sekmesine tıklayarak devam edin.")
         else:
             st.warning("⚠️ Önce 3. Aşamayı tamamlayın.")
     
@@ -324,39 +311,68 @@ def display_results():
         st.info("Henüz değerlendirme yapılmadı.")
         return
     
+    # Özet bilgiler
     for stage_key, responses in st.session_state.responses.items():
         stage_name = CRITERIA[stage_key]["name"]
-        st.subheader(stage_name)
-        st.write(f"✅ {len(responses)} karşılaştırma tamamlandı")
-        
-        with st.expander("Detayları Gör"):
-            df = pd.DataFrame([
-                {"Karşılaştırma": k, "Sonuç": v}
-                for k, v in responses.items()
-            ])
-            st.dataframe(df, use_container_width=True)
+        st.write(f"**{stage_name}:** {len(responses)} karşılaştırma tamamlandı ✅")
     
     st.markdown("---")
-    if st.button("📥 Sonuçları İndir (JSON)"):
-        export_results()
-
-def export_results():
-    """Sonuçları dışa aktar"""
-    data = {
-        "expert_name": st.session_state.expert_name,
-        "expert_org": st.session_state.get('expert_org', ''),
-        "timestamp": datetime.now().isoformat(),
-        "responses": st.session_state.responses
-    }
     
-    json_str = json.dumps(data, ensure_ascii=False, indent=2)
-    
-    st.download_button(
-        label="📥 JSON Olarak İndir",
-        data=json_str,
-        file_name=f"degerlendirme_{st.session_state.expert_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-        mime="application/json"
+    # Tüm aşamalar tamamlandı mı kontrol et
+    all_completed = (
+        'stage2' in st.session_state.responses and 
+        'stage3' in st.session_state.responses and 
+        'stage4' in st.session_state.responses and 
+        'stage_comparison' in st.session_state.responses
     )
+    
+    if all_completed:
+        st.success("🎉 Tüm aşamalar tamamlandı!")
+        
+        if st.button("💾 Sonuçları Kaydet", type="primary"):
+            # Otomatik kaydet
+            success = save_results_to_server()
+            if success:
+                st.success("✅ Değerlendirmeniz başarıyla kaydedildi!")
+                st.balloons()
+                st.info("Teşekkür ederiz! Sayfayı kapatabilirsiniz.")
+            else:
+                st.error("❌ Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.")
+    else:
+        st.warning("⚠️ Lütfen tüm aşamaları tamamlayın.")
+
+def save_results_to_server():
+    """Sonuçları sunucuya kaydet (JSON dosyası olarak)"""
+    try:
+        import os
+        data = {
+            "expert_name": st.session_state.expert_name,
+            "expert_org": st.session_state.get('expert_org', ''),
+            "timestamp": datetime.now().isoformat(),
+            "responses": st.session_state.responses
+        }
+        
+        # JSON'ı hazırla
+        json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        
+        # Dosya adı oluştur
+        safe_name = st.session_state.expert_name.replace(' ', '_').replace('/', '_')
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f"degerlendirme_{safe_name}_{timestamp}.json"
+        
+        # Sunucuya kaydet (Streamlit Cloud için temp directory)
+        # Bu dosyalar /tmp dizininde saklanır ve admin tarafından toplanabilir
+        save_path = f"/tmp/{filename}"
+        
+        with open(save_path, 'w', encoding='utf-8') as f:
+            f.write(json_str)
+        
+        # Başarılı
+        return True
+        
+    except Exception as e:
+        print(f"Kayıt hatası: {e}")
+        return False
 
 # Ana uygulama
 def main():
