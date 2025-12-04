@@ -1,8 +1,15 @@
 import streamlit as st
-import pandas as pd
 import json
 from datetime import datetime
 import itertools
+
+# Google Sheets için
+try:
+    import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
+    GOOGLE_SHEETS_AVAILABLE = True
+except ImportError:
+    GOOGLE_SHEETS_AVAILABLE = False
 
 # Sayfa yapılandırması
 st.set_page_config(
@@ -91,6 +98,30 @@ def save_response(stage, pair_key, response):
         st.session_state.responses[stage] = {}
     st.session_state.responses[stage][pair_key] = response
 
+def check_and_auto_save():
+    """Tüm aşamalar tamamlandıysa otomatik kaydet"""
+    # Zaten kaydedildi mi kontrol et
+    if 'auto_saved' in st.session_state and st.session_state.auto_saved:
+        return
+    
+    # Tüm aşamalar tamamlandı mı?
+    all_completed = (
+        'stage2' in st.session_state.responses and 
+        len(st.session_state.responses['stage2']) == 253 and  # 23 kriter: C(23,2) = 253
+        'stage3' in st.session_state.responses and 
+        len(st.session_state.responses['stage3']) == 21 and   # 7 kriter: C(7,2) = 21
+        'stage4' in st.session_state.responses and 
+        len(st.session_state.responses['stage4']) == 10 and   # 5 kriter: C(5,2) = 10
+        'stage_comparison' in st.session_state.responses and 
+        len(st.session_state.responses['stage_comparison']) == 3  # 3 aşama: C(3,2) = 3
+    )
+    
+    if all_completed:
+        # Otomatik kaydet
+        success = save_results_to_server()
+        if success:
+            st.session_state.auto_saved = True
+
 def display_comparison(stage_key, pair_idx):
     """Kriter karşılaştırma arayüzü"""
     stage_data = CRITERIA[stage_key]
@@ -177,6 +208,10 @@ def display_comparison(stage_key, pair_idx):
             
             # Sonraki soruya geç
             st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
+            
+            # Otomatik kayıt: Tüm aşamalar tamamlandı mı kontrol et
+            check_and_auto_save()
+            
             st.rerun()
     
     return False
@@ -327,13 +362,17 @@ def display_results():
     )
     
     if all_completed:
+        # Otomatik kayıt yapıldı mı bildir
+        if st.session_state.get('auto_saved', False):
+            st.success("✅ Değerlendirmeniz otomatik olarak kaydedildi!")
+        
         st.success("🎉 Tüm aşamalar tamamlandı!")
         
-        if st.button("💾 Sonuçları Kaydet", type="primary"):
-            # Otomatik kaydet
+        if st.button("💾 Sonuçları Tekrar Kaydet", type="primary"):
+            # Manuel kayıt (yedek için)
             success = save_results_to_server()
             if success:
-                st.success("✅ Değerlendirmeniz başarıyla kaydedildi!")
+                st.success("✅ Değerlendirmeniz yeniden kaydedildi!")
                 st.balloons()
                 st.info("Teşekkür ederiz! Sayfayı kapatabilirsiniz.")
             else:
@@ -342,9 +381,78 @@ def display_results():
         st.warning("⚠️ Lütfen tüm aşamaları tamamlayın.")
 
 def save_results_to_server():
-    """Sonuçları sunucuya kaydet (JSON dosyası olarak)"""
+    """Sonuçları Google Sheets'e kaydet"""
     try:
-        import os
+        # Google Sheets credentials
+        credentials_dict = st.secrets.get("gcp_service_account", None)
+        
+        if not credentials_dict or not GOOGLE_SHEETS_AVAILABLE:
+            # Fallback: Local kayıt
+            return save_to_local_temp()
+        
+        # Google Sheets bağlantısı
+        scope = ['https://spreadsheets.google.com/feeds',
+                 'https://www.googleapis.com/auth/drive']
+        
+        credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+            credentials_dict, scope)
+        client = gspread.authorize(credentials)
+        
+        # Spreadsheet aç (ID Streamlit secrets'ta)
+        spreadsheet_id = st.secrets.get("spreadsheet_id", None)
+        if not spreadsheet_id:
+            return save_to_local_temp()
+        
+        sheet = client.open_by_key(spreadsheet_id).sheet1
+        
+        # Veri hazırla
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        expert_name = st.session_state.expert_name
+        expert_org = st.session_state.get('expert_org', '')
+        
+        # Tüm yanıtları tek satıra flatten et
+        responses = st.session_state.responses
+        
+        # Row verisi
+        row_data = [timestamp, expert_name, expert_org]
+        
+        # Stage 2 yanıtları (253 karşılaştırma)
+        stage2_responses = responses.get('stage2', {})
+        for key in sorted(stage2_responses.keys()):
+            row_data.append(stage2_responses[key])
+        
+        # Stage 3 yanıtları (21 karşılaştırma)
+        stage3_responses = responses.get('stage3', {})
+        for key in sorted(stage3_responses.keys()):
+            row_data.append(stage3_responses[key])
+        
+        # Stage 4 yanıtları (10 karşılaştırma)
+        stage4_responses = responses.get('stage4', {})
+        for key in sorted(stage4_responses.keys()):
+            row_data.append(stage4_responses[key])
+        
+        # Stage comparison yanıtları (3 karşılaştırma)
+        stage_comp_responses = responses.get('stage_comparison', {})
+        for key in sorted(stage_comp_responses.keys()):
+            row_data.append(stage_comp_responses[key])
+        
+        # JSON olarak da ekle (yedek)
+        json_data = json.dumps(responses, ensure_ascii=False)
+        row_data.append(json_data)
+        
+        # Satırı ekle
+        sheet.append_row(row_data)
+        
+        return True
+        
+    except Exception as e:
+        print(f"Google Sheets kayıt hatası: {e}")
+        # Fallback: Local kayıt
+        return save_to_local_temp()
+
+def save_to_local_temp():
+    """Yedek: Local temp klasörüne kaydet"""
+    try:
         data = {
             "expert_name": st.session_state.expert_name,
             "expert_org": st.session_state.get('expert_org', ''),
@@ -352,26 +460,21 @@ def save_results_to_server():
             "responses": st.session_state.responses
         }
         
-        # JSON'ı hazırla
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         
-        # Dosya adı oluştur
         safe_name = st.session_state.expert_name.replace(' ', '_').replace('/', '_')
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         filename = f"degerlendirme_{safe_name}_{timestamp}.json"
         
-        # Sunucuya kaydet (Streamlit Cloud için temp directory)
-        # Bu dosyalar /tmp dizininde saklanır ve admin tarafından toplanabilir
         save_path = f"/tmp/{filename}"
         
         with open(save_path, 'w', encoding='utf-8') as f:
             f.write(json_str)
         
-        # Başarılı
         return True
         
     except Exception as e:
-        print(f"Kayıt hatası: {e}")
+        print(f"Local kayıt hatası: {e}")
         return False
 
 # Ana uygulama
