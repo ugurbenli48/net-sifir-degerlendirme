@@ -267,7 +267,7 @@ def welcome_page():
 
 def main_evaluation():
     """Ana değerlendirme sayfası"""
-    st.title("🌱 Net Sıfır Proje Değerlendirme")
+    st.title("🌱 Net Zero Proje Değerlendirme")
     
     st.markdown(f"**Uzman:** {st.session_state.expert_name}")
     
