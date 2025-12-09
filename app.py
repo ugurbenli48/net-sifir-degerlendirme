@@ -213,9 +213,9 @@ def welcome_page():
     Bu sistem, Net Zero Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
     
     #### 📋 Değerlendirme Aşamaları:
-    1. **2. Aşama** - Tema Önceliği (9 kriter)
+    1. **2. Aşama** - Tema Önceliği (13 kriter)
     2. **3. Aşama** - Olgunluk Değerlendirmesi (4 kriter)
-    3. **4. Aşama** - Etki ve Kalite (5 kriter)
+    3. **4. Aşama** - Etki ve Kalite (4 kriter)
     4. **Aşamalar Arası** - Aşamaların önem karşılaştırması (3 kriter)
     
     #### 🎯 Nasıl Çalışır?
@@ -225,9 +225,9 @@ def welcome_page():
     - Tüm değerlendirme otomatik olarak kaydedilir
     
     #### ⏱️ Tahmini Süre:
-    - **2. Aşama**: ~13 dakika (72 karşılaştırma)
-    - **3. Aşama**: ~4 dakika (12 karşılaştırma)
-    - **4. Aşama**: ~3 dakika (10 karşılaştırma)
+    - **2. Aşama**: ~15 dakika (143 karşılaştırma)
+    - **3. Aşama**: ~2 dakika (6 karşılaştırma)
+    - **4. Aşama**: ~2 dakika (6 karşılaştırma)
     - **Aşamalar Arası**: ~1 dakika (3 karşılaştırma)
     
     **Toplam**: Yaklaşık 20 dakika
