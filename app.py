@@ -154,78 +154,107 @@ def display_comparison(stage_key, pair_idx):
         st.session_state[importance_key] = 2
     
     # Başlık
-    st.markdown("### 🔍 Kriter Karşılaştırması")
+    st.markdown("### 🔍 Hangi kriter daha önemlidir?")
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # İki kriteri ve ortada VS göster
-    col1, col_mid, col2 = st.columns([2, 0.5, 2])
+    # İki kriteri ve ortada Eşit Önemde butonu göster
+    col1, col_mid, col2 = st.columns([2, 0.8, 2])
     
-    # Kriter A kutusu
+    # Kriter A kutusu + invisible button
     with col1:
         is_selected_a = st.session_state[selected_key] == 'a'
         
-        # Container ile position relative
-        st.markdown("""
-        <style>
-        .kutu-container-a {
-            position: relative;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-        
-        # HTML Kutu
+        # CSS - buton kutunun ÖNE (z-index: 3)
         st.markdown(f"""
-        <div class='kutu-container-a'>
-            <div style='
-                background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-                padding: 30px;
-                border-radius: 15px;
-                border: {"4px solid #10b981" if is_selected_a else "2px solid #3b82f6"};
-                box-shadow: {"0 8px 20px rgba(16, 185, 129, 0.5)" if is_selected_a else "0 4px 10px rgba(59, 130, 246, 0.3)"};
-                cursor: pointer;
-                transition: all 0.3s ease;
-                min-height: 200px;
-                position: relative;
-                z-index: 1;
-            '>
-                <h4 style='color: #60a5fa; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_a[0].upper()}</h4>
-                <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
-                    {criterion_a[1]}
-                </h3>
-                <p style='color: #bfdbfe; font-size: 14px; line-height: 1.6; margin: 0; font-style: italic;'>
-                    Açıklama: {criterion_a[2]}
-                </p>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Invisible button - kutunun üstüne bindirilmiş (margin-top negatif)
-        st.markdown("""
         <style>
-        .stButton button {
+        [data-testid="column"]:nth-child(1) .stButton button {{
             position: absolute !important;
             top: 0 !important;
             left: 0 !important;
             width: 100% !important;
-            height: 100% !important;
+            height: 260px !important;
             opacity: 0 !important;
             cursor: pointer !important;
-            z-index: 2 !important;
-        }
+            z-index: 3 !important;
+            border: none !important;
+        }}
         </style>
         """, unsafe_allow_html=True)
         
+        # HTML Kutu (arkada, z-index: 1)
+        st.markdown(f"""
+        <div style='
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border: {"4px solid #10b981" if is_selected_a else "2px solid #3b82f6"};
+            box-shadow: {"0 8px 20px rgba(16, 185, 129, 0.5)" if is_selected_a else "0 4px 10px rgba(59, 130, 246, 0.3)"};
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 200px;
+            position: relative;
+            z-index: 1;
+        '>
+            <h4 style='color: #60a5fa; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_a[0].upper()}</h4>
+            <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
+                {criterion_a[1]}
+            </h3>
+            <p style='color: #bfdbfe; font-size: 14px; line-height: 1.6; margin: 0; font-style: italic;'>
+                Açıklama: {criterion_a[2]}
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Invisible button (ÖNE, z-index: 3)
         if st.button(".", key=f"btn_a_{stage_key}_{pair_key}", help="Kriter A'yı seç"):
             st.session_state[selected_key] = 'a'
             st.rerun()
+        
+        # Eğer bu kriter seçildiyse önem slider'ı KUTU ALTINDA göster
+        if is_selected_a:
+            st.markdown("##### 📊 Önem Derecesi:")
+            importance = st.select_slider(
+                "Önem:",
+                options=[1, 2, 3],
+                value=st.session_state[importance_key],
+                format_func=lambda x: {1: "🟢 Zayıf tercih", 2: "🟡 Orta düzey", 3: "🔴 Çok güçlü"}[x],
+                key=f"slider_{stage_key}_{pair_key}",
+                label_visibility="collapsed"
+            )
+            st.session_state[importance_key] = importance
     
-    # Ortada VS
+    # Ortada "Eşit Önemde" butonu
     with col_mid:
-        st.markdown("<h1 style='text-align: center; margin-top: 80px; color: #888;'>VS</h1>", unsafe_allow_html=True)
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
+        if st.button("⚖️\n\nEşit\nÖnemde", key=f"equal_{stage_key}_{pair_key}", use_container_width=True, help="Her iki kriter de eşit önemde"):
+            response = "0"
+            save_response(stage_key, pair_key, response)
+            st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
+            st.session_state[selected_key] = None
+            st.session_state[importance_key] = 2
+            check_and_auto_save()
+            st.rerun()
     
-    # Kriter B kutusu
+    # Kriter B kutusu + invisible button
     with col2:
         is_selected_b = st.session_state[selected_key] == 'b'
+        
+        # CSS - buton kutunun ÖNE
+        st.markdown(f"""
+        <style>
+        [data-testid="column"]:nth-child(3) .stButton:first-of-type button {{
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 260px !important;
+            opacity: 0 !important;
+            cursor: pointer !important;
+            z-index: 3 !important;
+            border: none !important;
+        }}
+        </style>
+        """, unsafe_allow_html=True)
         
         # HTML Kutu
         st.markdown(f"""
@@ -251,50 +280,33 @@ def display_comparison(stage_key, pair_idx):
         </div>
         """, unsafe_allow_html=True)
         
-        # Invisible button üstte (CSS zaten tanımlı)
+        # Invisible button (ÖNE)
         if st.button(".", key=f"btn_b_{stage_key}_{pair_key}", help="Kriter B'yi seç"):
             st.session_state[selected_key] = 'b'
             st.rerun()
+        
+        # Eğer bu kriter seçildiyse önem slider'ı KUTU ALTINDA göster
+        if is_selected_b:
+            st.markdown("##### 📊 Önem Derecesi:")
+            importance = st.select_slider(
+                "Önem:",
+                options=[1, 2, 3],
+                value=st.session_state[importance_key],
+                format_func=lambda x: {1: "🟢 Zayıf tercih", 2: "🟡 Orta düzey", 3: "🔴 Çok güçlü"}[x],
+                key=f"slider_{stage_key}_{pair_key}",
+                label_visibility="collapsed"
+            )
+            st.session_state[importance_key] = importance
     
     st.markdown("---")
-    st.markdown("<br>", unsafe_allow_html=True)
     
-    # Altta soru ve seçenekler
-    st.markdown("### ❓ Hangi kriter daha önemlidir?")
-    
-    # Eşit önemde butonu (ortada)
-    col_left, col_center, col_right = st.columns([1, 1, 1])
-    with col_center:
-        if st.button("⚖️ Eşit Önemde", key=f"equal_{stage_key}_{pair_key}", use_container_width=True):
-            response = "0"
-            save_response(stage_key, pair_key, response)
-            st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-            st.session_state[selected_key] = None
-            st.session_state[importance_key] = 2
-            check_and_auto_save()
-            st.rerun()
-    
-    # Eğer bir kriter seçildiyse önem slider'ı ve devam butonu göster
+    # Devam butonu (bir kriter seçildiyse)
     selected = st.session_state[selected_key]
     if selected:
-        st.markdown("---")
-        st.markdown("##### 📊 Önem Derecesi:")
-        
-        importance = st.select_slider(
-            "Önem:",
-            options=[1, 2, 3],
-            value=st.session_state[importance_key],
-            format_func=lambda x: {1: "🟢 Zayıf tercih", 2: "🟡 Orta düzey", 3: "🔴 Çok güçlü"}[x],
-            key=f"slider_{stage_key}_{pair_key}",
-            label_visibility="collapsed"
-        )
-        st.session_state[importance_key] = importance
-        
-        # Devam butonu
-        col_a, col_b = st.columns(2)
-        with col_b:
+        col_left, col_right = st.columns(2)
+        with col_right:
             if st.button("Devam ➡️", key=f"continue_{stage_key}_{pair_key}", use_container_width=True, type="primary"):
-                response = f"{importance}{selected}"
+                response = f"{st.session_state[importance_key]}{selected}"
                 save_response(stage_key, pair_key, response)
                 st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
                 st.session_state[selected_key] = None
