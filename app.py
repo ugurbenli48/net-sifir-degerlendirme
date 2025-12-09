@@ -29,7 +29,7 @@ CRITERIA = {
             ("d", "Toplu Taşıma", "Düşük karbonlu toplu taşıma seçeneklerinin payını artırılması."),
             ("e", "Aktif Mod ve Paylaşımlı Mobilite Altyapısı", "Kentsel ölçekte güvenli ve kesintisiz yürüme–bisiklet altyapısının geliştirilmesi ile paylaşımlı mobilite sistemlerinin (e-scooter, e-bike, paylaşımlı bisiklet vb.) toplu taşıma ve diğer aktif ulaşım modlarıyla entegrasyonu."),
             ("f", "Yeşil Liman / Havalimanı", "Açıklama: Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden \"yeşil liman / havaliman\" sayısını artırılması."),
-            ("g", "Demiryolu Taşımacılığının Modernizasyonu", "Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendirilmesi ve modernizasyonu."),
+            ("g", "Demiryolu Taşımacılığının Geliştirilmesi", "Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendirilmesi ve modernizasyonu."),
             ("h", "İstihdam ve Ekonomiye Katkı", "Projenin yeni iş olanakları, tedarik zinciri katkısı ve ekonomik döngüye etkisi."),
             ("i", "Erişilebilirlik ve Toplumsal Kapsayıcılık", "Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
             ("j", "Afetlere Dayanıklı Ulaştırma Altyapısı ve Operasyonel Süreklilik", "Kentsel ulaşım sisteminin afet koşullarına karşı fiziksel altyapı dayanıklılığının artırılmasını, operasyon yönetiminin güçlendirilmesini, AUS tabanlı izlenebilirliğin sağlanmasını, kritik ulaşım ve taşımacılık modlarının sürekliliğini güvence altına almayı ve kent genelinde afet senaryolarına göre hazırlanmış mobilite planlarının uygulanması."),
