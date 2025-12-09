@@ -160,28 +160,11 @@ def display_comparison(stage_key, pair_idx):
     # İki kriteri ve ortada Eşit Önemde butonu göster
     col1, col_mid, col2 = st.columns([2, 0.8, 2])
     
-    # Kriter A kutusu + invisible button
+    # Kriter A kutusu + görünür buton
     with col1:
         is_selected_a = st.session_state[selected_key] == 'a'
         
-        # CSS - buton kutunun ÖNE (z-index: 3)
-        st.markdown(f"""
-        <style>
-        [data-testid="column"]:nth-child(1) .stButton button {{
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 260px !important;
-            opacity: 0 !important;
-            cursor: pointer !important;
-            z-index: 3 !important;
-            border: none !important;
-        }}
-        </style>
-        """, unsafe_allow_html=True)
-        
-        # HTML Kutu (arkada, z-index: 1)
+        # HTML Kutu
         st.markdown(f"""
         <div style='
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
@@ -192,8 +175,7 @@ def display_comparison(stage_key, pair_idx):
             cursor: pointer;
             transition: all 0.3s ease;
             min-height: 200px;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 10px;
         '>
             <h4 style='color: #60a5fa; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_a[0].upper()}</h4>
             <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
@@ -205,8 +187,8 @@ def display_comparison(stage_key, pair_idx):
         </div>
         """, unsafe_allow_html=True)
         
-        # Invisible button (ÖNE, z-index: 3)
-        if st.button(".", key=f"btn_a_{stage_key}_{pair_key}", help="Kriter A'yı seç"):
+        # Görünür buton - kutu genişliğinde
+        if st.button(f"📍 Kriter {criterion_a[0].upper()}'yı Seç", key=f"btn_a_{stage_key}_{pair_key}", use_container_width=True):
             st.session_state[selected_key] = 'a'
             st.rerun()
         
@@ -235,26 +217,9 @@ def display_comparison(stage_key, pair_idx):
             check_and_auto_save()
             st.rerun()
     
-    # Kriter B kutusu + invisible button
+    # Kriter B kutusu + görünür buton
     with col2:
         is_selected_b = st.session_state[selected_key] == 'b'
-        
-        # CSS - buton kutunun ÖNE
-        st.markdown(f"""
-        <style>
-        [data-testid="column"]:nth-child(3) .stButton:first-of-type button {{
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 260px !important;
-            opacity: 0 !important;
-            cursor: pointer !important;
-            z-index: 3 !important;
-            border: none !important;
-        }}
-        </style>
-        """, unsafe_allow_html=True)
         
         # HTML Kutu
         st.markdown(f"""
@@ -267,8 +232,7 @@ def display_comparison(stage_key, pair_idx):
             cursor: pointer;
             transition: all 0.3s ease;
             min-height: 200px;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 10px;
         '>
             <h4 style='color: #6ee7b7; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_b[0].upper()}</h4>
             <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
@@ -280,8 +244,8 @@ def display_comparison(stage_key, pair_idx):
         </div>
         """, unsafe_allow_html=True)
         
-        # Invisible button (ÖNE)
-        if st.button(".", key=f"btn_b_{stage_key}_{pair_key}", help="Kriter B'yi seç"):
+        # Görünür buton - kutu genişliğinde
+        if st.button(f"📍 Kriter {criterion_b[0].upper()}'yı Seç", key=f"btn_b_{stage_key}_{pair_key}", use_container_width=True):
             st.session_state[selected_key] = 'b'
             st.rerun()
         
