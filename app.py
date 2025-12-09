@@ -166,7 +166,7 @@ def display_comparison(stage_key, pair_idx):
         is_selected_a = st.session_state[selected_key] == 'a'
         
         # Kutu stili (seçiliyse vurgulu)
-        box_style_a = """
+        box_style_a = f"""
         <div style='
             background-color: {"#1f77b4" if is_selected_a else "#2E4053"};
             padding: 20px;
@@ -181,7 +181,7 @@ def display_comparison(stage_key, pair_idx):
             <p style='color: #B0BEC5; font-size: 14px; font-style: italic;'>{criterion_a[2]}</p>
         </div>
         """
-        st.markdown(box_style_a.format(criterion_a[0].upper(), criterion_a[1], criterion_a[2]), unsafe_allow_html=True)
+        st.markdown(box_style_a, unsafe_allow_html=True)
         
         # Tıklanabilir buton (kutunun üstüne)
         if st.button(f"Kriter {criterion_a[0].upper()} Seç", key=f"btn_a_{stage_key}_{pair_key}", use_container_width=True):
@@ -232,7 +232,7 @@ def display_comparison(stage_key, pair_idx):
         is_selected_b = st.session_state[selected_key] == 'b'
         
         # Kutu stili (seçiliyse vurgulu)
-        box_style_b = """
+        box_style_b = f"""
         <div style='
             background-color: {"#2E7D32" if is_selected_b else "#1B4D3E"};
             padding: 20px;
@@ -247,7 +247,7 @@ def display_comparison(stage_key, pair_idx):
             <p style='color: #B0BEC5; font-size: 14px; font-style: italic;'>{criterion_b[2]}</p>
         </div>
         """
-        st.markdown(box_style_b.format(criterion_b[0].upper(), criterion_b[1], criterion_b[2]), unsafe_allow_html=True)
+        st.markdown(box_style_b, unsafe_allow_html=True)
         
         # Tıklanabilir buton (kutunun üstüne)
         if st.button(f"Kriter {criterion_b[0].upper()} Seç", key=f"btn_b_{stage_key}_{pair_key}", use_container_width=True):
