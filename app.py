@@ -93,11 +93,11 @@ def check_and_auto_save():
     # Tüm aşamalar tamamlandı mı?
     all_completed = (
         'stage2' in st.session_state.responses and 
-        len(st.session_state.responses['stage2']) == 72 and  # 9 kriter: C(9,2) = 72
+        len(st.session_state.responses['stage2']) == 143 and  # 13 kriter: C(13,2) = 143
         'stage3' in st.session_state.responses and 
-        len(st.session_state.responses['stage3']) == 4 and   # 4 kriter: C(4,2) = 12
+        len(st.session_state.responses['stage3']) == 6 and   # 4 kriter: C(4,2) = 6
         'stage4' in st.session_state.responses and 
-        len(st.session_state.responses['stage4']) == 10 and   # 5 kriter: C(5,2) = 10
+        len(st.session_state.responses['stage4']) == 6 and   # 4 kriter: C(4,2) = 6
         'stage_comparison' in st.session_state.responses and 
         len(st.session_state.responses['stage_comparison']) == 3  # 3 aşama: C(3,2) = 3
     )
