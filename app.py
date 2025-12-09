@@ -94,7 +94,7 @@ def check_and_auto_save():
     # Tüm aşamalar tamamlandı mı?
     all_completed = (
         'stage2' in st.session_state.responses and 
-        len(st.session_state.responses['stage2']) == 143 and  # 13 kriter: C(13,2) = 143
+        len(st.session_state.responses['stage2']) == 91 and  # 14 kriter: C(14,2) = 91
         'stage3' in st.session_state.responses and 
         len(st.session_state.responses['stage3']) == 6 and   # 4 kriter: C(4,2) = 6
         'stage4' in st.session_state.responses and 
@@ -214,7 +214,7 @@ def welcome_page():
     Bu sistem, Net Zero Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
     
     #### 📋 Değerlendirme Aşamaları:
-    1. **2. Aşama** - Tema Önceliği (13 kriter)
+    1. **2. Aşama** - Tema Önceliği (14 kriter)
     2. **3. Aşama** - Olgunluk Değerlendirmesi (4 kriter)
     3. **4. Aşama** - Etki ve Kalite (4 kriter)
     4. **Aşamalar Arası** - Aşamaların önem karşılaştırması (3 kriter)
@@ -226,7 +226,7 @@ def welcome_page():
     - Tüm değerlendirme otomatik olarak kaydedilir
     
     #### ⏱️ Tahmini Süre:
-    - **2. Aşama**: ~15 dakika (143 karşılaştırma)
+    - **2. Aşama**: ~15 dakika (91 karşılaştırma)
     - **3. Aşama**: ~2 dakika (6 karşılaştırma)
     - **4. Aşama**: ~2 dakika (6 karşılaştırma)
     - **Aşamalar Arası**: ~1 dakika (3 karşılaştırma)
