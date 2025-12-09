@@ -165,28 +165,27 @@ def display_comparison(stage_key, pair_idx):
         # Seçili mi kontrolü
         is_selected_a = st.session_state[selected_key] == 'a'
         
-        # Kutu stili (seçiliyse vurgulu)
-        box_style_a = f"""
-        <div style='
-            background-color: {"#1f77b4" if is_selected_a else "#2E4053"};
-            padding: 20px;
-            border-radius: 10px;
-            border: {"3px solid #4CAF50" if is_selected_a else "2px solid #555"};
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 10px;
-        '>
-            <h3 style='color: #4FC3F7; margin-bottom: 10px;'>Kriter {criterion_a[0].upper()}</h3>
-            <h4 style='color: white; margin-bottom: 10px;'>{criterion_a[1]}</h4>
-            <p style='color: #B0BEC5; font-size: 14px; font-style: italic;'>{criterion_a[2]}</p>
-        </div>
-        """
-        st.markdown(box_style_a, unsafe_allow_html=True)
-        
-        # Tıklanabilir buton (kutunun üstüne)
-        if st.button(f"Kriter {criterion_a[0].upper()} Seç", key=f"btn_a_{stage_key}_{pair_key}", use_container_width=True):
-            st.session_state[selected_key] = 'a'
-            st.rerun()
+        # Kutu içinde form-like yapı
+        with st.container():
+            # Kutu stili
+            st.markdown(f"""
+            <div style='
+                background-color: {"#1f77b4" if is_selected_a else "#2E4053"};
+                padding: 20px;
+                border-radius: 10px;
+                border: {"3px solid #4CAF50" if is_selected_a else "2px solid #555"};
+                margin-bottom: 10px;
+            '>
+                <h3 style='color: #4FC3F7; margin-bottom: 10px;'>Kriter {criterion_a[0].upper()}</h3>
+                <h4 style='color: white; margin-bottom: 10px;'>{criterion_a[1]}</h4>
+                <p style='color: #B0BEC5; font-size: 14px; font-style: italic;'>{criterion_a[2]}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Görünmeyen/minimal buton - kutuya tıklama efekti için
+            if st.button("🔘", key=f"btn_a_{stage_key}_{pair_key}", use_container_width=True, help=f"Kriter {criterion_a[0].upper()}'yı seç"):
+                st.session_state[selected_key] = 'a'
+                st.rerun()
         
         # Eğer bu kriter seçildiyse önem slider'ı göster
         if is_selected_a:
@@ -231,28 +230,27 @@ def display_comparison(stage_key, pair_idx):
         # Seçili mi kontrolü
         is_selected_b = st.session_state[selected_key] == 'b'
         
-        # Kutu stili (seçiliyse vurgulu)
-        box_style_b = f"""
-        <div style='
-            background-color: {"#2E7D32" if is_selected_b else "#1B4D3E"};
-            padding: 20px;
-            border-radius: 10px;
-            border: {"3px solid #4CAF50" if is_selected_b else "2px solid #555"};
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 10px;
-        '>
-            <h3 style='color: #66BB6A; margin-bottom: 10px;'>Kriter {criterion_b[0].upper()}</h3>
-            <h4 style='color: white; margin-bottom: 10px;'>{criterion_b[1]}</h4>
-            <p style='color: #B0BEC5; font-size: 14px; font-style: italic;'>{criterion_b[2]}</p>
-        </div>
-        """
-        st.markdown(box_style_b, unsafe_allow_html=True)
-        
-        # Tıklanabilir buton (kutunun üstüne)
-        if st.button(f"Kriter {criterion_b[0].upper()} Seç", key=f"btn_b_{stage_key}_{pair_key}", use_container_width=True):
-            st.session_state[selected_key] = 'b'
-            st.rerun()
+        # Kutu içinde form-like yapı
+        with st.container():
+            # Kutu stili
+            st.markdown(f"""
+            <div style='
+                background-color: {"#2E7D32" if is_selected_b else "#1B4D3E"};
+                padding: 20px;
+                border-radius: 10px;
+                border: {"3px solid #4CAF50" if is_selected_b else "2px solid #555"};
+                margin-bottom: 10px;
+            '>
+                <h3 style='color: #66BB6A; margin-bottom: 10px;'>Kriter {criterion_b[0].upper()}</h3>
+                <h4 style='color: white; margin-bottom: 10px;'>{criterion_b[1]}</h4>
+                <p style='color: #B0BEC5; font-size: 14px; font-style: italic;'>{criterion_b[2]}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Görünmeyen/minimal buton - kutuya tıklama efekti için
+            if st.button("🔘", key=f"btn_b_{stage_key}_{pair_key}", use_container_width=True, help=f"Kriter {criterion_b[0].upper()}'yı seç"):
+                st.session_state[selected_key] = 'b'
+                st.rerun()
         
         # Eğer bu kriter seçildiyse önem slider'ı göster
         if is_selected_b:
