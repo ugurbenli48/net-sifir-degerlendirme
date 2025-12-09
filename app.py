@@ -164,29 +164,58 @@ def display_comparison(stage_key, pair_idx):
     with col1:
         is_selected_a = st.session_state[selected_key] == 'a'
         
+        # Container ile position relative
+        st.markdown("""
+        <style>
+        .kutu-container-a {
+            position: relative;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        # HTML Kutu
         st.markdown(f"""
-        <div style='
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            padding: 30px;
-            border-radius: 15px;
-            border: {"4px solid #10b981" if is_selected_a else "2px solid #3b82f6"};
-            box-shadow: {"0 8px 20px rgba(16, 185, 129, 0.5)" if is_selected_a else "0 4px 10px rgba(59, 130, 246, 0.3)"};
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 200px;
-        '>
-            <h4 style='color: #60a5fa; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_a[0].upper()}</h4>
-            <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
-                {criterion_a[1]}
-            </h3>
-            <p style='color: #bfdbfe; font-size: 14px; line-height: 1.6; margin: 0; font-style: italic;'>
-                Açıklama: {criterion_a[2]}
-            </p>
+        <div class='kutu-container-a'>
+            <div style='
+                background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+                padding: 30px;
+                border-radius: 15px;
+                border: {"4px solid #10b981" if is_selected_a else "2px solid #3b82f6"};
+                box-shadow: {"0 8px 20px rgba(16, 185, 129, 0.5)" if is_selected_a else "0 4px 10px rgba(59, 130, 246, 0.3)"};
+                cursor: pointer;
+                transition: all 0.3s ease;
+                min-height: 200px;
+                position: relative;
+                z-index: 1;
+            '>
+                <h4 style='color: #60a5fa; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_a[0].upper()}</h4>
+                <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
+                    {criterion_a[1]}
+                </h3>
+                <p style='color: #bfdbfe; font-size: 14px; line-height: 1.6; margin: 0; font-style: italic;'>
+                    Açıklama: {criterion_a[2]}
+                </p>
+            </div>
         </div>
         """, unsafe_allow_html=True)
         
-        # Görünmez tıklama butonu
-        if st.button("▪️", key=f"btn_a_{stage_key}_{pair_key}", help="Kriter A'yı seç"):
+        # Invisible button - kutunun üstüne bindirilmiş (margin-top negatif)
+        st.markdown("""
+        <style>
+        .stButton button {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            opacity: 0 !important;
+            cursor: pointer !important;
+            z-index: 2 !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        if st.button(".", key=f"btn_a_{stage_key}_{pair_key}", help="Kriter A'yı seç"):
             st.session_state[selected_key] = 'a'
             st.rerun()
     
@@ -198,6 +227,7 @@ def display_comparison(stage_key, pair_idx):
     with col2:
         is_selected_b = st.session_state[selected_key] == 'b'
         
+        # HTML Kutu
         st.markdown(f"""
         <div style='
             background: linear-gradient(135deg, #065f46 0%, #10b981 100%);
@@ -208,6 +238,8 @@ def display_comparison(stage_key, pair_idx):
             cursor: pointer;
             transition: all 0.3s ease;
             min-height: 200px;
+            position: relative;
+            z-index: 1;
         '>
             <h4 style='color: #6ee7b7; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_b[0].upper()}</h4>
             <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
@@ -219,8 +251,8 @@ def display_comparison(stage_key, pair_idx):
         </div>
         """, unsafe_allow_html=True)
         
-        # Görünmez tıklama butonu
-        if st.button("▪️", key=f"btn_b_{stage_key}_{pair_key}", help="Kriter B'yi seç"):
+        # Invisible button üstte (CSS zaten tanımlı)
+        if st.button(".", key=f"btn_b_{stage_key}_{pair_key}", help="Kriter B'yi seç"):
             st.session_state[selected_key] = 'b'
             st.rerun()
     
