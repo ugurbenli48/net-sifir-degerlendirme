@@ -13,7 +13,7 @@ except ImportError:
 
 # Sayfa yapılandırması
 st.set_page_config(
-    page_title="Net Zero Proje Değerlendirme",
+    page_title="Net Sıfır Proje Değerlendirme",
     page_icon="🌱",
     layout="wide"
 )
@@ -23,42 +23,59 @@ CRITERIA = {
     "stage2": {
         "name": "2. Aşama - Tema Önceliği",
         "criteria": [
-            ("a", "Düşük Karbonlu Alternatif Yakıtlar (Yeşil Hidrojen, Biyoyakıtlar, E-Yakıtlar)", "Açıklama: Elektrifikasyonun mümkün olmadığı ulaşım modlarında kullanılmak üzere yeşil hidrojen, biyoyakıtlar ve sentetik e-yakıtlar gibi düşük karbonlu alternatif yakıtların geliştirilmesi ve uygulanması."),
-            ("b", "Sürdürülebilir ve Karbonsuz Lojistik", "Açıklama: Yük taşımacılığında karbon emisyonlarının azaltılmasını ve demiryolu–denizyolu–karayolu entegrasyonuyla verimli, multimodal tedarik zinciri yapılarının kurulması."),
-            ("c", "Hidrojen, elektrikli araçların satın alımı / filo dönüşümü", "Açıklama: Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
-            ("d", "Toplu Taşıma", "Açıklama: Düşük karbonlu toplu taşıma seçeneklerinin payını artırılması."),
-            ("e", "Aktif Mod ve Paylaşımlı Mobilite Altyapısı", "Açıklama: Kentsel ölçekte güvenli ve kesintisiz yürüme–bisiklet altyapısının geliştirilmesi ile paylaşımlı mobilite sistemlerinin (e-scooter, e-bike, paylaşımlı bisiklet vb.) toplu taşıma ve diğer aktif ulaşım modlarıyla entegrasyonu."),
-            ("f", "Yeşil Liman / Havalimanı", "Açıklama: Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden \"yeşil liman / havaliman\" sayısını artırılması."),
-            ("g", "Demiryolu Taşımacılığının Modernizasyonu", "Açıklama: Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendiriğlmesi ve modernizasyonu."),
-            ("h", "İstihdam ve Ekonomiye Katkı", "Açıklama: Projenin yeni iş olanakları, tedarik zinciri katkısı ve ekonomik döngüye etkisi."),
-            ("i", "Erişilebilirlik ve Toplumsal Kapsayıcılık", "Açıklama: Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
+            ("a", "Düşük Karbonlu Alternatif Yakıtlar", "Elektrifikasyonun mümkün olmadığı ulaşım modlarında kullanılmak üzere yeşil hidrojen, biyoyakıtlar ve sentetik e-yakıtlar gibi düşük karbonlu alternatif yakıtların geliştirilmesi ve uygulanması."),
+            ("b", "Yük Taşımacılığının Karbonsuzlaştırılması", "Lojistik araçlarının alternatif yakıtlı/elektrikli lojistik araçlarına geçilmesi."),
+            ("c", "Hidrojen/Elektrikli Araç Filo Dönüşümü", "Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
+            ("d", "Toplu Taşıma", "Düşük karbonlu toplu taşıma seçeneklerinin payını artırılması."),
+            ("e", "Yürüme ve Bisiklet Altyapısı", "Yaya dostu kentsel alanlar ve bisiklet yollarının geliştirilmesi."),
+            ("f", "Paylaşımlı Mobilite", "Bisiklet paylaşımı ve e-scooter sistemleri."),
+            ("g", "Yük Lojistiği", "Demiryolu, denizyolu ve karayolunu birleştiren multimodal lojistik merkezleriyle tedarik zincirlerinin optimize edilmesi."),
+            ("h", "Mobility-as-a-Service (MaaS)", "Sorunsuz ve düşük karbonlu bir seyahat deneyimi için çok modlu ulaşım seçeneklerini tek bir dijital platforma entegre edilmesi."),
+            ("i", "Akıllı Araç, Şarj Altyapısı", "Şarj altyapısına sahip elektrikli araçlar, akıllı şarj altyapısı, talep yönetimi, gece/boş saat tarifesi, batarya yönetimi ve enerji optimizasyonu. Yolcu, toplu taşıma ve yük taşımacılığı için elektrikli araçları (EV'ler) ve hibrit teknolojileri kullanımı."),
+            ("j", "Yeşil Liman / Havalimanı", "Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden yeşil liman/havalimanı sayısını artırılması."),
+            ("k", "Demiryolu Modernizasyonu", "Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendirmesi ve modernizasyonu."),
+            ("l", "Araç Filolarında Enerji İzleme", "Gerçek zamanlı enerji tüketimi takibi, sürüş optimizasyonu, rota planlama ve telemetri tabanlı enerji tasarruf sistemleri."),
+            ("m", "Davranışsal Değişim Girişimleri", "Elektrikli araç (EV) kullanımına yönelik vergi indirimleri veya yüksek emisyonlu eski araçlar için hurdaya ayırma programlarının varlığı."),
+            ("n", "İstihdam ve Ekonomiye Katkı", "Projenin yeni iş olanakları, tedarik zinciri katkısı ve ekonomik döngüye etkisi."),
+            ("o", "Erişilebilirlik ve Kapsayıcılık", "Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
+            ("p", "Acil Durum Lojistiği", "Afet sonrası kritik malzeme, sağlık hizmeti ve tahliye taşımalarının ulaşım sistemi tarafından desteklenebilirliği."),
+            ("q", "Akıllı Altyapı İzleme", "Köprü, tünel, yol, raylı sistem gibi kritik altyapılarda IoT tabanlı sismik, yapısal sağlık ve sel sensörleri kullanımı."),
+            ("r", "Akıllı Ulaşım Sistemleri (AUS)", "Trafik akışını optimize etmek, tıkanıklığı ve emisyonları azaltmak amacıyla Araçtan Araca (V2V) ve Araçtan Altyapıya (V2I) iletişim teknolojilerinin uygulanması ile akıllı şehir altyapısıyla entegre otonom elektrikli araçların araştırılması ve dağıtımı."),
+            ("s", "Dijital Lojistik Yönetimi", "Dijital yük takibi, akıllı depo operasyonları, gerçek zamanlı lojistik optimizasyonu."),
+            ("t", "Siber Güvenlik", "Ulaşım veri altyapılarının güvenliği, kimlik doğrulama, şifreleme, kesintisiz hizmet güvenliği."),
+            ("u", "Trafik İzleme ve Yapay Zeka", "Görüntü işleme, AI tabanlı ihlal tespiti, trafik yoğunluk tahmini, olay tespiti."),
+            ("v", "Sürdürülebilir Mobilite Platformları", "Karbon hesaplama uygulamaları, sürdürülebilir güzergah önerileri, mobil uygulama entegrasyonları."),
+            ("w", "Akıllı Otopark Yönetimi", "Gerçek zamanlı otopark doluluk verisi, yönlendirme panoları, dijital ödeme ve rezervasyon sistemleri."),
         ]
     },
     "stage3": {
         "name": "3. Aşama - Olgunluk Değerlendirmesi",
         "criteria": [
-            ("a", "CAPEX analizi mevcudiyeti", "Açıklama: Projenin sermaye yatırımı (CAPEX) kapsamında; altyapı, üstyapı, araç, ekipman, teknoloji ve inşaat maliyetlerinin detaylı biçimde analiz edilip edilmediğinin ve yatırım kararını destekleyecek finansal çerçevenin oluşturulup oluşturulmadığının değerlendirilmesi."),
-            ("b", "OPEX analizi mevcudiyeti", "Açıklama: Projenin işletme ve bakım (OPEX) maliyetlerinin; personel, enerji, bakım-onarım, yazılım lisansları, yedek parça, sigorta ve operasyon yönetimi gibi kalemler üzerinden kapsamlı biçimde analiz edilip edilmediğinin ve maliyet yapısının netleştirilip netleştirilmediğinin değerlendirilmesi."),
-            ("c", "Finansal analizin varlığı", "Açıklama: Projenin finansal fizibilitesinin ve karar sürecini destekleyecek analizlerin mevcut olup olmadığı değerlendirilir."),
-            ("d", "Risk Yönetimi Planı/Analizi Mevcudiyeti", "Açıklama: Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
+            ("a", "Teknik Açıklamaların Varlığı", "Projenin teknik bileşenlerinin yeterince açıklanıp açıklanmadığını ve verilen teknik bilgilerin proje gereksinimleriyle uyumu değerlendirilir."),
+            ("b", "CAPEX/OPEX Analizi", "Projenin sermaye (CAPEX) ve işletme (OPEX) maliyetlerinin analiz edilip edilmediğini ve karar sürecini destekleyecek maliyet yapısının net olarak ortaya konup konmadığı değerlendirilir."),
+            ("c", "Finansal Analizin Varlığı", "Projenin finansal fizibilitesinin ve karar sürecini destekleyecek analizlerin mevcut olup olmadığı değerlendirilir."),
+            ("d", "Uygulama/Yatırım Kararı", "Proje için daha önce alınmış uygulama veya yatırım kararlarının varlığını ve hazırlık düzeyinin değerlendirilmesi."),
+            ("e", "İzin/Ruhsat Durumu", "Gerekli izin, ruhsat ve onay süreçlerinin tamamlanma durumunun değerlendirilmesi."),
+            ("f", "Zaman Planı Gerçekçiliği", "Projenin önerilen takviminin uygulanabilirliğini, faaliyetlerin süre tahminlerinin gerçekçiliğinin değerlendirilmesi."),
+            ("g", "Risk Yönetimi Planı", "Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
         ]
     },
     "stage4": {
         "name": "4. Aşama - Etki ve Kalite",
         "criteria": [
-            ("a", "Ölçek Etkisi", "Açıklama: Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
-            ("b", "Çevresel Etki", "Açıklama: GHProjenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
-            ("c", "Çarpan Etkisi", "Açıklama: Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
-            ("d", "İnovasyon ve Uyarlanabilirlik", "Açıklama: Projenin yenilikçi yönünün, farklı koşullara uyarlanabilirliğinin ve uzun vadede sürdürülebilir ve kalıcı etki üretebilecek şekilde uygulanabilir olma kapasitesinin değerlendirilmesi."),
-            ("e", "Sürdürülebilirlik", "Açıklama: Projenin uzun vadede sürdürülebilirliğini, operasyonel devamlılığını ve kalıcı etki yaratma kapasitesini değerlendirir."),
+            ("a", "Ölçek Etkisi", "Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
+            ("b", "Çevresel Etki", "Projenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
+            ("c", "Çarpan Etkisi", "Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
+            ("d", "İnovasyon ve Uyarlanabilirlik", "Projenin inovatif yapısını, pilot uygulama niteliğini ve farklı bölge veya koşullara ölçeklenebilir ve uyarlanabilir olma kapasitesini değerlendirir."),
+            ("e", "Sürdürülebilirlik", "Projenin uzun vadede sürdürülebilirliğini, operasyonel devamlılığını ve kalıcı etki yaratma kapasitesini değerlendirir."),
         ]
     },
     "stage_comparison": {
         "name": "Aşamalar Arası Karşılaştırma",
         "criteria": [
-            ("a", "2. Aşama - Tema Önceliği", "Açıklama: Projenin hangi temaya odaklandığı ve bu temanın öncelik düzeyi."),
-            ("b", "3. Aşama - Olgunluk Değerlendirmesi", "Açıklama: Projenin teknik, finansal ve operasyonel olgunluk seviyesi."),
-            ("c", "4. Aşama - Etki ve Kalite", "Açıklama: Projenin sosyal, ekonomik, çevresel etkisi ve teknik kalitesi."),
+            ("a", "2. Aşama - Tema Önceliği", "Projenin hangi temaya odaklandığı ve bu temanın öncelik düzeyi."),
+            ("b", "3. Aşama - Olgunluk Değerlendirmesi", "Projenin teknik, finansal ve operasyonel olgunluk seviyesi."),
+            ("c", "4. Aşama - Etki ve Kalite", "Projenin sosyal, ekonomik, çevresel etkisi ve teknik kalitesi."),
         ]
     }
 }
@@ -90,9 +107,9 @@ def check_and_auto_save():
     # Tüm aşamalar tamamlandı mı?
     all_completed = (
         'stage2' in st.session_state.responses and 
-        len(st.session_state.responses['stage2']) == 72 and  # 9 kriter: C(9,2) = 72
+        len(st.session_state.responses['stage2']) == 253 and  # 23 kriter: C(23,2) = 253
         'stage3' in st.session_state.responses and 
-        len(st.session_state.responses['stage3']) == 4 and   # 4 kriter: C(4,2) = 12
+        len(st.session_state.responses['stage3']) == 21 and   # 7 kriter: C(7,2) = 21
         'stage4' in st.session_state.responses and 
         len(st.session_state.responses['stage4']) == 10 and   # 5 kriter: C(5,2) = 10
         'stage_comparison' in st.session_state.responses and 
@@ -125,93 +142,167 @@ def display_comparison(stage_key, pair_idx):
     st.progress(progress, text=f"İlerleme: {pair_idx + 1}/{len(pairs)}")
     
     st.markdown("---")
-    st.subheader("🔍 Kriter Karşılaştırması")
     
-    # İki kriteri yan yana göster
-    col1, col2, col3 = st.columns([2, 1, 2])
+    # Başlık
+    st.markdown("<h2 style='text-align: center;'>🔍 Hangi kriter daha önemlidir?</h2>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
     
+    # Session state için seçim ve önem key'leri
+    selected_key = f"selected_{stage_key}_{pair_key}"
+    importance_key = f"importance_{stage_key}_{pair_key}"
+    
+    # İlk değer atamaları
+    if selected_key not in st.session_state:
+        st.session_state[selected_key] = None
+    if importance_key not in st.session_state:
+        st.session_state[importance_key] = 2
+    
+    # İki kriteri ve ortada eşit butonunu göster
+    col1, col_mid, col2 = st.columns([2, 1, 2])
+    
+    # Kriter A kutusu - Tıklanabilir
     with col1:
-        st.info(f"**Kriter {criterion_a[0].upper()}**\n\n**{criterion_a[1]}**\n\n_{criterion_a[2]}_")
-    
-    with col2:
-        st.markdown("<h3 style='text-align: center;'>VS</h3>", unsafe_allow_html=True)
-    
-    with col3:
-        st.success(f"**Kriter {criterion_b[0].upper()}**\n\n**{criterion_b[1]}**\n\n_{criterion_b[2]}_")
-    
-    st.markdown("---")
-    
-    # Soru
-    st.markdown("### ❓ Hangi kriter daha önemlidir?")
-    
-    col_a, col_b, col_c = st.columns([1, 2, 1])
-    
-    with col_b:
-        # Önce hangisinin önemli olduğunu seç
-        choice = st.radio(
-            "Daha önemli olan kriter:",
-            [f"Kriter {criterion_a[0].upper()}: {criterion_a[1]}", 
-             "Eşit önemde",
-             f"Kriter {criterion_b[0].upper()}: {criterion_b[1]}"],
-            key=f"choice_{stage_key}_{pair_key}",
-            index=1
-        )
+        # Seçili mi kontrolü
+        is_selected_a = st.session_state[selected_key] == 'a'
         
-        # Önem derecesi
-        importance = 0
-        if choice != "Eşit önemde":
+        # Kutu stili (seçiliyse vurgulu)
+        box_style_a = """
+        <div style='
+            background-color: {"#1f77b4" if is_selected_a else "#2E4053"};
+            padding: 20px;
+            border-radius: 10px;
+            border: {"3px solid #4CAF50" if is_selected_a else "2px solid #555"};
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        '>
+            <h3 style='color: #4FC3F7; margin-bottom: 10px;'>Kriter {criterion_a[0].upper()}</h3>
+            <h4 style='color: white; margin-bottom: 10px;'>{criterion_a[1]}</h4>
+            <p style='color: #B0BEC5; font-size: 14px; font-style: italic;'>{criterion_a[2]}</p>
+        </div>
+        """
+        st.markdown(box_style_a.format(criterion_a[0].upper(), criterion_a[1], criterion_a[2]), unsafe_allow_html=True)
+        
+        # Tıklanabilir buton (kutunun üstüne)
+        if st.button(f"Kriter {criterion_a[0].upper()} Seç", key=f"btn_a_{stage_key}_{pair_key}", use_container_width=True):
+            st.session_state[selected_key] = 'a'
+            st.rerun()
+        
+        # Eğer bu kriter seçildiyse önem slider'ı göster
+        if is_selected_a:
+            st.markdown("##### 📊 Önem Derecesi:")
             importance = st.select_slider(
-                "Önem derecesi:",
+                "Önem:",
                 options=[1, 2, 3],
-                value=2,
-                format_func=lambda x: {1: "Zayıf tercih", 2: "Orta düzey", 3: "Çok güçlü"}[x],
-                key=f"importance_{stage_key}_{pair_key}"
+                value=st.session_state[importance_key],
+                format_func=lambda x: {1: "🟢 Zayıf tercih", 2: "🟡 Orta düzey", 3: "🔴 Çok güçlü"}[x],
+                key=f"slider_a_{stage_key}_{pair_key}",
+                label_visibility="collapsed"
             )
-    
-    # Yanıtı kaydet ve devam et
-    col_prev, col_next = st.columns(2)
-    
-    with col_prev:
-        if pair_idx > 0:
-            if st.button("⬅️ Önceki", key=f"prev_{stage_key}_{pair_idx}"):
-                st.session_state[f'pair_idx_{stage_key}'] = pair_idx - 1
+            st.session_state[importance_key] = importance
+            
+            # Devam butonu
+            if st.button("✅ Devam", key=f"continue_a_{stage_key}_{pair_key}", use_container_width=True, type="primary"):
+                response = f"{importance}{criterion_a[0]}"
+                save_response(stage_key, pair_key, response)
+                st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
+                # Seçim state'lerini temizle
+                st.session_state[selected_key] = None
+                st.session_state[importance_key] = 2
+                check_and_auto_save()
                 st.rerun()
     
-    with col_next:
-        if st.button("Devam ➡️" if pair_idx < len(pairs) - 1 else "Bu Aşamayı Tamamla ✓", key=f"next_{stage_key}_{pair_idx}"):
-            # Yanıtı kaydet
-            if choice == "Eşit önemde":
-                response = "0"
-            elif criterion_a[1] in choice:
-                response = f"{importance}{criterion_a[0]}"
-            else:
-                response = f"{importance}{criterion_b[0]}"
-            
+    # Ortada "Eşit Önemde" butonu
+    with col_mid:
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        if st.button("⚖️\n\nEşit\nÖnemde", key=f"equal_{stage_key}_{pair_key}", use_container_width=True, help="Her iki kriter de eşit önemde"):
+            response = "0"
             save_response(stage_key, pair_key, response)
-            
-            # Sonraki soruya geç
             st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-            
-            # Otomatik kayıt: Tüm aşamalar tamamlandı mı kontrol et
+            # Seçim state'lerini temizle
+            st.session_state[selected_key] = None
+            st.session_state[importance_key] = 2
             check_and_auto_save()
+            st.rerun()
+        st.markdown("<p style='text-align: center; color: #888; font-size: 12px;'>Her iki kriter<br>eşit önemliyse<br>tıklayın</p>", unsafe_allow_html=True)
+    
+    # Kriter B kutusu - Tıklanabilir
+    with col2:
+        # Seçili mi kontrolü
+        is_selected_b = st.session_state[selected_key] == 'b'
+        
+        # Kutu stili (seçiliyse vurgulu)
+        box_style_b = """
+        <div style='
+            background-color: {"#2E7D32" if is_selected_b else "#1B4D3E"};
+            padding: 20px;
+            border-radius: 10px;
+            border: {"3px solid #4CAF50" if is_selected_b else "2px solid #555"};
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        '>
+            <h3 style='color: #66BB6A; margin-bottom: 10px;'>Kriter {criterion_b[0].upper()}</h3>
+            <h4 style='color: white; margin-bottom: 10px;'>{criterion_b[1]}</h4>
+            <p style='color: #B0BEC5; font-size: 14px; font-style: italic;'>{criterion_b[2]}</p>
+        </div>
+        """
+        st.markdown(box_style_b.format(criterion_b[0].upper(), criterion_b[1], criterion_b[2]), unsafe_allow_html=True)
+        
+        # Tıklanabilir buton (kutunun üstüne)
+        if st.button(f"Kriter {criterion_b[0].upper()} Seç", key=f"btn_b_{stage_key}_{pair_key}", use_container_width=True):
+            st.session_state[selected_key] = 'b'
+            st.rerun()
+        
+        # Eğer bu kriter seçildiyse önem slider'ı göster
+        if is_selected_b:
+            st.markdown("##### 📊 Önem Derecesi:")
+            importance = st.select_slider(
+                "Önem:",
+                options=[1, 2, 3],
+                value=st.session_state[importance_key],
+                format_func=lambda x: {1: "🟢 Zayıf tercih", 2: "🟡 Orta düzey", 3: "🔴 Çok güçlü"}[x],
+                key=f"slider_b_{stage_key}_{pair_key}",
+                label_visibility="collapsed"
+            )
+            st.session_state[importance_key] = importance
             
+            # Devam butonu
+            if st.button("✅ Devam", key=f"continue_b_{stage_key}_{pair_key}", use_container_width=True, type="primary"):
+                response = f"{importance}{criterion_b[0]}"
+                save_response(stage_key, pair_key, response)
+                st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
+                # Seçim state'lerini temizle
+                st.session_state[selected_key] = None
+                st.session_state[importance_key] = 2
+                check_and_auto_save()
+                st.rerun()
+    
+    # Önceki butonu (en altta)
+    st.markdown("<br>", unsafe_allow_html=True)
+    if pair_idx > 0:
+        if st.button("⬅️ Önceki Soruya Dön", key=f"prev_{stage_key}_{pair_idx}"):
+            st.session_state[f'pair_idx_{stage_key}'] = pair_idx - 1
+            # Seçim state'lerini temizle
+            st.session_state[selected_key] = None
+            st.session_state[importance_key] = 2
             st.rerun()
     
     return False
 
 def welcome_page():
     """Karşılama sayfası"""
-    st.title("🌱 Net Zero Proje Değerlendirme Sistemi")
+    st.title("🌱 Net Sıfır Proje Değerlendirme Sistemi")
     st.markdown("---")
     
     st.markdown("""
     ### Hoş Geldiniz!
     
-    Bu sistem, Net Zero Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
+    Bu sistem, Net Sıfır Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
     
     #### 📋 Değerlendirme Aşamaları:
-    1. **2. Aşama** - Tema Önceliği (9 kriter)
-    2. **3. Aşama** - Olgunluk Değerlendirmesi (4 kriter)
+    1. **2. Aşama** - Tema Önceliği (23 kriter)
+    2. **3. Aşama** - Olgunluk Değerlendirmesi (7 kriter)
     3. **4. Aşama** - Etki ve Kalite (5 kriter)
     4. **Aşamalar Arası** - Aşamaların önem karşılaştırması (3 kriter)
     
@@ -222,12 +313,12 @@ def welcome_page():
     - Tüm değerlendirme otomatik olarak kaydedilir
     
     #### ⏱️ Tahmini Süre:
-    - **2. Aşama**: ~13 dakika (72 karşılaştırma)
-    - **3. Aşama**: ~4 dakika (12 karşılaştırma)
+    - **2. Aşama**: ~30 dakika (253 karşılaştırma)
+    - **3. Aşama**: ~5 dakika (21 karşılaştırma)
     - **4. Aşama**: ~3 dakika (10 karşılaştırma)
     - **Aşamalar Arası**: ~1 dakika (3 karşılaştırma)
     
-    **Toplam**: Yaklaşık 20 dakika
+    **Toplam**: Yaklaşık 40 dakika
     """)
     
     st.markdown("---")
@@ -250,7 +341,7 @@ def welcome_page():
 
 def main_evaluation():
     """Ana değerlendirme sayfası"""
-    st.title("🌱 Net Zero Proje Değerlendirme")
+    st.title("🌱 Net Sıfır Proje Değerlendirme")
     
     st.markdown(f"**Uzman:** {st.session_state.expert_name}")
     
