@@ -28,7 +28,7 @@ CRITERIA = {
             ("c", "Hidrojen, elektrikli araçların satın alımı / filo dönüşümü", "Açıklama: Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
             ("d", "Toplu Taşıma", "Açıklama: Düşük karbonlu toplu taşıma seçeneklerinin payını artırılması."),
             ("e", "Aktif Mod ve Paylaşımlı Mobilite Altyapısı", "Açıklama: Kentsel ölçekte güvenli ve kesintisiz yürüme–bisiklet altyapısının geliştirilmesi ile paylaşımlı mobilite sistemlerinin (e-scooter, e-bike, paylaşımlı bisiklet vb.) toplu taşıma ve diğer aktif ulaşım modlarıyla entegrasyonu."),
-            ("f", "Yeşil Liman / Havalimanı", "Açıklama: Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden "yeşil liman / havaliman" sayısını artırılması."),
+            ("f", "Yeşil Liman / Havalimanı", "Açıklama: Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden \"yeşil liman / havaliman\" sayısını artırılması."),
             ("g", "Demiryolu Taşımacılığının Modernizasyonu", "Açıklama: Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendiriğlmesi ve modernizasyonu."),
             ("h", "İstihdam ve Ekonomiye Katkı", "Açıklama: Projenin yeni iş olanakları, tedarik zinciri katkısı ve ekonomik döngüye etkisi."),
             ("i", "Erişilebilirlik ve Toplumsal Kapsayıcılık", "Açıklama: Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
