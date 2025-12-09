@@ -143,10 +143,6 @@ def display_comparison(stage_key, pair_idx):
     
     st.markdown("---")
     
-    # Başlık
-    st.markdown("<h2 style='text-align: center;'>🔍 Hangi kriter daha önemlidir?</h2>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    
     # Session state için seçim ve önem key'leri
     selected_key = f"selected_{stage_key}_{pair_key}"
     importance_key = f"importance_{stage_key}_{pair_key}"
@@ -157,156 +153,132 @@ def display_comparison(stage_key, pair_idx):
     if importance_key not in st.session_state:
         st.session_state[importance_key] = 2
     
-    # İki kriteri ve ortada eşit butonunu göster
-    col1, col_mid, col2 = st.columns([2, 1, 2])
+    # Başlık
+    st.markdown("### 🔍 Kriter Karşılaştırması")
+    st.markdown("<br>", unsafe_allow_html=True)
     
-    # Kriter A kutusu - Direkt tıklanabilir (buton olarak)
+    # İki kriteri ve ortada VS göster
+    col1, col_mid, col2 = st.columns([2, 0.5, 2])
+    
+    # Kriter A kutusu
     with col1:
-        # Seçili mi kontrolü
         is_selected_a = st.session_state[selected_key] == 'a'
         
-        # Kutunun kendisi buton - eski mavi renk
-        kutu_a = f"""**Kriter {criterion_a[0].upper()}**
-
-**{criterion_a[1]}**
-
-_{criterion_a[2]}_"""
-        
-        # Custom CSS ile buton stilini değiştir
         st.markdown(f"""
-        <style>
-        div[data-testid="column"]:nth-child(1) button[kind="secondary"] {{
-            background: {"linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)" if not is_selected_a else "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"} !important;
-            border: {"2px solid #3b82f6" if not is_selected_a else "4px solid #10b981"} !important;
-            padding: 25px !important;
-            border-radius: 15px !important;
-            text-align: left !important;
-            height: auto !important;
-            min-height: 180px !important;
-            box-shadow: {"0 4px 6px rgba(59, 130, 246, 0.3)" if not is_selected_a else "0 8px 16px rgba(16, 185, 129, 0.4)"} !important;
-        }}
-        div[data-testid="column"]:nth-child(1) button[kind="secondary"]:hover {{
-            border: 3px solid #60a5fa !important;
-            box-shadow: 0 6px 12px rgba(96, 165, 250, 0.4) !important;
-        }}
-        </style>
+        <div style='
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border: {"4px solid #10b981" if is_selected_a else "2px solid #3b82f6"};
+            box-shadow: {"0 8px 20px rgba(16, 185, 129, 0.5)" if is_selected_a else "0 4px 10px rgba(59, 130, 246, 0.3)"};
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 200px;
+        '>
+            <h4 style='color: #60a5fa; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_a[0].upper()}</h4>
+            <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
+                {criterion_a[1]}
+            </h3>
+            <p style='color: #bfdbfe; font-size: 14px; line-height: 1.6; margin: 0; font-style: italic;'>
+                Açıklama: {criterion_a[2]}
+            </p>
+        </div>
         """, unsafe_allow_html=True)
         
-        # Buton (kutu görünümünde)
-        if st.button(kutu_a, key=f"btn_a_{stage_key}_{pair_key}", use_container_width=True):
+        # Görünmez tıklama butonu
+        if st.button("▪️", key=f"btn_a_{stage_key}_{pair_key}", help="Kriter A'yı seç"):
             st.session_state[selected_key] = 'a'
             st.rerun()
-        
-        # Eğer bu kriter seçildiyse önem slider'ı göster
-        if is_selected_a:
-            st.markdown("---")
-            st.markdown("##### 📊 Önem Derecesi:")
-            importance = st.select_slider(
-                "Önem:",
-                options=[1, 2, 3],
-                value=st.session_state[importance_key],
-                format_func=lambda x: {1: "🟢 Zayıf tercih", 2: "🟡 Orta düzey", 3: "🔴 Çok güçlü"}[x],
-                key=f"slider_a_{stage_key}_{pair_key}",
-                label_visibility="collapsed"
-            )
-            st.session_state[importance_key] = importance
-            
-            # Devam butonu
-            if st.button("✅ Devam", key=f"continue_a_{stage_key}_{pair_key}", use_container_width=True, type="primary"):
-                response = f"{importance}{criterion_a[0]}"
-                save_response(stage_key, pair_key, response)
-                st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-                # Seçim state'lerini temizle
-                st.session_state[selected_key] = None
-                st.session_state[importance_key] = 2
-                check_and_auto_save()
-                st.rerun()
     
-    # Ortada "Eşit Önemde" butonu
+    # Ortada VS
     with col_mid:
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        if st.button("⚖️\n\nEşit\nÖnemde", key=f"equal_{stage_key}_{pair_key}", use_container_width=True, help="Her iki kriter de eşit önemde"):
+        st.markdown("<h1 style='text-align: center; margin-top: 80px; color: #888;'>VS</h1>", unsafe_allow_html=True)
+    
+    # Kriter B kutusu
+    with col2:
+        is_selected_b = st.session_state[selected_key] == 'b'
+        
+        st.markdown(f"""
+        <div style='
+            background: linear-gradient(135deg, #065f46 0%, #10b981 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border: {"4px solid #10b981" if is_selected_b else "2px solid #10b981"};
+            box-shadow: {"0 8px 20px rgba(16, 185, 129, 0.5)" if is_selected_b else "0 4px 10px rgba(16, 185, 129, 0.3)"};
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 200px;
+        '>
+            <h4 style='color: #6ee7b7; margin: 0 0 8px 0; font-size: 14px; font-weight: 600;'>Kriter {criterion_b[0].upper()}</h4>
+            <h3 style='color: white; margin: 0 0 15px 0; font-size: 20px; font-weight: 700; line-height: 1.3;'>
+                {criterion_b[1]}
+            </h3>
+            <p style='color: #d1fae5; font-size: 14px; line-height: 1.6; margin: 0; font-style: italic;'>
+                Açıklama: {criterion_b[2]}
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Görünmez tıklama butonu
+        if st.button("▪️", key=f"btn_b_{stage_key}_{pair_key}", help="Kriter B'yi seç"):
+            st.session_state[selected_key] = 'b'
+            st.rerun()
+    
+    st.markdown("---")
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Altta soru ve seçenekler
+    st.markdown("### ❓ Hangi kriter daha önemlidir?")
+    
+    # Eşit önemde butonu (ortada)
+    col_left, col_center, col_right = st.columns([1, 1, 1])
+    with col_center:
+        if st.button("⚖️ Eşit Önemde", key=f"equal_{stage_key}_{pair_key}", use_container_width=True):
             response = "0"
             save_response(stage_key, pair_key, response)
             st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-            # Seçim state'lerini temizle
             st.session_state[selected_key] = None
             st.session_state[importance_key] = 2
             check_and_auto_save()
             st.rerun()
-        st.markdown("<p style='text-align: center; color: #888; font-size: 12px;'>Her iki kriter<br>eşit önemliyse<br>tıklayın</p>", unsafe_allow_html=True)
     
-    # Kriter B kutusu - Direkt tıklanabilir (buton olarak)
-    with col2:
-        # Seçili mi kontrolü
-        is_selected_b = st.session_state[selected_key] == 'b'
+    # Eğer bir kriter seçildiyse önem slider'ı ve devam butonu göster
+    selected = st.session_state[selected_key]
+    if selected:
+        st.markdown("---")
+        st.markdown("##### 📊 Önem Derecesi:")
         
-        # Kutunun kendisi buton - eski yeşil renk
-        kutu_b = f"""**Kriter {criterion_b[0].upper()}**
-
-**{criterion_b[1]}**
-
-_{criterion_b[2]}_"""
+        importance = st.select_slider(
+            "Önem:",
+            options=[1, 2, 3],
+            value=st.session_state[importance_key],
+            format_func=lambda x: {1: "🟢 Zayıf tercih", 2: "🟡 Orta düzey", 3: "🔴 Çok güçlü"}[x],
+            key=f"slider_{stage_key}_{pair_key}",
+            label_visibility="collapsed"
+        )
+        st.session_state[importance_key] = importance
         
-        # Custom CSS ile buton stilini değiştir
-        st.markdown(f"""
-        <style>
-        div[data-testid="column"]:nth-child(3) button[kind="secondary"] {{
-            background: {"linear-gradient(135deg, #065f46 0%, #10b981 100%)" if not is_selected_b else "linear-gradient(135deg, #065f46 0%, #10b981 100%)"} !important;
-            border: {"2px solid #10b981" if not is_selected_b else "4px solid #10b981"} !important;
-            padding: 25px !important;
-            border-radius: 15px !important;
-            text-align: left !important;
-            height: auto !important;
-            min-height: 180px !important;
-            box-shadow: {"0 4px 6px rgba(16, 185, 129, 0.3)" if not is_selected_b else "0 8px 16px rgba(16, 185, 129, 0.4)"} !important;
-        }}
-        div[data-testid="column"]:nth-child(3) button[kind="secondary"]:hover {{
-            border: 3px solid #34d399 !important;
-            box-shadow: 0 6px 12px rgba(52, 211, 153, 0.4) !important;
-        }}
-        </style>
-        """, unsafe_allow_html=True)
-        
-        # Buton (kutu görünümünde)
-        if st.button(kutu_b, key=f"btn_b_{stage_key}_{pair_key}", use_container_width=True):
-            st.session_state[selected_key] = 'b'
-            st.rerun()
-        
-        # Eğer bu kriter seçildiyse önem slider'ı göster
-        if is_selected_b:
-            st.markdown("---")
-            st.markdown("##### 📊 Önem Derecesi:")
-            importance = st.select_slider(
-                "Önem:",
-                options=[1, 2, 3],
-                value=st.session_state[importance_key],
-                format_func=lambda x: {1: "🟢 Zayıf tercih", 2: "🟡 Orta düzey", 3: "🔴 Çok güçlü"}[x],
-                key=f"slider_b_{stage_key}_{pair_key}",
-                label_visibility="collapsed"
-            )
-            st.session_state[importance_key] = importance
-            
-            # Devam butonu
-            if st.button("✅ Devam", key=f"continue_b_{stage_key}_{pair_key}", use_container_width=True, type="primary"):
-                response = f"{importance}{criterion_b[0]}"
+        # Devam butonu
+        col_a, col_b = st.columns(2)
+        with col_b:
+            if st.button("Devam ➡️", key=f"continue_{stage_key}_{pair_key}", use_container_width=True, type="primary"):
+                response = f"{importance}{selected}"
                 save_response(stage_key, pair_key, response)
                 st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-                # Seçim state'lerini temizle
                 st.session_state[selected_key] = None
                 st.session_state[importance_key] = 2
                 check_and_auto_save()
                 st.rerun()
     
-    # Önceki butonu (en altta)
-    st.markdown("<br>", unsafe_allow_html=True)
+    # Önceki butonu
     if pair_idx > 0:
-        if st.button("⬅️ Önceki Soruya Dön", key=f"prev_{stage_key}_{pair_idx}"):
-            st.session_state[f'pair_idx_{stage_key}'] = pair_idx - 1
-            # Seçim state'lerini temizle
-            st.session_state[selected_key] = None
-            st.session_state[importance_key] = 2
-            st.rerun()
+        col_prev, col_space = st.columns([1, 3])
+        with col_prev:
+            if st.button("⬅️ Önceki", key=f"prev_{stage_key}_{pair_idx}"):
+                st.session_state[f'pair_idx_{stage_key}'] = pair_idx - 1
+                st.session_state[selected_key] = None
+                st.session_state[importance_key] = 2
+                st.rerun()
     
     return False
 
