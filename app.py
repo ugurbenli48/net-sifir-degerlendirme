@@ -160,30 +160,60 @@ def display_comparison(stage_key, pair_idx):
     # İki kriteri ve ortada eşit butonunu göster
     col1, col_mid, col2 = st.columns([2, 1, 2])
     
-    # Kriter A kutusu - Direkt buton
+    # Kriter A kutusu - HTML styled + buton
     with col1:
         # Seçili mi kontrolü
         is_selected_a = st.session_state[selected_key] == 'a'
         
-        # Kutu içeriğini buton label'ı olarak kullan
-        button_label_a = f"""**Kriter {criterion_a[0].upper()}**
-
-**{criterion_a[1]}**
-
-_{criterion_a[2]}_"""
+        # HTML kutu stili
+        st.markdown(f"""
+        <div style='
+            background: linear-gradient(135deg, {"#1e3a8a 0%, #3b82f6 100%" if is_selected_a else "#1e293b 0%, #334155 100%"});
+            padding: 25px;
+            border-radius: 15px;
+            border: {"4px solid #10b981" if is_selected_a else "2px solid #475569"};
+            box-shadow: {"0 8px 16px rgba(16, 185, 129, 0.3)" if is_selected_a else "0 4px 6px rgba(0, 0, 0, 0.1)"};
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        '>
+            <div style='display: flex; align-items: center; margin-bottom: 15px;'>
+                <div style='
+                    background: {"#10b981" if is_selected_a else "#64748b"};
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin-right: 15px;
+                '>
+                    {criterion_a[0].upper()}
+                </div>
+                <h3 style='color: {"#10b981" if is_selected_a else "#94a3b8"}; margin: 0; font-size: 16px; font-weight: 600;'>
+                    Kriter {criterion_a[0].upper()}
+                </h3>
+            </div>
+            <h4 style='color: white; margin: 0 0 12px 0; font-size: 18px; font-weight: 600; line-height: 1.4;'>
+                {criterion_a[1]}
+            </h4>
+            <p style='color: #cbd5e1; font-size: 14px; line-height: 1.6; margin: 0; font-style: italic;'>
+                {criterion_a[2]}
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
         
-        # Direkt buton - kutu görünümünde
-        if st.button(
-            button_label_a,
-            key=f"btn_a_{stage_key}_{pair_key}",
-            use_container_width=True,
-            type="primary" if is_selected_a else "secondary"
-        ):
+        # Tıklama butonu (kutu altında, görünmez ama tıklanabilir)
+        if st.button(f"📍 Kriter {criterion_a[0].upper()}'yı Seç", key=f"btn_a_{stage_key}_{pair_key}", use_container_width=True):
             st.session_state[selected_key] = 'a'
             st.rerun()
         
         # Eğer bu kriter seçildiyse önem slider'ı göster
         if is_selected_a:
+            st.markdown("---")
             st.markdown("##### 📊 Önem Derecesi:")
             importance = st.select_slider(
                 "Önem:",
@@ -220,30 +250,60 @@ _{criterion_a[2]}_"""
             st.rerun()
         st.markdown("<p style='text-align: center; color: #888; font-size: 12px;'>Her iki kriter<br>eşit önemliyse<br>tıklayın</p>", unsafe_allow_html=True)
     
-    # Kriter B kutusu - Direkt buton
+    # Kriter B kutusu - HTML styled + buton
     with col2:
         # Seçili mi kontrolü
         is_selected_b = st.session_state[selected_key] == 'b'
         
-        # Kutu içeriğini buton label'ı olarak kullan
-        button_label_b = f"""**Kriter {criterion_b[0].upper()}**
-
-**{criterion_b[1]}**
-
-_{criterion_b[2]}_"""
+        # HTML kutu stili
+        st.markdown(f"""
+        <div style='
+            background: linear-gradient(135deg, {"#065f46 0%, #10b981 100%" if is_selected_b else "#1e293b 0%, #334155 100%"});
+            padding: 25px;
+            border-radius: 15px;
+            border: {"4px solid #10b981" if is_selected_b else "2px solid #475569"};
+            box-shadow: {"0 8px 16px rgba(16, 185, 129, 0.3)" if is_selected_b else "0 4px 6px rgba(0, 0, 0, 0.1)"};
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        '>
+            <div style='display: flex; align-items: center; margin-bottom: 15px;'>
+                <div style='
+                    background: {"#10b981" if is_selected_b else "#64748b"};
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin-right: 15px;
+                '>
+                    {criterion_b[0].upper()}
+                </div>
+                <h3 style='color: {"#10b981" if is_selected_b else "#94a3b8"}; margin: 0; font-size: 16px; font-weight: 600;'>
+                    Kriter {criterion_b[0].upper()}
+                </h3>
+            </div>
+            <h4 style='color: white; margin: 0 0 12px 0; font-size: 18px; font-weight: 600; line-height: 1.4;'>
+                {criterion_b[1]}
+            </h4>
+            <p style='color: #cbd5e1; font-size: 14px; line-height: 1.6; margin: 0; font-style: italic;'>
+                {criterion_b[2]}
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
         
-        # Direkt buton - kutu görünümünde
-        if st.button(
-            button_label_b,
-            key=f"btn_b_{stage_key}_{pair_key}",
-            use_container_width=True,
-            type="primary" if is_selected_b else "secondary"
-        ):
+        # Tıklama butonu (kutu altında)
+        if st.button(f"📍 Kriter {criterion_b[0].upper()}'yı Seç", key=f"btn_b_{stage_key}_{pair_key}", use_container_width=True):
             st.session_state[selected_key] = 'b'
             st.rerun()
         
         # Eğer bu kriter seçildiyse önem slider'ı göster
         if is_selected_b:
+            st.markdown("---")
             st.markdown("##### 📊 Önem Derecesi:")
             importance = st.select_slider(
                 "Önem:",
