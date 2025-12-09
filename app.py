@@ -13,7 +13,7 @@ except ImportError:
 
 # Sayfa yapılandırması
 st.set_page_config(
-    page_title="Net Sıfır Proje Değerlendirme",
+    page_title="Net Zero Proje Değerlendirme",
     page_icon="🌱",
     layout="wide"
 )
@@ -23,41 +23,28 @@ CRITERIA = {
     "stage2": {
         "name": "2. Aşama - Tema Önceliği",
         "criteria": [
-            ("a", "Düşük Karbonlu Alternatif Yakıtlar", "Elektrifikasyonun mümkün olmadığı ulaşım modlarında kullanılmak üzere yeşil hidrojen, biyoyakıtlar ve sentetik e-yakıtlar gibi düşük karbonlu alternatif yakıtların geliştirilmesi ve uygulanması."),
-            ("b", "Yük Taşımacılığının Karbonsuzlaştırılması", "Lojistik araçlarının alternatif yakıtlı/elektrikli lojistik araçlarına geçilmesi."),
-            ("c", "Hidrojen/Elektrikli Araç Filo Dönüşümü", "Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
+            ("a", "Düşük Karbonlu Alternatif Yakıtlar (Yeşil Hidrojen, Biyoyakıtlar, E-Yakıtlar)", "Elektrifikasyonun mümkün olmadığı ulaşım modlarında kullanılmak üzere yeşil hidrojen, biyoyakıtlar ve sentetik e-yakıtlar gibi düşük karbonlu alternatif yakıtların geliştirilmesi ve uygulanması."),
+            ("b", "Sürdürülebilir ve Karbonsuz Lojistik", "Yük taşımacılığında karbon emisyonlarının azaltılmasını ve demiryolu–denizyolu–karayolu entegrasyonuyla verimli, multimodal tedarik zinciri yapılarının kurulması."),
+            ("c", "Hidrojen, elektrikli araçların satın alımı / filo dönüşümü", "Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
             ("d", "Toplu Taşıma", "Düşük karbonlu toplu taşıma seçeneklerinin payını artırılması."),
-            ("e", "Yürüme ve Bisiklet Altyapısı", "Yaya dostu kentsel alanlar ve bisiklet yollarının geliştirilmesi."),
-            ("f", "Paylaşımlı Mobilite", "Bisiklet paylaşımı ve e-scooter sistemleri."),
-            ("g", "Yük Lojistiği", "Demiryolu, denizyolu ve karayolunu birleştiren multimodal lojistik merkezleriyle tedarik zincirlerinin optimize edilmesi."),
-            ("h", "Mobility-as-a-Service (MaaS)", "Sorunsuz ve düşük karbonlu bir seyahat deneyimi için çok modlu ulaşım seçeneklerini tek bir dijital platforma entegre edilmesi."),
-            ("i", "Akıllı Araç, Şarj Altyapısı", "Şarj altyapısına sahip elektrikli araçlar, akıllı şarj altyapısı, talep yönetimi, gece/boş saat tarifesi, batarya yönetimi ve enerji optimizasyonu. Yolcu, toplu taşıma ve yük taşımacılığı için elektrikli araçları (EV'ler) ve hibrit teknolojileri kullanımı."),
-            ("j", "Yeşil Liman / Havalimanı", "Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden yeşil liman/havalimanı sayısını artırılması."),
-            ("k", "Demiryolu Modernizasyonu", "Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendirmesi ve modernizasyonu."),
-            ("l", "Araç Filolarında Enerji İzleme", "Gerçek zamanlı enerji tüketimi takibi, sürüş optimizasyonu, rota planlama ve telemetri tabanlı enerji tasarruf sistemleri."),
-            ("m", "Davranışsal Değişim Girişimleri", "Elektrikli araç (EV) kullanımına yönelik vergi indirimleri veya yüksek emisyonlu eski araçlar için hurdaya ayırma programlarının varlığı."),
-            ("n", "İstihdam ve Ekonomiye Katkı", "Projenin yeni iş olanakları, tedarik zinciri katkısı ve ekonomik döngüye etkisi."),
-            ("o", "Erişilebilirlik ve Kapsayıcılık", "Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
-            ("p", "Acil Durum Lojistiği", "Afet sonrası kritik malzeme, sağlık hizmeti ve tahliye taşımalarının ulaşım sistemi tarafından desteklenebilirliği."),
-            ("q", "Akıllı Altyapı İzleme", "Köprü, tünel, yol, raylı sistem gibi kritik altyapılarda IoT tabanlı sismik, yapısal sağlık ve sel sensörleri kullanımı."),
-            ("r", "Akıllı Ulaşım Sistemleri (AUS)", "Trafik akışını optimize etmek, tıkanıklığı ve emisyonları azaltmak amacıyla Araçtan Araca (V2V) ve Araçtan Altyapıya (V2I) iletişim teknolojilerinin uygulanması ile akıllı şehir altyapısıyla entegre otonom elektrikli araçların araştırılması ve dağıtımı."),
-            ("s", "Dijital Lojistik Yönetimi", "Dijital yük takibi, akıllı depo operasyonları, gerçek zamanlı lojistik optimizasyonu."),
-            ("t", "Siber Güvenlik", "Ulaşım veri altyapılarının güvenliği, kimlik doğrulama, şifreleme, kesintisiz hizmet güvenliği."),
-            ("u", "Trafik İzleme ve Yapay Zeka", "Görüntü işleme, AI tabanlı ihlal tespiti, trafik yoğunluk tahmini, olay tespiti."),
-            ("v", "Sürdürülebilir Mobilite Platformları", "Karbon hesaplama uygulamaları, sürdürülebilir güzergah önerileri, mobil uygulama entegrasyonları."),
-            ("w", "Akıllı Otopark Yönetimi", "Gerçek zamanlı otopark doluluk verisi, yönlendirme panoları, dijital ödeme ve rezervasyon sistemleri."),
+            ("e", "Aktif Mod ve Paylaşımlı Mobilite Altyapısı", "Kentsel ölçekte güvenli ve kesintisiz yürüme–bisiklet altyapısının geliştirilmesi ile paylaşımlı mobilite sistemlerinin (e-scooter, e-bike, paylaşımlı bisiklet vb.) toplu taşıma ve diğer aktif ulaşım modlarıyla entegrasyonu."),
+            ("f", "Yeşil Liman / Havalimanı", "Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden "yeşil liman / havaliman" sayısını artırılması."),
+            ("g", "Demiryolu Taşımacılığının Modernizasyonu", "Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendiriğlmesi ve modernizasyonu."),
+            ("h", "İstihdam ve Ekonomiye Katkı", "Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendiriğlmesi ve modernizasyonu."),
+            ("i", "Erişilebilirlik ve Toplumsal Kapsayıcılık", "Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
+            ("j", "Afetlere Dayanıklı Ulaştırma Altyapısı ve Operasyonel Süreklilik", "Kentsel ulaşım sisteminin afet koşullarına karşı fiziksel altyapı dayanıklılığının artırılmasını, operasyon yönetiminin güçlendirilmesini, AUS tabanlı izlenebilirliğin sağlanmasını, kritik ulaşım ve taşımacılık modlarının sürekliliğini güvence altına almayı ve kent genelinde afet senaryolarına göre hazırlanmış mobilite planlarının uygulanması."),
+            ("k", "Akıllı Ulaşım Sistemleri (AUS), Otonom Araç ve Şarj Altyapısı Teknolojileri ile Elektirifikasyon", "Trafik akışını optimize etmek, tıkanıklığı ve emisyonları azaltmak amacıyla Araçtan Araca (V2V) ve Araçtan Altyapıya (V2I) iletişim teknolojilerinin uygulanması, akıllı ulaşım altyapısı, bağlantılı ve otonom araç teknolojileri, elektrikli araç kullanımının yaygınlaştırılması ve şarj altyapısının optimizasyonu."),
+            ("l", "Mobility-as-a-Service (MaaS)", "Sorunsuz ve düşük karbonlu bir seyahat deneyimi için çok modlu ulaşım seçeneklerini tek bir dijital platforma entegre edilmesi."),
+            ("m", "Akıllı ve Sürdürülebilir Ulaşım Yönetim Sistemleri", "Akıllı ve Sürdürülebilir Ulaşım Yönetim Sistemleri, şehir içi ulaşımda enerji verimliliği, altyapı izlenebilirliği, lojistik operasyonların dijitalleşmesi, trafik yönetiminin yapay zekâ ile optimize edilmesi, sürdürülebilir mobilite çözümlerinin uygulanması ve otopark yönetiminin gerçek zamanlı sistemlerle etkinleştirilmesi."),
         ]
     },
     "stage3": {
         "name": "3. Aşama - Olgunluk Değerlendirmesi",
         "criteria": [
-            ("a", "Teknik Açıklamaların Varlığı", "Projenin teknik bileşenlerinin yeterince açıklanıp açıklanmadığını ve verilen teknik bilgilerin proje gereksinimleriyle uyumu değerlendirilir."),
-            ("b", "CAPEX/OPEX Analizi", "Projenin sermaye (CAPEX) ve işletme (OPEX) maliyetlerinin analiz edilip edilmediğini ve karar sürecini destekleyecek maliyet yapısının net olarak ortaya konup konmadığı değerlendirilir."),
+            ("a", "CAPEX analizi mevcudiyeti", "Projenin sermaye yatırımı (CAPEX) kapsamında; altyapı, üstyapı, araç, ekipman, teknoloji ve inşaat maliyetlerinin detaylı biçimde analiz edilip edilmediğinin ve yatırım kararını destekleyecek finansal çerçevenin oluşturulup oluşturulmadığının değerlendirilmesi."),
+            ("b", "OPEX analizi mevcudiyeti", "Projenin işletme ve bakım (OPEX) maliyetlerinin; personel, enerji, bakım-onarım, yazılım lisansları, yedek parça, sigorta ve operasyon yönetimi gibi kalemler üzerinden kapsamlı biçimde analiz edilip edilmediğinin ve maliyet yapısının netleştirilip netleştirilmediğinin değerlendirilmesi."),
             ("c", "Finansal Analizin Varlığı", "Projenin finansal fizibilitesinin ve karar sürecini destekleyecek analizlerin mevcut olup olmadığı değerlendirilir."),
-            ("d", "Uygulama/Yatırım Kararı", "Proje için daha önce alınmış uygulama veya yatırım kararlarının varlığını ve hazırlık düzeyinin değerlendirilmesi."),
-            ("e", "İzin/Ruhsat Durumu", "Gerekli izin, ruhsat ve onay süreçlerinin tamamlanma durumunun değerlendirilmesi."),
-            ("f", "Zaman Planı Gerçekçiliği", "Projenin önerilen takviminin uygulanabilirliğini, faaliyetlerin süre tahminlerinin gerçekçiliğinin değerlendirilmesi."),
-            ("g", "Risk Yönetimi Planı", "Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
+            ("d", "Risk Yönetimi Planı/Analizi Mevcudiyeti", "Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
         ]
     },
     "stage4": {
@@ -66,8 +53,7 @@ CRITERIA = {
             ("a", "Ölçek Etkisi", "Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
             ("b", "Çevresel Etki", "Projenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
             ("c", "Çarpan Etkisi", "Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
-            ("d", "İnovasyon ve Uyarlanabilirlik", "Projenin inovatif yapısını, pilot uygulama niteliğini ve farklı bölge veya koşullara ölçeklenebilir ve uyarlanabilir olma kapasitesini değerlendirir."),
-            ("e", "Sürdürülebilirlik", "Projenin uzun vadede sürdürülebilirliğini, operasyonel devamlılığını ve kalıcı etki yaratma kapasitesini değerlendirir."),
+            ("d", "İnovasyon ve Uyarlanabilirlik", "Projenin yenilikçi yönünün, farklı koşullara uyarlanabilirliğinin ve uzun vadede sürdürülebilir ve kalıcı etki üretebilecek şekilde uygulanabilir olma kapasitesinin değerlendirilmesi."),
         ]
     },
     "stage_comparison": {
@@ -107,12 +93,12 @@ def check_and_auto_save():
     # Tüm aşamalar tamamlandı mı?
     all_completed = (
         'stage2' in st.session_state.responses and 
-        len(st.session_state.responses['stage2']) == 253 and  # 23 kriter: C(23,2) = 253
+        len(st.session_state.responses['stage2']) == 78 and  # 13 kriter: C(13,2) = 78
         'stage3' in st.session_state.responses and 
-        len(st.session_state.responses['stage3']) == 21 and   # 7 kriter: C(7,2) = 21
+        len(st.session_state.responses['stage3']) == 6 and   # 4 kriter: C(4,2) = 6
         'stage4' in st.session_state.responses and 
-        len(st.session_state.responses['stage4']) == 10 and   # 5 kriter: C(5,2) = 10
-        'stage_comparison' in st.session_state.responses and 
+        len(st.session_state.responses['stage4']) == 6 and   # 4 kriter: C(4,2) = 6
+        'stage_comparison' in st.session_state.responses and
         len(st.session_state.responses['stage_comparison']) == 3  # 3 aşama: C(3,2) = 3
     )
     
@@ -292,7 +278,7 @@ def display_comparison(stage_key, pair_idx):
 
 def welcome_page():
     """Karşılama sayfası"""
-    st.title("🌱 Net Sıfır Proje Değerlendirme Sistemi")
+    st.title("🌱 Net Zero Proje Değerlendirme Sistemi")
     st.markdown("---")
     
     st.markdown("""
@@ -301,9 +287,9 @@ def welcome_page():
     Bu sistem, Net Sıfır Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
     
     #### 📋 Değerlendirme Aşamaları:
-    1. **2. Aşama** - Tema Önceliği (23 kriter)
-    2. **3. Aşama** - Olgunluk Değerlendirmesi (7 kriter)
-    3. **4. Aşama** - Etki ve Kalite (5 kriter)
+    1. **2. Aşama** - Tema Önceliği (13 kriter)
+    2. **3. Aşama** - Olgunluk Değerlendirmesi (4 kriter)
+    3. **4. Aşama** - Etki ve Kalite (4 kriter)
     4. **Aşamalar Arası** - Aşamaların önem karşılaştırması (3 kriter)
     
     #### 🎯 Nasıl Çalışır?
@@ -313,12 +299,12 @@ def welcome_page():
     - Tüm değerlendirme otomatik olarak kaydedilir
     
     #### ⏱️ Tahmini Süre:
-    - **2. Aşama**: ~30 dakika (253 karşılaştırma)
-    - **3. Aşama**: ~5 dakika (21 karşılaştırma)
-    - **4. Aşama**: ~3 dakika (10 karşılaştırma)
-    - **Aşamalar Arası**: ~1 dakika (3 karşılaştırma)
+    - **2. Aşama**: ~12 dakika (78 karşılaştırma)
+    - **3. Aşama**: ~3 dakika (6 karşılaştırma)
+    - **4. Aşama**: ~3 dakika (6 karşılaştırma)
+    - **Aşamalar Arası**: ~2 dakika (3 karşılaştırma)
     
-    **Toplam**: Yaklaşık 40 dakika
+    **Toplam**: Yaklaşık 20 dakika
     """)
     
     st.markdown("---")
@@ -341,7 +327,7 @@ def welcome_page():
 
 def main_evaluation():
     """Ana değerlendirme sayfası"""
-    st.title("🌱 Net Sıfır Proje Değerlendirme")
+    st.title("🌱 Net Zero Proje Değerlendirme")
     
     st.markdown(f"**Uzman:** {st.session_state.expert_name}")
     
