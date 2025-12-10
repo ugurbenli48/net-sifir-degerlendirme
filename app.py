@@ -23,20 +23,21 @@ CRITERIA = {
     "stage2": {
         "name": "2. Aşama - Tema Önceliği",
         "criteria": [
-            ("a", "Düşük Karbonlu Alternatif Yakıtların Geliştirilmesi (Yeşil Hidrojen, Biyoyakıtlar, E-Yakıtlar)", "Açıklama: Elektrifikasyonun mümkün olmadığı ulaşım modlarında kullanılmak üzere yeşil hidrojen, biyoyakıtlar ve sentetik e-yakıtlar gibi düşük karbonlu alternatif yakıtların geliştirilmesi ve uygulanması."),
-            ("b", "Sürdürülebilir ve Karbonsuz Lojistik Hizmetlerinin Geliştirilmesi", "Açıklama: Yük taşımacılığında karbon emisyonlarının azaltılmasını ve demiryolu–denizyolu–karayolu entegrasyonuyla verimli, multimodal tedarik zinciri yapılarının kurulması."),
-            ("c", "Düşük Emisyonlu Taşıtların Satın Alımı / Filo Dönüşümü", "Açıklama: Hidrojen ve elektrikli araçların kamu veya özel filo yapılarında satın alınarak mevcut dizel/benzinli araçların aşamalı biçimde düşük emisyonlu araçlarla değiştirilmesi."),
-            ("d", "Sıfır Emisyonlu Alanlar / Park Alanlarının Geliştirilmesi", "Açıklama: LEZ/ULEZ bölgelerinin oluşturulması / artırılması."),
-            ("e", "Toplu Taşıma Entegrasyon ve Erişebilirliğin Artırılması", "Açıklama: Farklı ulaşım modları arasında entegrasyonu güçlendiren, güzergâh ve aktarma noktalarında yüksek erişilebilirlik sağlayan altyapı ve işletme çözümleri."),
-            ("f", "Aktif Mod ve Paylaşımlı Mobilite Altyapısının Kurulması", "Açıklama: Kentsel ölçekte güvenli ve kesintisiz yürüme–bisiklet altyapısının geliştirilmesi ile paylaşımlı mobilite sistemlerinin (e-scooter, e-bike, paylaşımlı bisiklet vb.) toplu taşıma ve diğer aktif ulaşım modlarıyla entegrasyonu."),
-            ("g", "Yeşil Liman / Havalimanı Dönüşümü ", "Açıklama: Açıklama: Operasyonlarda dijitalleşme ve yenilenebilir enerji çözümlerini entegre eden \"yeşil liman / havaliman\" sayısını artırılması."),
-            ("h", "Demiryolu Ulaşım Ağının Geliştirilmesi", "Açıklama: Yolcu ve yük taşımacılığındaki paylarını artırmak için demiryolu ağlarını elektriklendirilmesi ve modernizasyonu."),
-            ("i", "İstihdam ve Ekonomiye Katkı", "Açıklama: Projenin yeni iş olanakları, tedarik zinciri katkısı ve ekonomik döngüye etkisi."),
-            ("j", "Erişilebilirlik ve Toplumsal Kapsayıcılık", "Açıklama: Engelli, yaşlı, çocuk, düşük gelir grupları ve dezavantajlı gruplar için erişim durumu."),
-            ("k", "Afetlere Dayanıklı Ulaştırma Altyapısı ve Operasyonel Süreklilik", "Açıklama: Kentsel ulaşım sisteminin afet koşullarına karşı fiziksel altyapı dayanıklılığının artırılmasını, operasyon yönetiminin güçlendirilmesini, AUS tabanlı izlenebilirliğin sağlanmasını, kritik ulaşım ve taşımacılık modlarının sürekliliğini güvence altına almayı ve kent genelinde afet senaryolarına göre hazırlanmış mobilite planlarının uygulanması."),
-            ("l", "Batarya, Otonom Araç ve Şarj Altyapısı Teknolojileri ile Elektirifikasyon Altyapısının Geliştirilmesi", "Açıklama: Trafik akışını optimize etmek, tıkanıklığı ve emisyonları azaltmak amacıyla Araçtan Araca (V2V) ve Araçtan Altyapıya (V2I) iletişim teknolojilerinin uygulanması, akıllı ulaşım altyapısı, bağlantılı ve otonom araç teknolojileri, elektrikli araç kullanımının yaygınlaştırılması, batarya teknolojilerinin geliştirilmesi ve şarj altyapısının optimizasyonu."),
-            ("m", "Mobility-as-a-Service (MaaS) Sistemlerinin Geliştirilmesi", "Açıklama: Sorunsuz ve düşük karbonlu bir seyahat deneyimi için çok modlu ulaşım seçeneklerini tek bir dijital platforma entegre edilmesi."),
-            ("n", "Akıllı ve Sürdürülebilir Ulaşım Yönetim Sistemleri (AUS)", "Açıklama: Akıllı ve Sürdürülebilir Ulaşım Yönetim Sistemleri, şehir içi ulaşımda enerji verimliliği, altyapı izlenebilirliği, lojistik operasyonların dijitalleşmesi, trafik yönetiminin yapay zekâ ile optimize edilmesi, sürdürülebilir mobilite çözümlerinin uygulanması ve otopark yönetiminin gerçek zamanlı sistemlerle etkinleştirilmesi."),
+            ("a", "Yıllık ve kümülatif emisyon azaltım potansiyeli", "Açıklama: Projenin yıllık CO₂ azaltımına ve toplam uzun dönem katkısına ilişkin etkisi."),
+            ("b", "Modal kayma etkisi", "Açıklama: Yolculukların yüksek emisyonlu modlardan daha düşük emisyonlu modlara yönelme potansiyeli."),
+            ("c", "Trafik ve tıkanıklık azaltımı", "Açıklama: Trafik akışını iyileştirme, gecikmeleri azaltma ve yol kapasitesini daha verimli kullanma etkisi."),
+            ("d", "Toplu taşıma entegrasyonun ve erişebilirliğin artırılması", "Açıklama: Toplu taşıma kullanımını kolaylaştıran, bağlantıları güçlendiren ve erişimi artıran katkılar."),
+            ("e", "Davranışsal değişim potansiyeli", "Açıklama: Kullanıcıların daha sürdürülebilir ulaşım tercihlerine yönelmesini sağlayacak etkiler."),
+            ("f", "Aktif Mod ve Paylaşımlı Mobilite Altyapısının Kurulması", "Açıklama: Bisiklet, yaya ve paylaşımlı mobilite sistemlerine yönelik altyapı geliştirme düzeyi."),
+            ("g", "Operasyonel enerji verimliliği (kWh/pkm, kWh/tkm düşüşü) ", "Açıklama: Taşıt veya sistem düzeyinde enerji tüketiminde sağlanan düşüş (kWh/pkm, kWh/tkm)."),
+            ("h", "Yenilenebilir enerji entegrasyonu (PV, RES ile şarj, shore-power vb.)ve elektrifikasyon ", "Açıklama: Güneş, rüzgâr veya shore-power gibi temiz enerji kaynaklarının ulaşım altyapısına entegrasyonu."),
+            ("i", "Altyapı verimliliği", "Açıklama: Mevcut altyapının daha verimli kullanılması veya yeni altyapıda verimliliğin artırılması."),
+            ("j", "Ekonomik fayda / maliyet etkinliği", "Açıklama: Projenin ekonomik getirileri ile yatırım/maliyet yapısının dengesi."),
+            ("k", "Dışsallıklar (hava kalitesi, güvenlik, sağlık etkisi)", "Açıklama: Hava kalitesinin iyileşmesi, kazaların azalması ve sağlık üzerindeki genel etkiler."),
+            ("l", "İstihdam yaratma ve tedarik zinciri etkisi", "Açıklama: Yerel ekonomik katkı, yeni iş alanları ve üretim/tedarik kapasitesine katkı düzeyi."),
+            ("m", "Afetlere dayanıklı ulaştırma altyapısı ve operasyonel süreklilik", "Açıklama: Kentsel ulaşım sisteminin afet koşullarına karşı fiziksel altyapı dayanıklılığının artırılmasını, operasyon yönetiminin güçlendirilmesi."),
+            ("n", "Veri tabanlı karar alma kapasitesi ve izleme (MRV, trafik ölçümü, karbon takip)", "Açıklama: Trafik verisi, enerji tüketimi, emisyon takibi gibi veri altyapısının güçlendirilme düzeyi."),
+            ("o", "Akıllı ulaşım sistemleri entegrasyonu (ITS, sinyalizasyon, V2X vb.)", "Açıklama: Dijitalizasyon, sinyal optimizasyonu, iletişim teknolojileri ve akıllı sistem katkıları."),
         ]
     },
     "stage3": {
@@ -52,9 +53,10 @@ CRITERIA = {
         "name": "4. Aşama - Etki ve Kalite",
         "criteria": [
             ("a", "Ölçek Etkisi", "Açıklama: Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
-            ("b", "Çevresel Etki", "Açıklama: Projenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
-            ("c", "Çarpan Etkisi", "Açıklama: Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
-            ("d", "İnovasyon ve Uyarlanabilirlik", "Açıklama: Projenin yenilikçi yönünün, farklı koşullara uyarlanabilirliğinin ve uzun vadede sürdürülebilir ve kalıcı etki üretebilecek şekilde uygulanabilir olma kapasitesinin değerlendirilmesi."),
+            ("b", "Çevresel Etki", "Açıklama: GHProjenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
+            ("c", "Zaman etkisi ", "Açıklama: Emisyon azaltımının ne zaman devreye girdiği- kısa vade etki 0-5 yıl, orta vade etki 5-10, uzun vadede etki 10+ yıl "),
+            ("d", "Çarpan Etkisi", "Açıklama: Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
+            ("e", "İnovasyon ve sürdürülebilir uygulanabilirlik", "Açıklama: Projenin yenilikçi yönünün, farklı koşullara uyarlanabilirliğinin ve uzun vadede sürdürülebilir ve kalıcı etki üretebilecek şekilde uygulanabilir olma kapasitesinin değerlendirilmesi."),
         ]
     },
     "stage_comparison": {
@@ -94,11 +96,11 @@ def check_and_auto_save():
     # Tüm aşamalar tamamlandı mı?
     all_completed = (
         'stage2' in st.session_state.responses and 
-        len(st.session_state.responses['stage2']) == 91 and  # 14 kriter: C(14,2) = 91
+        len(st.session_state.responses['stage2']) == 105 and  # 15 kriter: C(15,2) = 105
         'stage3' in st.session_state.responses and 
         len(st.session_state.responses['stage3']) == 6 and   # 4 kriter: C(4,2) = 6
         'stage4' in st.session_state.responses and 
-        len(st.session_state.responses['stage4']) == 6 and   # 4 kriter: C(4,2) = 6
+        len(st.session_state.responses['stage4']) == 10 and   # 5 kriter: C(5,2) = 10
         'stage_comparison' in st.session_state.responses and 
         len(st.session_state.responses['stage_comparison']) == 3  # 3 aşama: C(3,2) = 3
     )
@@ -214,9 +216,9 @@ def welcome_page():
     Bu sistem, Net Zero Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
     
     #### 📋 Değerlendirme Aşamaları:
-    1. **2. Aşama** - Tema Önceliği (14 kriter)
+    1. **2. Aşama** - Tema Önceliği (15 kriter)
     2. **3. Aşama** - Olgunluk Değerlendirmesi (4 kriter)
-    3. **4. Aşama** - Etki ve Kalite (4 kriter)
+    3. **4. Aşama** - Etki ve Kalite (5 kriter)
     4. **Aşamalar Arası** - Aşamaların önem karşılaştırması (3 kriter)
     
     #### 🎯 Nasıl Çalışır?
@@ -226,9 +228,9 @@ def welcome_page():
     - Tüm değerlendirme otomatik olarak kaydedilir
     
     #### ⏱️ Tahmini Süre:
-    - **2. Aşama**: ~15 dakika (91 karşılaştırma)
+    - **2. Aşama**: ~15 dakika (105 karşılaştırma)
     - **3. Aşama**: ~2 dakika (6 karşılaştırma)
-    - **4. Aşama**: ~2 dakika (6 karşılaştırma)
+    - **4. Aşama**: ~2 dakika (10 karşılaştırma)
     - **Aşamalar Arası**: ~1 dakika (3 karşılaştırma)
     
     **Toplam**: Yaklaşık 20 dakika
