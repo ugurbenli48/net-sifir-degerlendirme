@@ -57,6 +57,8 @@ CRITERIA = {
             ("c", "Zaman etkisi ", "Açıklama: Emisyon azaltımının ne zaman devreye girdiği- kısa vade etki 0-5 yıl, orta vade etki 5-10, uzun vadede etki 10+ yıl "),
             ("d", "Çarpan Etkisi", "Açıklama: Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
             ("e", "İnovasyon ve sürdürülebilir uygulanabilirlik", "Açıklama: Projenin yenilikçi yönünün, farklı koşullara uyarlanabilirliğinin ve uzun vadede sürdürülebilir ve kalıcı etki üretebilecek şekilde uygulanabilir olma kapasitesinin değerlendirilmesi."),
+            ("f", "İzlenebilirlik", "Açıklama: Eylemin ilerlemesinin düzenli olarak takip edilebilmesi, süreç ve sonuç bilgilerinin şeffaf bir şekilde kayıt altına alınması ve raporlanabilir olmasıdır."),
+            ("g", "Ölçülebilirlik", "Açıklama: Eylemin başarısının nicel göstergelerle değerlendirilebilmesi, hedeflerin sayısal olarak tanımlanması ve sonuçların objektif biçimde ölçülebilmesidir."),
         ]
     },
     "stage_comparison": {
@@ -100,7 +102,7 @@ def check_and_auto_save():
         'stage3' in st.session_state.responses and 
         len(st.session_state.responses['stage3']) == 6 and   # 4 kriter: C(4,2) = 6
         'stage4' in st.session_state.responses and 
-        len(st.session_state.responses['stage4']) == 10 and   # 5 kriter: C(5,2) = 10
+        len(st.session_state.responses['stage4']) == 21 and   # 7 kriter: C(7,2) = 21
         'stage_comparison' in st.session_state.responses and 
         len(st.session_state.responses['stage_comparison']) == 3  # 3 aşama: C(3,2) = 3
     )
@@ -228,12 +230,12 @@ def welcome_page():
     - Tüm değerlendirme otomatik olarak kaydedilir
     
     #### ⏱️ Tahmini Süre:
-    - **2. Aşama**: ~15 dakika (105 karşılaştırma)
+    - **2. Aşama**: ~17 dakika (105 karşılaştırma)
     - **3. Aşama**: ~2 dakika (6 karşılaştırma)
-    - **4. Aşama**: ~2 dakika (10 karşılaştırma)
+    - **4. Aşama**: ~5 dakika (21 karşılaştırma)
     - **Aşamalar Arası**: ~1 dakika (3 karşılaştırma)
     
-    **Toplam**: Yaklaşık 20 dakika
+    **Toplam**: Yaklaşık 25 dakika
     """)
     
     st.markdown("---")
