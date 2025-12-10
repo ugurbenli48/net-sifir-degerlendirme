@@ -30,7 +30,7 @@ CRITERIA = {
             ("e", "Davranışsal değişim potansiyeli", "Açıklama: Kullanıcıların daha sürdürülebilir ulaşım tercihlerine yönelmesini sağlayacak etkiler."),
             ("f", "Aktif Mod ve Paylaşımlı Mobilite Altyapısının Kurulması", "Açıklama: Bisiklet, yaya ve paylaşımlı mobilite sistemlerine yönelik altyapı geliştirme düzeyi."),
             ("g", "Operasyonel enerji verimliliği (kWh/pkm, kWh/tkm düşüşü) ", "Açıklama: Taşıt veya sistem düzeyinde enerji tüketiminde sağlanan düşüş (kWh/pkm, kWh/tkm)."),
-            ("h", "Yenilenebilir enerji entegrasyonu (PV, RES ile şarj, shore-power vb.)ve elektrifikasyon ", "Açıklama: Güneş, rüzgâr veya shore-power gibi temiz enerji kaynaklarının ulaşım altyapısına entegrasyonu."),
+            ("h", "Yenilenebilir enerji entegrasyonu (PV, RES ile şarj, shore-power vb.) ve elektrifikasyon ", "Açıklama: Güneş, rüzgâr veya shore-power gibi temiz enerji kaynaklarının ulaşım altyapısına entegrasyonu."),
             ("i", "Altyapı verimliliği", "Açıklama: Mevcut altyapının daha verimli kullanılması veya yeni altyapıda verimliliğin artırılması."),
             ("j", "Ekonomik fayda / maliyet etkinliği", "Açıklama: Projenin ekonomik getirileri ile yatırım/maliyet yapısının dengesi."),
             ("k", "Dışsallıklar (hava kalitesi, güvenlik, sağlık etkisi)", "Açıklama: Hava kalitesinin iyileşmesi, kazaların azalması ve sağlık üzerindeki genel etkiler."),
