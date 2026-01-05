@@ -18,7 +18,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# 11 BENZERSİZ KRİTER - TÜM PROJE TÜRLERİNDE AYNI
+# 11 BENZERSİZ KRİTER
 COMMON_CRITERIA = [
     ("a", "Finansal Analiz", "Projenin finansal fizibilitesi ile maliyet ve kaynak kullanımının karar alma sürecini destekleyecek yeterlilikte analiz edilip edilmediği değerlendirilir."),
     ("b", "Çevresel Etki", "Projenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOₓ, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
@@ -56,47 +56,27 @@ if 'expert_name' not in st.session_state:
     st.session_state.expert_name = ""
 if 'current_stage' not in st.session_state:
     st.session_state.current_stage = "welcome"
+if 'current_tab' not in st.session_state:
+    st.session_state.current_tab = 0
 
 def generate_pairs(criteria_list):
     """Tüm kriter çiftlerini oluştur"""
     return list(itertools.combinations(criteria_list, 2))
 
 def save_response(stage, pair_key, winner_choice, importance):
-    """Yanıtı ESKİ FORMATTA kaydet: "e_f": "2e" """
+    """ESKİ FORMAT: "e_f": "2e" - KAZANAN KRİTER + ÖNEM DERECESİ"""
     if stage not in st.session_state.responses:
         st.session_state.responses[stage] = {}
     
-    # stage2 -> "2", stage3 -> "3", stage4 -> "4"
-    stage_num = stage.replace("stage", "")
-    
-    # Eşit seçildiyse "0", değilse kazanan kriter + stage numarası
+    # Eşit seçildiyse "0"
     if winner_choice == "equal":
         value = "0"
     else:
-        # winner_choice "a" veya "b" gibi gelecek
-        value = f"{stage_num}{winner_choice}"  # Örnek: "2e" veya "3a"
+        # Kazanan kriter + önem derecesi
+        # Örnek: e kazandı, önem 5 -> "5e"
+        value = f"{importance}{winner_choice}"
     
     st.session_state.responses[stage][pair_key] = value
-
-def check_and_auto_save():
-    """Tüm aşamalar tamamlandıysa otomatik kaydet"""
-    if 'auto_saved' in st.session_state and st.session_state.auto_saved:
-        return
-    
-    # 11 kriter: C(11,2) = 55 karşılaştırma
-    all_completed = (
-        'stage2' in st.session_state.responses and 
-        len(st.session_state.responses['stage2']) == 55 and
-        'stage3' in st.session_state.responses and 
-        len(st.session_state.responses['stage3']) == 55 and
-        'stage4' in st.session_state.responses and 
-        len(st.session_state.responses['stage4']) == 55
-    )
-    
-    if all_completed:
-        success = save_results_to_server()
-        if success:
-            st.session_state.auto_saved = True
 
 def display_comparison(stage_key, pair_idx):
     """Kriter karşılaştırma arayüzü"""
@@ -174,25 +154,37 @@ def display_comparison(stage_key, pair_idx):
     
     with col2:
         if st.button("💾 Kaydet ve İlerle", key=f"save_{stage_key}_{pair_idx}", type="primary"):
-            # Kazananı belirle
+            # Kazananı ve önem derecesini belirle
             if choice == "Eşit önemde":
                 winner = "equal"
-                importance_value = None
+                importance_value = "0"
             elif choice.startswith(f"Kriter {criterion_a[0].upper()}"):
                 winner = criterion_a[0]
-                importance_value = importance.split(" - ")[0] if importance else "1"
+                importance_value = importance.split(" - ")[0]  # "5" gibi
             else:
                 winner = criterion_b[0]
-                importance_value = importance.split(" - ")[0] if importance else "1"
+                importance_value = importance.split(" - ")[0]  # "5" gibi
             
-            # ESKİ FORMATTA KAYDET
+            # KAYDET: "e_f": "5e" formatında
             save_response(stage_key, pair_key, winner, importance_value)
             
             # Sonraki soruya geç
             if pair_idx < len(pairs) - 1:
+                # Daha soru var, sonrakine geç
                 st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-            
-            st.rerun()
+                st.rerun()
+            else:
+                # 55. soru bitti, sekme değiştir
+                if stage_key == "stage2":
+                    st.session_state.current_tab = 1  # Teknik Destek
+                elif stage_key == "stage3":
+                    st.session_state.current_tab = 2  # Yapım İşleri
+                elif stage_key == "stage4":
+                    # Tümü bitti, otomatik kaydet
+                    if not st.session_state.get('auto_saved', False):
+                        save_results_to_server()
+                        st.session_state.auto_saved = True
+                st.rerun()
     
     with col3:
         if pair_idx < len(pairs) - 1:
@@ -220,21 +212,18 @@ def welcome_page():
     - Yeni teknolojiler, yöntemler veya süreçler geliştirmeyi hedefleyen projeler
     - Araştırma ve geliştirme odaklı, inovatif çözümler üreten çalışmalar
     - Pilot uygulamalar ve yenilikçi yaklaşımlar içeren projeler
-    - **Bu proje türü için 11 kriterin önem derecelerini belirleyeceksiniz**
     
     **2. 🛠️ Teknik Destek Projesi**
     - Mevcut sistemlere teknik destek ve danışmanlık hizmeti sunan projeler
     - Kapasite geliştirme, eğitim ve bilgi transferi içeren çalışmalar
     - Kurumsal altyapı ve sistemlerin güçlendirilmesine yönelik projeler
-    - **Bu proje türü için 11 kriterin önem derecelerini belirleyeceksiniz**
     
     **3. 🏗️ Yapım İşleri / Altyapı Projesi**
     - Fiziksel altyapı inşası ve iyileştirmesi içeren projeler
     - Büyük ölçekli yatırım gerektiren yapım işleri
     - Ulaşım altyapısı, enerji sistemleri gibi somut çıktılar üreten projeler
-    - **Bu proje türü için 11 kriterin önem derecelerini belirleyeceksiniz**
     
-    #### 🎯 11 Değerlendirme Kriteri (Tüm Proje Türlerinde Aynı):
+    #### 🎯 11 Değerlendirme Kriteri:
     
     | Kriter | Açıklama |
     |--------|----------|
@@ -250,34 +239,13 @@ def welcome_page():
     | **J - Çarpan Etkisi** | Ek ekonomik/sosyal/çevresel faydalar |
     | **K - Ölçek Ekonomileri** | Etki alanı ve nüfus büyüklüğü |
     
-    #### 📝 Değerlendirme Süreci:
+    #### 📝 Değerlendirme:
     
-    **Her proje türü için aynı 11 kriteri ikili karşılaştırma yöntemiyle değerlendireceksiniz.**
+    - Her proje türü için **55 karşılaştırma** (toplam 165)
+    - Önem derecesi: **1** (Çok az) - **5** (Son derece önemli)
+    - Süre: **45-60 dakika**
     
-    - Her karşılaştırmada **hangi kriterin o proje türü için daha önemli** olduğunu seçin
-    - Önem derecesini **1-5** arasında belirleyin:
-      - **1**: Çok az önemli
-      - **2**: Az önemli
-      - **3**: Önemli
-      - **4**: Çok önemli
-      - **5**: Son derece önemli
-    - **Eşit önemde** seçeneğini de kullanabilirsiniz (her iki kriter de aynı öneme sahip)
-    
-    **ÖNEMLİ NOT:** Aynı kriterler (örneğin Finansal Analiz ve Çevresel Etki) farklı proje türlerinde farklı önem derecelerine sahip olabilir. Örneğin:
-    - Ar-Ge projesinde **İnovasyon** çok önemli olabilir
-    - Yapım İşlerinde **Finansal Analiz** ve **Ölçek Ekonomileri** daha önemli olabilir
-    - Teknik Destek'te **Bilgi Transferi** ön plana çıkabilir
-    
-    #### ⏱️ Süre:
-    - Her proje türü için: **55 karşılaştırma** (11 kriter kombinasyonu)
-    - **Toplam: 165 karşılaştırma** (3 proje türü × 55)
-    - Ortalama süre: **45-60 dakika**
-    
-    #### 💡 İpuçları:
-    - Her proje türünü değerlendirirken **o proje türünün doğasını** göz önünde bulundurun
-    - Ara ara kaydetme yapılacağı için endişelenmeyin
-    - Tüm karşılaştırmalar bitince sistem **otomatik olarak kaydedecektir**
-    
+    **NOT:** Aynı kriterler farklı proje türlerinde farklı önem derecelerine sahip olabilir.
     """)
     
     st.markdown("---")
@@ -300,7 +268,7 @@ def welcome_page():
         st.session_state.expert_name = expert_name
         st.session_state.expert_org = expert_org
         st.session_state.current_stage = "evaluation"
-        st.session_state['active_tab'] = 0  # İlk sekmeyi aktif yap
+        st.session_state.current_tab = 0
         st.rerun()
     
     if not expert_name:
@@ -325,24 +293,19 @@ def main_evaluation():
     
     st.markdown("---")
     
-    # Active tab için session state
-    if 'active_tab' not in st.session_state:
-        st.session_state['active_tab'] = 0
+    # Manuel sekme kontrolü
+    tab_index = st.session_state.get('current_tab', 0)
     
-    # Sekmeler - 3 proje türü + Sonuçlar
-    tab_names = [
-        "🔬 " + PROJECT_TYPES["stage2"]["name"],
-        "🛠️ " + PROJECT_TYPES["stage3"]["name"],
-        "🏗️ " + PROJECT_TYPES["stage4"]["name"],
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "🔬 İnovasyon ve Ar-Ge",
+        "🛠️ Teknik Destek",
+        "🏗️ Yapım İşleri",
         "📊 Sonuçlar"
-    ]
+    ])
     
-    # Streamlit tabs ile göster
-    tabs = st.tabs(tab_names)
-    
-    # İnovasyon ve Ar-Ge
-    with tabs[0]:
-        st.header(PROJECT_TYPES["stage2"]["name"])
+    # Ar-Ge
+    with tab1:
+        st.header("İnovasyon ve Ar-Ge Projesi")
         st.write("**11 kriter - 55 karşılaştırma**")
         
         if f'pair_idx_stage2' not in st.session_state:
@@ -350,17 +313,11 @@ def main_evaluation():
         
         completed = display_comparison("stage2", st.session_state['pair_idx_stage2'])
         if completed:
-            st.success("✅ İnovasyon ve Ar-Ge Projesi değerlendirmesi tamamlandı!")
-            
-            # Eğer bu sekme aktifse ve tamamlandıysa, kullanıcıyı yönlendir
-            if st.session_state.get('active_tab') == 0:
-                st.info("⏭️ Otomatik olarak **Teknik Destek Projesi** sekmesine geçiliyor...")
-                st.session_state['active_tab'] = 1
-                st.rerun()
+            st.success("✅ İnovasyon ve Ar-Ge Projesi tamamlandı!")
     
     # Teknik Destek
-    with tabs[1]:
-        st.header(PROJECT_TYPES["stage3"]["name"])
+    with tab2:
+        st.header("Teknik Destek Projesi")
         st.write("**11 kriter - 55 karşılaştırma**")
         
         if f'pair_idx_stage3' not in st.session_state:
@@ -368,17 +325,11 @@ def main_evaluation():
         
         completed = display_comparison("stage3", st.session_state['pair_idx_stage3'])
         if completed:
-            st.success("✅ Teknik Destek Projesi değerlendirmesi tamamlandı!")
-            
-            # Eğer bu sekme aktifse ve tamamlandıysa, kullanıcıyı yönlendir
-            if st.session_state.get('active_tab') == 1:
-                st.info("⏭️ Otomatik olarak **Yapım İşleri / Altyapı Projesi** sekmesine geçiliyor...")
-                st.session_state['active_tab'] = 2
-                st.rerun()
+            st.success("✅ Teknik Destek Projesi tamamlandı!")
     
     # Yapım İşleri
-    with tabs[2]:
-        st.header(PROJECT_TYPES["stage4"]["name"])
+    with tab3:
+        st.header("Yapım İşleri / Altyapı Projesi")
         st.write("**11 kriter - 55 karşılaştırma**")
         
         if f'pair_idx_stage4' not in st.session_state:
@@ -386,27 +337,20 @@ def main_evaluation():
         
         completed = display_comparison("stage4", st.session_state['pair_idx_stage4'])
         if completed:
-            st.success("✅ Yapım İşleri / Altyapı Projesi değerlendirmesi tamamlandı!")
-            st.success("🎉 Tüm değerlendirme tamamlandı!")
+            st.success("✅ Yapım İşleri / Altyapı Projesi tamamlandı!")
             
             # Otomatik kaydet
             if not st.session_state.get('auto_saved', False):
-                with st.spinner('Değerlendirmeniz kaydediliyor...'):
+                with st.spinner('Kaydediliyor...'):
                     success = save_results_to_server()
                     if success:
                         st.session_state.auto_saved = True
-                        st.success("✅ Değerlendirmeniz otomatik olarak kaydedildi!")
+                        st.success("✅ Otomatik kaydedildi!")
                         st.balloons()
-                    else:
-                        st.error("⚠️ Otomatik kayıt başarısız. Lütfen 'Sonuçlar' sekmesinden manuel olarak kaydedin.")
-            else:
-                st.info("✅ Değerlendirmeniz daha önce kaydedildi.")
-            
-            st.info("📌 Yukarıdaki **'📊 Sonuçlar'** sekmesine tıklayarak sonuçlarınızı görebilirsiniz.")
     
     # Sonuçlar
-    with tabs[3]:
-        st.header("📊 Değerlendirme Sonuçları")
+    with tab4:
+        st.header("📊 Sonuçlar")
         display_results()
 
 def display_results():
@@ -415,53 +359,38 @@ def display_results():
         st.info("Henüz değerlendirme yapılmadı.")
         return
     
-    # Özet bilgiler
+    # Özet
     for stage_key, responses in st.session_state.responses.items():
         stage_name = PROJECT_TYPES[stage_key]["name"]
-        total_pairs = 55  # 11 kriter: C(11,2) = 55
         completed = len(responses)
-        
-        if completed == total_pairs:
-            st.write(f"**{stage_name}:** ✅ {completed}/{total_pairs} karşılaştırma tamamlandı")
+        if completed == 55:
+            st.write(f"**{stage_name}:** ✅ {completed}/55")
         else:
-            st.write(f"**{stage_name}:** ⏳ {completed}/{total_pairs} karşılaştırma tamamlandı")
+            st.write(f"**{stage_name}:** ⏳ {completed}/55")
     
     st.markdown("---")
     
-    # Tüm değerlendirmeler tamamlandı mı
+    # Tümü tamamlandı mı
     all_completed = (
-        'stage2' in st.session_state.responses and len(st.session_state.responses['stage2']) == 55 and
-        'stage3' in st.session_state.responses and len(st.session_state.responses['stage3']) == 55 and
-        'stage4' in st.session_state.responses and len(st.session_state.responses['stage4']) == 55
+        len(st.session_state.responses.get('stage2', {})) == 55 and
+        len(st.session_state.responses.get('stage3', {})) == 55 and
+        len(st.session_state.responses.get('stage4', {})) == 55
     )
     
     if all_completed:
         if st.session_state.get('auto_saved', False):
-            st.success("✅ Değerlendirmeniz otomatik olarak kaydedildi!")
+            st.success("✅ Değerlendirmeniz kaydedildi!")
         
-        st.success("🎉 Tüm proje türleri için değerlendirme tamamlandı!")
-        
-        if st.button("💾 Sonuçları Tekrar Kaydet", type="primary"):
+        if st.button("💾 Tekrar Kaydet"):
             success = save_results_to_server()
             if success:
-                st.success("✅ Değerlendirmeniz yeniden kaydedildi!")
+                st.success("✅ Kaydedildi!")
                 st.balloons()
-                st.info("Teşekkür ederiz! Sayfayı kapatabilirsiniz.")
-            else:
-                st.error("❌ Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.")
     else:
-        st.warning("⚠️ Lütfen tüm proje türleri için değerlendirmeyi tamamlayın.")
-        
-        # Hangi aşamalar eksik?
-        if 'stage2' not in st.session_state.responses or len(st.session_state.responses.get('stage2', {})) < 55:
-            st.info("📌 İnovasyon ve Ar-Ge Projesi değerlendirmesini tamamlayın")
-        if 'stage3' not in st.session_state.responses or len(st.session_state.responses.get('stage3', {})) < 55:
-            st.info("📌 Teknik Destek Projesi değerlendirmesini tamamlayın")
-        if 'stage4' not in st.session_state.responses or len(st.session_state.responses.get('stage4', {})) < 55:
-            st.info("📌 Yapım İşleri / Altyapı Projesi değerlendirmesini tamamlayın")
+        st.warning("⚠️ Tüm proje türlerini tamamlayın.")
 
 def save_results_to_server():
-    """Sonuçları Google Sheets'e kaydet - ESKİ FORMATTA"""
+    """Google Sheets'e kaydet"""
     try:
         credentials_dict = st.secrets.get("gcp_service_account", None)
         
@@ -481,26 +410,23 @@ def save_results_to_server():
         
         sheet = client.open_by_key(spreadsheet_id).sheet1
         
-        # Veri hazırla - ESKİ FORMAT
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         expert_name = st.session_state.expert_name
         expert_org = st.session_state.get('expert_org', '')
         
-        # ESKİ FORMAT: {"stage2": {"a_b": "2b", ...}, "stage3": {...}, "stage4": {...}}
         json_data = json.dumps(st.session_state.responses, ensure_ascii=False)
         
         row_data = [timestamp, expert_name, expert_org, json_data]
-        
         sheet.append_row(row_data)
         
         return True
         
     except Exception as e:
-        print(f"Google Sheets kayıt hatası: {e}")
+        print(f"Hata: {e}")
         return save_to_local_temp()
 
 def save_to_local_temp():
-    """Yedek: Local temp klasörüne kaydet"""
+    """Yedek kayıt"""
     try:
         data = {
             "expert_name": st.session_state.expert_name,
@@ -511,22 +437,19 @@ def save_to_local_temp():
         
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         
-        safe_name = st.session_state.expert_name.replace(' ', '_').replace('/', '_')
+        safe_name = st.session_state.expert_name.replace(' ', '_')
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         filename = f"degerlendirme_{safe_name}_{timestamp}.json"
         
-        save_path = f"/tmp/{filename}"
-        
-        with open(save_path, 'w', encoding='utf-8') as f:
+        with open(f"/tmp/{filename}", 'w', encoding='utf-8') as f:
             f.write(json_str)
         
         return True
         
     except Exception as e:
-        print(f"Local kayıt hatası: {e}")
+        print(f"Hata: {e}")
         return False
 
-# Ana uygulama
 def main():
     if st.session_state.current_stage == "welcome":
         welcome_page()
