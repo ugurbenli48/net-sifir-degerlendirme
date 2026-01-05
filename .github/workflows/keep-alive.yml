@@ -1,0 +1,16 @@
+name: Keep Streamlit Alive
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Her 10 dakikada bir çalışır
+  workflow_dispatch:  # Manuel olarak da çalıştırılabilir
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Streamlit App
+        run: |
+          echo "Pinging Streamlit app..."
+          curl -I https://net-sifir-degerlendirme.streamlit.app || echo "Ping failed but continuing..."
+          echo "Ping completed at $(date)"
