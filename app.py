@@ -18,34 +18,56 @@ st.set_page_config(
     layout="wide"
 )
 
-# 11 BENZERSİZ KRİTER
-COMMON_CRITERIA = [
-    ("a", "Finansal Analiz", "Projenin finansal fizibilitesi ile maliyet ve kaynak kullanımının karar alma sürecini destekleyecek yeterlilikte analiz edilip edilmediği değerlendirilir."),
-    ("b", "Çevresel Etki", "Projenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOₓ, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
-    ("c", "İzlenebilirlik", "Eytemin ilerlemesinin düzenli olarak takip edilebilmesi, süreç ve sonuç bilgilerinin şeffaf bir şekilde izlenebilir ve raporlanabilir olmasıdır."),
-    ("d", "Ölçülebilirlik", "Eytemin başarısının nicel göstergelerle değerlendirilebilmesi, hedeflerin sayısal olarak tanımlanması ve sonuçların objektif biçimde ölçülebilmesidir."),
-    ("e", "Zaman Etkisi", "Emisyon azaltımının ne zaman devreye girdiği– kısa vade etki 0-5 yıl, orta vade etki 5-10, uzun vadede etki 10+ yıl."),
-    ("f", "Risk Yönetim Planı / Analizi", "Proje kapsamında teknik, idari ve yasal risklerin tanımlanma düzeyi, bu risklere yönelik önlemlerin azaltıcı stratejilerin yeterliliği değerlendirilir."),
-    ("g", "İnovasyon ve Katma Değer", "Projenin yeni yöntemler, araçlar veya süreçler geliştirerek kurumsal, sektörel veya toplumsal düzeyde somut katma değer üretme potansiyelini değerlendirir."),
-    ("h", "Yapılabilirlik", "Projenin mevcut kapasite, zaman, teknik koşullar ve ekip yetkinliği altında gerçekçi ve uygulanabilir olup olmadığı değerlendirilir."),
-    ("i", "Bilgi Transferi", "Proje kapsamında üretilen bilgi ve yöntemlerin kurum personeline aktarılması ve proje sonrasında bağımsız şekilde kullanılabilir olması değerlendirilir."),
-    ("j", "Çarpan Etkisi", "Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
-    ("k", "Ölçek Ekonomileri", "Projenin etkidiği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
-]
-
-# Proje türleri
-PROJECT_TYPES = {
+# Kriterleri tanımla
+CRITERIA = {
     "stage2": {
-        "name": "İnovasyon ve Ar-Ge Projesi",
-        "criteria": COMMON_CRITERIA
+        "name": "2. Aşama - Tema Önceliği",
+        "criteria": [
+            ("a", "Yıllık ve kümülatif emisyon azaltım potansiyeli", "Açıklama: Projenin yıllık CO₂ azaltımına ve toplam uzun dönem katkısına ilişkin etkisi."),
+            ("b", "Modal kayma etkisi", "Açıklama: Yolculukların yüksek emisyonlu modlardan daha düşük emisyonlu modlara yönelme potansiyeli."),
+            ("c", "Trafik ve tıkanıklık azaltımı", "Açıklama: Trafik akışını iyileştirme, gecikmeleri azaltma ve yol kapasitesini daha verimli kullanma etkisi."),
+            ("d", "Toplu taşıma entegrasyonun ve erişebilirliğin artırılması", "Açıklama: Toplu taşıma kullanımını kolaylaştıran, bağlantıları güçlendiren ve erişimi artıran katkılar."),
+            ("e", "Davranışsal değişim potansiyeli", "Açıklama: Kullanıcıların daha sürdürülebilir ulaşım tercihlerine yönelmesini sağlayacak etkiler."),
+            ("f", "Aktif Mod ve Paylaşımlı Mobilite Altyapısının Kurulması", "Açıklama: Bisiklet, yaya ve paylaşımlı mobilite sistemlerine yönelik altyapı geliştirme düzeyi."),
+            ("g", "Operasyonel enerji verimliliği (kWh/pkm, kWh/tkm düşüşü) ", "Açıklama: Taşıt veya sistem düzeyinde enerji tüketiminde sağlanan düşüş (kWh/pkm, kWh/tkm)."),
+            ("h", "Yenilenebilir enerji entegrasyonu (PV, RES ile şarj, shore-power vb.) ve elektrifikasyon ", "Açıklama: Güneş, rüzgâr veya shore-power gibi temiz enerji kaynaklarının ulaşım altyapısına entegrasyonu ile elektrikli araç ve sistemleri destekleyen elektrifikasyon altyapısının geliştirilmesi."),
+            ("i", "Altyapı verimliliği", "Açıklama: Mevcut altyapının fiziksel kapasitesini ve hizmet düzeyini artıran, trafik akışını iyileştiren ve tıkanıklığı azaltan çözümler bu kriterde değerlendirilir. Ör; demiryolu sinyalizasyon modernizasyonu, limanlarda shore-power, karayolunda adaptif sinyalizasyon uygulamaları, havalimanlarında apron operasyonları optimizasyonu vb."),
+            ("j", "Ekonomik fayda / maliyet etkinliği", "Açıklama: Projenin ekonomik getirileri ile yatırım/maliyet yapısının dengesi."),
+            ("k", "Dışsallıklar (hava kalitesi, güvenlik, sağlık etkisi)", "Açıklama: Hava kalitesinin iyileşmesi, kazaların azalması ve sağlık üzerindeki genel etkiler."),
+            ("l", "İstihdam yaratma ve tedarik zinciri etkisi", "Açıklama: Yerel ekonomik katkı, yeni iş alanları ve üretim/tedarik kapasitesine katkı düzeyi."),
+            ("m", "Afetlere dayanıklı ulaştırma altyapısı ve operasyonel süreklilik", "Açıklama: Kentsel ulaşım sisteminin afet koşullarına karşı fiziksel altyapı dayanıklılığının artırılmasını, operasyon yönetiminin güçlendirilmesi."),
+            ("n", "Veri tabanlı karar alma kapasitesi ve izleme (MRV, trafik ölçümü, karbon takip)", "Açıklama: Trafik verisi, enerji tüketimi, emisyon takibi gibi veri altyapısının güçlendirilme düzeyi."),
+            ("o", "Akıllı ulaşım sistemleri entegrasyonu (ITS, sinyalizasyon, V2X vb.)", "Açıklama: Dijitalizasyon, sinyal optimizasyonu, iletişim teknolojileri ve akıllı sistem katkıları."),
+        ]
     },
     "stage3": {
-        "name": "Teknik Destek Projesi",
-        "criteria": COMMON_CRITERIA
+        "name": "3. Aşama - Olgunluk Değerlendirmesi",
+        "criteria": [
+            ("a", "CAPEX analizi mevcudiyeti", "Açıklama: Projenin sermaye yatırımı (CAPEX) kapsamında; altyapı, üstyapı, araç, ekipman, teknoloji ve inşaat maliyetlerinin detaylı biçimde analiz edilip edilmediğinin ve yatırım kararını destekleyecek finansal çerçevenin oluşturulup oluşturulmadığının değerlendirilmesi."),
+            ("b", "OPEX analizi mevcudiyeti", "Açıklama: Projenin işletme ve bakım (OPEX) maliyetlerinin; personel, enerji, bakım-onarım, yazılım lisansları, yedek parça, sigorta ve operasyon yönetimi gibi kalemler üzerinden kapsamlı biçimde analiz edilip edilmediğinin ve maliyet yapısının netleştirilip netleştirilmediğinin değerlendirilmesi."),
+            ("c", "Finansal analizin varlığı", "Açıklama: Projenin finansal fizibilitesinin ve karar sürecini destekleyecek analizlerin mevcut olup olmadığı değerlendirilir."),
+            ("d", "Risk Yönetimi Planı/Analizi Mevcudiyeti", "Açıklama: Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
+        ]
     },
     "stage4": {
-        "name": "Yapım İşleri / Altyapı Projesi",
-        "criteria": COMMON_CRITERIA
+        "name": "4. Aşama - Etki ve Kalite",
+        "criteria": [
+            ("a", "Ölçek Etkisi", "Açıklama: Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
+            ("b", "Çevresel Etki", "Açıklama: GHProjenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
+            ("c", "Zaman etkisi ", "Açıklama: Emisyon azaltımının ne zaman devreye girdiği- kısa vade etki 0-5 yıl, orta vade etki 5-10, uzun vadede etki 10+ yıl "),
+            ("d", "Çarpan Etkisi", "Açıklama: Projenin doğrudan çıktılarının ötesinde ek ekonomik, sosyal veya çevresel faydalar üretme potansiyelini değerlendirir."),
+            ("e", "İnovasyon ve sürdürülebilir uygulanabilirlik", "Açıklama: Projenin yenilikçi yönünün, farklı koşullara uyarlanabilirliğinin ve uzun vadede sürdürülebilir ve kalıcı etki üretebilecek şekilde uygulanabilir olma kapasitesinin değerlendirilmesi."),
+            ("f", "İzlenebilirlik", "Açıklama: Eylemin ilerlemesinin düzenli olarak takip edilebilmesi, süreç ve sonuç bilgilerinin şeffaf bir şekilde kayıt altına alınması ve raporlanabilir olmasıdır."),
+            ("g", "Ölçülebilirlik", "Açıklama: Eylemin başarısının nicel göstergelerle değerlendirilebilmesi, hedeflerin sayısal olarak tanımlanması ve sonuçların objektif biçimde ölçülebilmesidir."),
+        ]
+    },
+    "stage_comparison": {
+        "name": "Aşamalar Arası Karşılaştırma",
+        "criteria": [
+            ("a", "2. Aşama - Tema Önceliği", "Açıklama: Projenin hangi temaya odaklandığı ve bu temanın öncelik düzeyi."),
+            ("b", "3. Aşama - Olgunluk Değerlendirmesi", "Açıklama: Projenin teknik, finansal ve operasyonel olgunluk seviyesi."),
+            ("c", "4. Aşama - Etki ve Kalite", "Açıklama: Projenin sosyal, ekonomik, çevresel etkisi ve teknik kalitesi."),
+        ]
     }
 }
 
@@ -56,31 +78,44 @@ if 'expert_name' not in st.session_state:
     st.session_state.expert_name = ""
 if 'current_stage' not in st.session_state:
     st.session_state.current_stage = "welcome"
-if 'current_tab' not in st.session_state:
-    st.session_state.current_tab = 0
 
 def generate_pairs(criteria_list):
     """Tüm kriter çiftlerini oluştur"""
     return list(itertools.combinations(criteria_list, 2))
 
-def save_response(stage, pair_key, winner_choice, importance):
-    """ESKİ FORMAT: "e_f": "2e" - KAZANAN KRİTER + ÖNEM DERECESİ"""
+def save_response(stage, pair_key, response):
+    """Yanıtı kaydet"""
     if stage not in st.session_state.responses:
         st.session_state.responses[stage] = {}
+    st.session_state.responses[stage][pair_key] = response
+
+def check_and_auto_save():
+    """Tüm aşamalar tamamlandıysa otomatik kaydet"""
+    # Zaten kaydedildi mi kontrol et
+    if 'auto_saved' in st.session_state and st.session_state.auto_saved:
+        return
     
-    # Eşit seçildiyse "0"
-    if winner_choice == "equal":
-        value = "0"
-    else:
-        # Kazanan kriter + önem derecesi
-        # Örnek: e kazandı, önem 5 -> "5e"
-        value = f"{importance}{winner_choice}"
+    # Tüm aşamalar tamamlandı mı?
+    all_completed = (
+        'stage2' in st.session_state.responses and 
+        len(st.session_state.responses['stage2']) == 105 and  # 15 kriter: C(15,2) = 105
+        'stage3' in st.session_state.responses and 
+        len(st.session_state.responses['stage3']) == 6 and   # 4 kriter: C(4,2) = 6
+        'stage4' in st.session_state.responses and 
+        len(st.session_state.responses['stage4']) == 21 and   # 7 kriter: C(7,2) = 21
+        'stage_comparison' in st.session_state.responses and 
+        len(st.session_state.responses['stage_comparison']) == 3  # 3 aşama: C(3,2) = 3
+    )
     
-    st.session_state.responses[stage][pair_key] = value
+    if all_completed:
+        # Otomatik kaydet
+        success = save_results_to_server()
+        if success:
+            st.session_state.auto_saved = True
 
 def display_comparison(stage_key, pair_idx):
     """Kriter karşılaştırma arayüzü"""
-    stage_data = PROJECT_TYPES[stage_key]
+    stage_data = CRITERIA[stage_key]
     criteria_list = stage_data["criteria"]
     pairs = generate_pairs(criteria_list)
     
@@ -120,6 +155,7 @@ def display_comparison(stage_key, pair_idx):
     col_a, col_b, col_c = st.columns([1, 2, 1])
     
     with col_b:
+        # Önce hangisinin önemli olduğunu seç
         choice = st.radio(
             "Daha önemli olan kriter:",
             [f"Kriter {criterion_a[0].upper()}: {criterion_a[1]}", 
@@ -129,257 +165,182 @@ def display_comparison(stage_key, pair_idx):
             index=1
         )
         
-        importance = None
+        # Önem derecesi
+        importance = 0
         if choice != "Eşit önemde":
             importance = st.select_slider(
                 "Önem derecesi:",
-                options=[
-                    "1 - Çok az önemli",
-                    "2 - Az önemli",
-                    "3 - Önemli", 
-                    "4 - Çok önemli",
-                    "5 - Son derece önemli"
-                ],
-                value="3 - Önemli",
+                options=[1, 2, 3],
+                value=2,
+                format_func=lambda x: {1: "Zayıf tercih", 2: "Orta düzey", 3: "Çok güçlü"}[x],
                 key=f"importance_{stage_key}_{pair_key}"
             )
     
-    # Butonlar
-    col1, col2, col3 = st.columns([1, 1, 1])
+    # Yanıtı kaydet ve devam et
+    col_prev, col_next = st.columns(2)
     
-    with col1:
-        if st.button("⬅️ Önceki", key=f"prev_{stage_key}_{pair_idx}", disabled=(pair_idx == 0)):
-            st.session_state[f'pair_idx_{stage_key}'] = max(0, pair_idx - 1)
-            st.rerun()
+    with col_prev:
+        if pair_idx > 0:
+            if st.button("⬅️ Önceki", key=f"prev_{stage_key}_{pair_idx}"):
+                st.session_state[f'pair_idx_{stage_key}'] = pair_idx - 1
+                st.rerun()
     
-    with col2:
-        if st.button("💾 Kaydet ve İlerle", key=f"save_{stage_key}_{pair_idx}", type="primary"):
-            # Kazananı ve önem derecesini belirle
+    with col_next:
+        if st.button("Devam ➡️" if pair_idx < len(pairs) - 1 else "Bu Aşamayı Tamamla ✓", key=f"next_{stage_key}_{pair_idx}"):
+            # Yanıtı kaydet
             if choice == "Eşit önemde":
-                winner = "equal"
-                importance_value = "0"
-            elif choice.startswith(f"Kriter {criterion_a[0].upper()}"):
-                winner = criterion_a[0]
-                importance_value = importance.split(" - ")[0]  # "5" gibi
+                response = "0"
+            elif criterion_a[1] in choice:
+                response = f"{importance}{criterion_a[0]}"
             else:
-                winner = criterion_b[0]
-                importance_value = importance.split(" - ")[0]  # "5" gibi
+                response = f"{importance}{criterion_b[0]}"
             
-            # KAYDET: "e_f": "5e" formatında
-            save_response(stage_key, pair_key, winner, importance_value)
+            save_response(stage_key, pair_key, response)
             
             # Sonraki soruya geç
-            if pair_idx < len(pairs) - 1:
-                # Daha soru var, sonrakine geç
-                st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-            else:
-                # 55. soru tamamlandı! Sekmeyi değiştir
-                if stage_key == "stage2":
-                    st.session_state.active_tab_idx = 1  # Teknik Destek'e geç
-                elif stage_key == "stage3":
-                    st.session_state.active_tab_idx = 2  # Yapım İşleri'ne geç
-                elif stage_key == "stage4":
-                    st.session_state.active_tab_idx = 3  # Sonuçlar'a geç
-                    # Otomatik kaydet
-                    if not st.session_state.get('auto_saved', False):
-                        save_results_to_server()
-                        st.session_state.auto_saved = True
+            st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
+            
+            # Otomatik kayıt: Tüm aşamalar tamamlandı mı kontrol et
+            check_and_auto_save()
             
             st.rerun()
-    
-    with col3:
-        if pair_idx < len(pairs) - 1:
-            if st.button("➡️ Atla", key=f"next_{stage_key}_{pair_idx}"):
-                st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-                st.rerun()
     
     return False
 
 def welcome_page():
     """Karşılama sayfası"""
-    st.title("🌱 Net Sıfır Emisyon Proje Değerlendirme Sistemi")
+    st.title("🌱 Net Zero Proje Değerlendirme Sistemi")
     st.markdown("---")
     
     st.markdown("""
-    ### Hoş Geldiniz! 👋
+    ### Hoş Geldiniz!
     
-    Bu sistem, Net Sıfır Emisyon projelerinin değerlendirilmesi için **AHP (Analytic Hierarchy Process)** metoduyla geliştirilmiştir.
+    Bu sistem, Net Zero Projesi kapsamındaki proje başvurularını değerlendirmek için tasarlanmıştır.
     
-    #### 📋 Değerlendirilecek Proje Türleri:
+    #### 📋 Değerlendirme Aşamaları:
+    1. **2. Aşama** - Tema Önceliği (15 kriter)
+    2. **3. Aşama** - Olgunluk Değerlendirmesi (4 kriter)
+    3. **4. Aşama** - Etki ve Kalite (5 kriter)
+    4. **Aşamalar Arası** - Aşamaların önem karşılaştırması (3 kriter)
     
-    Sistemde 3 farklı proje türü bulunmaktadır ve **her proje türü için aynı 11 kriter ayrı ayrı değerlendirilecektir**:
+    #### 🎯 Nasıl Çalışır?
+    - Her adımda iki kriter karşılaştırılır
+    - Hangisinin daha önemli olduğunu seçersiniz
+    - Önem derecesini belirlersiniz (zayıf, orta, güçlü)
+    - Tüm değerlendirme otomatik olarak kaydedilir
     
-    **1. 🔬 İnovasyon ve Ar-Ge Projesi**
-    - Yeni teknolojiler, yöntemler veya süreçler geliştirmeyi hedefleyen projeler
-    - Araştırma ve geliştirme odaklı, inovatif çözümler üreten çalışmalar
-    - Pilot uygulamalar ve yenilikçi yaklaşımlar içeren projeler
+    #### ⏱️ Tahmini Süre:
+    - **2. Aşama**: ~17 dakika (105 karşılaştırma)
+    - **3. Aşama**: ~2 dakika (6 karşılaştırma)
+    - **4. Aşama**: ~5 dakika (21 karşılaştırma)
+    - **Aşamalar Arası**: ~1 dakika (3 karşılaştırma)
     
-    **2. 🛠️ Teknik Destek Projesi**
-    - Mevcut sistemlere teknik destek ve danışmanlık hizmeti sunan projeler
-    - Kapasite geliştirme, eğitim ve bilgi transferi içeren çalışmalar
-    - Kurumsal altyapı ve sistemlerin güçlendirilmesine yönelik projeler
-    
-    **3. 🏗️ Yapım İşleri / Altyapı Projesi**
-    - Fiziksel altyapı inşası ve iyileştirmesi içeren projeler
-    - Büyük ölçekli yatırım gerektiren yapım işleri
-    - Ulaşım altyapısı, enerji sistemleri gibi somut çıktılar üreten projeler
-    
-    #### 🎯 11 Değerlendirme Kriteri:
-    
-    | Kriter | Açıklama |
-    |--------|----------|
-    | **A - Finansal Analiz** | Maliyet analizi ve finansal fizibilite |
-    | **B - Çevresel Etki** | GHG azaltımı, enerji verimliliği, hava kalitesi |
-    | **C - İzlenebilirlik** | Süreç takibi ve raporlanabilirlik |
-    | **D - Ölçülebilirlik** | Nicel göstergeler ve objektif ölçüm |
-    | **E - Zaman Etkisi** | Kısa/orta/uzun vade etki süresi |
-    | **F - Risk Yönetimi** | Risk analizi ve azaltıcı stratejiler |
-    | **G - İnovasyon** | Yenilikçilik ve katma değer üretimi |
-    | **H - Yapılabilirlik** | Teknik ve operasyonel gerçekleştirilebilirlik |
-    | **I - Bilgi Transferi** | Kuruma bilgi aktarımı ve sürdürülebilirlik |
-    | **J - Çarpan Etkisi** | Ek ekonomik/sosyal/çevresel faydalar |
-    | **K - Ölçek Ekonomileri** | Etki alanı ve nüfus büyüklüğü |
-    
-    #### 📝 Değerlendirme:
-    
-    - Her proje türü için **55 karşılaştırma** (toplam 165)
-    - Önem derecesi: **1** (Çok az) - **5** (Son derece önemli)
-    - Süre: **45-60 dakika**
-    
-    **NOT:** Aynı kriterler farklı proje türlerinde farklı önem derecelerine sahip olabilir.
+    **Toplam**: Yaklaşık 25 dakika
     """)
     
     st.markdown("---")
     
     col1, col2 = st.columns(2)
-    
     with col1:
-        expert_name = st.text_input("👤 Adınız Soyadınız *", 
-                                    value=st.session_state.expert_name,
-                                    placeholder="Örn: Ahmet Yılmaz")
-    
+        expert_name = st.text_input("👤 Adınız Soyadınız:", value=st.session_state.expert_name)
     with col2:
-        expert_org = st.text_input("🏢 Kurumunuz (İsteğe bağlı)", 
-                                   value=st.session_state.get('expert_org', ''),
-                                   placeholder="Örn: Ulaştırma Bakanlığı")
+        expert_org = st.text_input("🏢 Kurum/Organizasyon:")
     
-    st.markdown("---")
-    
-    if st.button("🚀 Değerlendirmeye Başla", type="primary", disabled=not expert_name):
-        st.session_state.expert_name = expert_name
-        st.session_state.expert_org = expert_org
-        st.session_state.current_stage = "evaluation"
-        st.session_state.current_tab = 0
-        st.rerun()
-    
-    if not expert_name:
-        st.warning("⚠️ Lütfen adınızı soyadınızı girin.")
+    if st.button("🚀 Değerlendirmeye Başla"):
+        if expert_name:
+            st.session_state.expert_name = expert_name
+            st.session_state.expert_org = expert_org
+            st.session_state.current_stage = "stage2"
+            st.session_state['pair_idx_stage2'] = 0
+            st.rerun()
+        else:
+            st.error("Lütfen adınızı soyadınızı girin.")
 
 def main_evaluation():
-    """Ana değerlendirme ekranı"""
-    st.title("🌱 Net Sıfır Emisyon Proje Değerlendirme")
+    """Ana değerlendirme sayfası"""
+    st.title("🌱 Net Zero Proje Değerlendirme")
     
-    # Üst bilgi
-    col1, col2, col3 = st.columns([2, 2, 1])
-    with col1:
-        st.info(f"👤 **Uzman:** {st.session_state.expert_name}")
-    with col2:
-        if st.session_state.get('expert_org'):
-            st.info(f"🏢 **Kurum:** {st.session_state.expert_org}")
-    with col3:
-        if st.button("🔄 Yeniden Başla"):
-            for key in list(st.session_state.keys()):
-                del st.session_state[key]
-            st.rerun()
+    st.markdown(f"**Uzman:** {st.session_state.expert_name}")
     
     st.markdown("---")
     
-    # Hangi stage tamamlandı kontrol et ve otomatik sekme belirle
-    stage2_completed = len(st.session_state.responses.get('stage2', {})) == 55
-    stage3_completed = len(st.session_state.responses.get('stage3', {})) == 55
-    stage4_completed = len(st.session_state.responses.get('stage4', {})) == 55
-    
-    # Default tab belirleme
-    if 'active_tab_idx' not in st.session_state:
-        if not stage2_completed:
-            st.session_state.active_tab_idx = 0
-        elif not stage3_completed:
-            st.session_state.active_tab_idx = 1
-        elif not stage4_completed:
-            st.session_state.active_tab_idx = 2
-        else:
-            st.session_state.active_tab_idx = 3
-    
-    # Sekme seçici
-    tab_names = [
-        "🔬 İnovasyon ve Ar-Ge",
-        "🛠️ Teknik Destek",
-        "🏗️ Yapım İşleri",
+    # Aşama seçimi
+    tabs = st.tabs([
+        "2️⃣ Tema Önceliği",
+        "3️⃣ Olgunluk",
+        "4️⃣ Etki ve Kalite",
+        "🔗 Aşamalar Arası",
         "📊 Sonuçlar"
-    ]
+    ])
     
-    selected_tab = st.radio(
-        "Proje Türü:",
-        options=range(4),
-        format_func=lambda x: tab_names[x],
-        index=st.session_state.active_tab_idx,
-        horizontal=True,
-        key="tab_selector"
-    )
-    
-    st.session_state.active_tab_idx = selected_tab
-    
-    st.markdown("---")
-    
-    # Seçilen sekmeyi göster
-    if selected_tab == 0:
-        # Ar-Ge
-        st.header("İnovasyon ve Ar-Ge Projesi")
-        st.write("**11 kriter - 55 karşılaştırma**")
-        
+    # 2. Aşama
+    with tabs[0]:
+        st.header(CRITERIA["stage2"]["name"])
         if f'pair_idx_stage2' not in st.session_state:
             st.session_state['pair_idx_stage2'] = 0
         
         completed = display_comparison("stage2", st.session_state['pair_idx_stage2'])
         if completed:
-            st.success("✅ İnovasyon ve Ar-Ge Projesi tamamlandı!")
+            st.success("✅ 2. Aşama tamamlandı!")
+            st.info("👉 Üstteki **'3️⃣ Olgunluk'** sekmesine tıklayarak devam edin.")
     
-    elif selected_tab == 1:
-        # Teknik Destek
-        st.header("Teknik Destek Projesi")
-        st.write("**11 kriter - 55 karşılaştırma**")
-        
-        if f'pair_idx_stage3' not in st.session_state:
-            st.session_state['pair_idx_stage3'] = 0
-        
-        completed = display_comparison("stage3", st.session_state['pair_idx_stage3'])
-        if completed:
-            st.success("✅ Teknik Destek Projesi tamamlandı!")
-    
-    elif selected_tab == 2:
-        # Yapım İşleri
-        st.header("Yapım İşleri / Altyapı Projesi")
-        st.write("**11 kriter - 55 karşılaştırma**")
-        
-        if f'pair_idx_stage4' not in st.session_state:
-            st.session_state['pair_idx_stage4'] = 0
-        
-        completed = display_comparison("stage4", st.session_state['pair_idx_stage4'])
-        if completed:
-            st.success("✅ Yapım İşleri / Altyapı Projesi tamamlandı!")
+    # 3. Aşama
+    with tabs[1]:
+        st.header(CRITERIA["stage3"]["name"])
+        if 'stage2' in st.session_state.responses and len(st.session_state.responses['stage2']) > 0:
+            if f'pair_idx_stage3' not in st.session_state:
+                st.session_state['pair_idx_stage3'] = 0
             
-            # Otomatik kaydet
-            if not st.session_state.get('auto_saved', False):
-                with st.spinner('Kaydediliyor...'):
-                    success = save_results_to_server()
-                    if success:
-                        st.session_state.auto_saved = True
-                        st.success("✅ Otomatik kaydedildi!")
-                        st.balloons()
+            completed = display_comparison("stage3", st.session_state['pair_idx_stage3'])
+            if completed:
+                st.success("✅ 3. Aşama tamamlandı!")
+                st.info("👉 Üstteki **'4️⃣ Etki ve Kalite'** sekmesine tıklayarak devam edin.")
+        else:
+            st.warning("⚠️ Önce 2. Aşamayı tamamlayın.")
     
-    else:
-        # Sonuçlar
-        st.header("📊 Sonuçlar")
+    # 4. Aşama
+    with tabs[2]:
+        st.header(CRITERIA["stage4"]["name"])
+        if 'stage3' in st.session_state.responses and len(st.session_state.responses['stage3']) > 0:
+            if f'pair_idx_stage4' not in st.session_state:
+                st.session_state['pair_idx_stage4'] = 0
+            
+            completed = display_comparison("stage4", st.session_state['pair_idx_stage4'])
+            if completed:
+                st.success("✅ 4. Aşama tamamlandı!")
+                st.info("👉 Üstteki **'🔗 Aşamalar Arası'** sekmesine tıklayarak devam edin.")
+        else:
+            st.warning("⚠️ Önce 3. Aşamayı tamamlayın.")
+    
+    # Aşamalar Arası
+    with tabs[3]:
+        st.header(CRITERIA["stage_comparison"]["name"])
+        if 'stage4' in st.session_state.responses and len(st.session_state.responses['stage4']) > 0:
+            if f'pair_idx_stage_comparison' not in st.session_state:
+                st.session_state['pair_idx_stage_comparison'] = 0
+            
+            completed = display_comparison("stage_comparison", st.session_state['pair_idx_stage_comparison'])
+            if completed:
+                st.success("🎉 Tüm değerlendirme tamamlandı!")
+                
+                # Otomatik kaydet (henüz kaydedilmemişse)
+                if not st.session_state.get('auto_saved', False):
+                    with st.spinner('Değerlendirmeniz kaydediliyor...'):
+                        success = save_results_to_server()
+                        if success:
+                            st.session_state.auto_saved = True
+                            st.success("✅ Değerlendirmeniz otomatik olarak kaydedildi!")
+                            st.balloons()
+                        else:
+                            st.error("⚠️ Otomatik kayıt başarısız. Lütfen 'Sonuçlar' sekmesinden manuel olarak kaydedin.")
+                else:
+                    st.info("✅ Değerlendirmeniz daha önce kaydedildi.")
+        else:
+            st.warning("⚠️ Önce 4. Aşamayı tamamlayın.")
+    
+    # Sonuçlar
+    with tabs[4]:
+        st.header("📊 Değerlendirme Sonuçları")
         display_results()
 
 def display_results():
@@ -388,44 +349,51 @@ def display_results():
         st.info("Henüz değerlendirme yapılmadı.")
         return
     
-    # Özet
+    # Özet bilgiler
     for stage_key, responses in st.session_state.responses.items():
-        stage_name = PROJECT_TYPES[stage_key]["name"]
-        completed = len(responses)
-        if completed == 55:
-            st.write(f"**{stage_name}:** ✅ {completed}/55")
-        else:
-            st.write(f"**{stage_name}:** ⏳ {completed}/55")
+        stage_name = CRITERIA[stage_key]["name"]
+        st.write(f"**{stage_name}:** {len(responses)} karşılaştırma tamamlandı ✅")
     
     st.markdown("---")
     
-    # Tümü tamamlandı mı
+    # Tüm aşamalar tamamlandı mı kontrol et
     all_completed = (
-        len(st.session_state.responses.get('stage2', {})) == 55 and
-        len(st.session_state.responses.get('stage3', {})) == 55 and
-        len(st.session_state.responses.get('stage4', {})) == 55
+        'stage2' in st.session_state.responses and 
+        'stage3' in st.session_state.responses and 
+        'stage4' in st.session_state.responses and 
+        'stage_comparison' in st.session_state.responses
     )
     
     if all_completed:
+        # Otomatik kayıt yapıldı mı bildir
         if st.session_state.get('auto_saved', False):
-            st.success("✅ Değerlendirmeniz kaydedildi!")
+            st.success("✅ Değerlendirmeniz otomatik olarak kaydedildi!")
         
-        if st.button("💾 Tekrar Kaydet"):
+        st.success("🎉 Tüm aşamalar tamamlandı!")
+        
+        if st.button("💾 Sonuçları Tekrar Kaydet", type="primary"):
+            # Manuel kayıt (yedek için)
             success = save_results_to_server()
             if success:
-                st.success("✅ Kaydedildi!")
+                st.success("✅ Değerlendirmeniz yeniden kaydedildi!")
                 st.balloons()
+                st.info("Teşekkür ederiz! Sayfayı kapatabilirsiniz.")
+            else:
+                st.error("❌ Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.")
     else:
-        st.warning("⚠️ Tüm proje türlerini tamamlayın.")
+        st.warning("⚠️ Lütfen tüm aşamaları tamamlayın.")
 
 def save_results_to_server():
-    """Google Sheets'e kaydet"""
+    """Sonuçları Google Sheets'e kaydet (sadece JSON olarak)"""
     try:
+        # Google Sheets credentials
         credentials_dict = st.secrets.get("gcp_service_account", None)
         
         if not credentials_dict or not GOOGLE_SHEETS_AVAILABLE:
+            # Fallback: Local kayıt
             return save_to_local_temp()
         
+        # Google Sheets bağlantısı
         scope = ['https://spreadsheets.google.com/feeds',
                  'https://www.googleapis.com/auth/drive']
         
@@ -433,29 +401,36 @@ def save_results_to_server():
             credentials_dict, scope)
         client = gspread.authorize(credentials)
         
+        # Spreadsheet aç (ID Streamlit secrets'ta)
         spreadsheet_id = st.secrets.get("spreadsheet_id", None)
         if not spreadsheet_id:
             return save_to_local_temp()
         
         sheet = client.open_by_key(spreadsheet_id).sheet1
         
+        # Veri hazırla - SADECE 4 SÜTUN
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         expert_name = st.session_state.expert_name
         expert_org = st.session_state.get('expert_org', '')
         
+        # Tüm veriyi JSON olarak
         json_data = json.dumps(st.session_state.responses, ensure_ascii=False)
         
+        # Tek satır, 4 sütun
         row_data = [timestamp, expert_name, expert_org, json_data]
+        
+        # Satırı ekle
         sheet.append_row(row_data)
         
         return True
         
     except Exception as e:
-        print(f"Hata: {e}")
+        print(f"Google Sheets kayıt hatası: {e}")
+        # Fallback: Local kayıt
         return save_to_local_temp()
 
 def save_to_local_temp():
-    """Yedek kayıt"""
+    """Yedek: Local temp klasörüne kaydet"""
     try:
         data = {
             "expert_name": st.session_state.expert_name,
@@ -466,19 +441,22 @@ def save_to_local_temp():
         
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         
-        safe_name = st.session_state.expert_name.replace(' ', '_')
+        safe_name = st.session_state.expert_name.replace(' ', '_').replace('/', '_')
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         filename = f"degerlendirme_{safe_name}_{timestamp}.json"
         
-        with open(f"/tmp/{filename}", 'w', encoding='utf-8') as f:
+        save_path = f"/tmp/{filename}"
+        
+        with open(save_path, 'w', encoding='utf-8') as f:
             f.write(json_str)
         
         return True
         
     except Exception as e:
-        print(f"Hata: {e}")
+        print(f"Local kayıt hatası: {e}")
         return False
 
+# Ana uygulama
 def main():
     if st.session_state.current_stage == "welcome":
         welcome_page()
