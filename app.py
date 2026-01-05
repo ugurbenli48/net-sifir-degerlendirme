@@ -152,16 +152,13 @@ def display_comparison(stage_key, pair_idx):
             importance = st.select_slider(
                 "Önem derecesi:",
                 options=[
+                    "1 - Eşit",
                     "2 - Az önemli",
                     "3 - Orta önemli", 
-                    "4 - Orta-Yüksek önemli",
-                    "5 - Yüksek önemli",
-                    "6 - Yüksek-Çok yüksek önemli",
-                    "7 - Çok yüksek önemli",
-                    "8 - Çok yüksek-Aşırı önemli",
-                    "9 - Aşırı önemli"
+                    "4 - Önemli",
+                    "5 - Çok önemli"
                 ],
-                value="5 - Yüksek önemli",
+                value="3 - Orta önemli",
                 key=f"importance_{stage_key}_{pair_key}"
             )
     
@@ -175,22 +172,24 @@ def display_comparison(stage_key, pair_idx):
     
     with col2:
         if st.button("💾 Kaydet ve İlerle", key=f"save_{stage_key}_{pair_idx}", type="primary"):
-            response = {
+            # Seçimi ve önem derecesini kaydet
+            response_value = {
                 "choice": choice,
                 "importance": importance.split(" - ")[0] if importance else "1"
             }
-            save_response(stage_key, pair_key, response)
+            save_response(stage_key, pair_key, response_value)
             
+            # Sonraki soruya geç
             if pair_idx < len(pairs) - 1:
                 st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-                st.rerun()
             else:
+                # Tamamlandı
                 check_and_auto_save()
-                st.rerun()
+            st.rerun()
     
     with col3:
         if pair_idx < len(pairs) - 1:
-            if st.button("➡️ Sonraki", key=f"next_{stage_key}_{pair_idx}"):
+            if st.button("➡️ Sonraki (Kaydetmeden)", key=f"next_{stage_key}_{pair_idx}"):
                 st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
                 st.rerun()
     
@@ -374,7 +373,7 @@ def display_results():
         st.warning("⚠️ Lütfen tüm proje türleri için değerlendirmeyi tamamlayın.")
 
 def save_results_to_server():
-    """Sonuçları Google Sheets'e kaydet"""
+    """Sonuçları Google Sheets'e kaydet - 2a, 3b formatında"""
     try:
         credentials_dict = st.secrets.get("gcp_service_account", None)
         
@@ -394,12 +393,28 @@ def save_results_to_server():
         
         sheet = client.open_by_key(spreadsheet_id).sheet1
         
-        # Veri hazırla
+        # Veri hazırla - Formatı dönüştür
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         expert_name = st.session_state.expert_name
         expert_org = st.session_state.get('expert_org', '')
         
-        json_data = json.dumps(st.session_state.responses, ensure_ascii=False)
+        # Formatı dönüştür: stage2 -> 2, stage3 -> 3, stage4 -> 4
+        # a_b -> a-b şeklinde kaydet (örn: stage2, a_b -> 2a-2b)
+        formatted_responses = {}
+        for stage_key, responses in st.session_state.responses.items():
+            # stage2 -> "2", stage3 -> "3", stage4 -> "4"
+            stage_num = stage_key.replace("stage", "")
+            
+            formatted_stage = {}
+            for pair_key, response_data in responses.items():
+                # a_b -> 2a-2b formatına dönüştür
+                criteria = pair_key.split("_")
+                formatted_key = f"{stage_num}{criteria[0]}-{stage_num}{criteria[1]}"
+                formatted_stage[formatted_key] = response_data
+            
+            formatted_responses[stage_num] = formatted_stage
+        
+        json_data = json.dumps(formatted_responses, ensure_ascii=False)
         
         row_data = [timestamp, expert_name, expert_org, json_data]
         
