@@ -172,19 +172,20 @@ def display_comparison(stage_key, pair_idx):
             if pair_idx < len(pairs) - 1:
                 # Daha soru var, sonrakine geç
                 st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
-                st.rerun()
             else:
-                # 55. soru bitti, sekme değiştir
+                # 55. soru tamamlandı! Sekmeyi değiştir
                 if stage_key == "stage2":
-                    st.session_state.current_tab = 1  # Teknik Destek
+                    st.session_state.active_tab_idx = 1  # Teknik Destek'e geç
                 elif stage_key == "stage3":
-                    st.session_state.current_tab = 2  # Yapım İşleri
+                    st.session_state.active_tab_idx = 2  # Yapım İşleri'ne geç
                 elif stage_key == "stage4":
-                    # Tümü bitti, otomatik kaydet
+                    st.session_state.active_tab_idx = 3  # Sonuçlar'a geç
+                    # Otomatik kaydet
                     if not st.session_state.get('auto_saved', False):
                         save_results_to_server()
                         st.session_state.auto_saved = True
-                st.rerun()
+            
+            st.rerun()
     
     with col3:
         if pair_idx < len(pairs) - 1:
@@ -293,18 +294,46 @@ def main_evaluation():
     
     st.markdown("---")
     
-    # Manuel sekme kontrolü
-    tab_index = st.session_state.get('current_tab', 0)
+    # Hangi stage tamamlandı kontrol et ve otomatik sekme belirle
+    stage2_completed = len(st.session_state.responses.get('stage2', {})) == 55
+    stage3_completed = len(st.session_state.responses.get('stage3', {})) == 55
+    stage4_completed = len(st.session_state.responses.get('stage4', {})) == 55
     
-    tab1, tab2, tab3, tab4 = st.tabs([
+    # Default tab belirleme
+    if 'active_tab_idx' not in st.session_state:
+        if not stage2_completed:
+            st.session_state.active_tab_idx = 0
+        elif not stage3_completed:
+            st.session_state.active_tab_idx = 1
+        elif not stage4_completed:
+            st.session_state.active_tab_idx = 2
+        else:
+            st.session_state.active_tab_idx = 3
+    
+    # Sekme seçici
+    tab_names = [
         "🔬 İnovasyon ve Ar-Ge",
         "🛠️ Teknik Destek",
         "🏗️ Yapım İşleri",
         "📊 Sonuçlar"
-    ])
+    ]
     
-    # Ar-Ge
-    with tab1:
+    selected_tab = st.radio(
+        "Proje Türü:",
+        options=range(4),
+        format_func=lambda x: tab_names[x],
+        index=st.session_state.active_tab_idx,
+        horizontal=True,
+        key="tab_selector"
+    )
+    
+    st.session_state.active_tab_idx = selected_tab
+    
+    st.markdown("---")
+    
+    # Seçilen sekmeyi göster
+    if selected_tab == 0:
+        # Ar-Ge
         st.header("İnovasyon ve Ar-Ge Projesi")
         st.write("**11 kriter - 55 karşılaştırma**")
         
@@ -315,8 +344,8 @@ def main_evaluation():
         if completed:
             st.success("✅ İnovasyon ve Ar-Ge Projesi tamamlandı!")
     
-    # Teknik Destek
-    with tab2:
+    elif selected_tab == 1:
+        # Teknik Destek
         st.header("Teknik Destek Projesi")
         st.write("**11 kriter - 55 karşılaştırma**")
         
@@ -327,8 +356,8 @@ def main_evaluation():
         if completed:
             st.success("✅ Teknik Destek Projesi tamamlandı!")
     
-    # Yapım İşleri
-    with tab3:
+    elif selected_tab == 2:
+        # Yapım İşleri
         st.header("Yapım İşleri / Altyapı Projesi")
         st.write("**11 kriter - 55 karşılaştırma**")
         
@@ -348,8 +377,8 @@ def main_evaluation():
                         st.success("✅ Otomatik kaydedildi!")
                         st.balloons()
     
-    # Sonuçlar
-    with tab4:
+    else:
+        # Sonuçlar
         st.header("📊 Sonuçlar")
         display_results()
 
