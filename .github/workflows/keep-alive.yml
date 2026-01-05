@@ -12,5 +12,5 @@ jobs:
       - name: Ping Streamlit App
         run: |
           echo "Pinging Streamlit app..."
-          curl -I https://net-sifir-degerlendirme.streamlit.app || echo "Ping failed but continuing..."
+          curl -I https://net-sifir-degerlendirme-9z3wiisteretimsb3gcflz.streamlit.app/ || echo "Ping failed but continuing..."
           echo "Ping completed at $(date)"
