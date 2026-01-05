@@ -154,8 +154,8 @@ def display_comparison(stage_key, pair_idx):
             importance = st.select_slider(
                 "Önem derecesi:",
                 options=[
-                    "1 - Az önemli",
-                    "2 - Orta derecede önemli",
+                    "1 - Çok az önemli",
+                    "2 - Az önemli",
                     "3 - Önemli", 
                     "4 - Çok önemli",
                     "5 - Son derece önemli"
@@ -191,6 +191,7 @@ def display_comparison(stage_key, pair_idx):
             # Sonraki soruya geç
             if pair_idx < len(pairs) - 1:
                 st.session_state[f'pair_idx_{stage_key}'] = pair_idx + 1
+            
             st.rerun()
     
     with col3:
@@ -209,38 +210,73 @@ def welcome_page():
     st.markdown("""
     ### Hoş Geldiniz! 👋
     
-    Bu sistem, Net Sıfır Emisyon projelerinin değerlendirilmesi için geliştirilmiştir.
+    Bu sistem, Net Sıfır Emisyon projelerinin değerlendirilmesi için **AHP (Analytic Hierarchy Process)** metoduyla geliştirilmiştir.
     
     #### 📋 Değerlendirilecek Proje Türleri:
     
-    1. **İnovasyon ve Ar-Ge Projesi** (11 kriter - 55 karşılaştırma)
-    2. **Teknik Destek Projesi** (11 kriter - 55 karşılaştırma)
-    3. **Yapım İşleri / Altyapı Projesi** (11 kriter - 55 karşılaştırma)
+    Sistemde 3 farklı proje türü bulunmaktadır ve **her proje türü için aynı 11 kriter ayrı ayrı değerlendirilecektir**:
     
-    #### 🎯 11 Değerlendirme Kriteri:
+    **1. 🔬 İnovasyon ve Ar-Ge Projesi**
+    - Yeni teknolojiler, yöntemler veya süreçler geliştirmeyi hedefleyen projeler
+    - Araştırma ve geliştirme odaklı, inovatif çözümler üreten çalışmalar
+    - Pilot uygulamalar ve yenilikçi yaklaşımlar içeren projeler
+    - **Bu proje türü için 11 kriterin önem derecelerini belirleyeceksiniz**
     
-    - Finansal Analiz
-    - Çevresel Etki
-    - İzlenebilirlik
-    - Ölçülebilirlik
-    - Zaman Etkisi
-    - Risk Yönetim Planı / Analizi
-    - İnovasyon ve Katma Değer
-    - Yapılabilirlik
-    - Bilgi Transferi
-    - Çarpan Etkisi
-    - Ölçek Ekonomileri
+    **2. 🛠️ Teknik Destek Projesi**
+    - Mevcut sistemlere teknik destek ve danışmanlık hizmeti sunan projeler
+    - Kapasite geliştirme, eğitim ve bilgi transferi içeren çalışmalar
+    - Kurumsal altyapı ve sistemlerin güçlendirilmesine yönelik projeler
+    - **Bu proje türü için 11 kriterin önem derecelerini belirleyeceksiniz**
+    
+    **3. 🏗️ Yapım İşleri / Altyapı Projesi**
+    - Fiziksel altyapı inşası ve iyileştirmesi içeren projeler
+    - Büyük ölçekli yatırım gerektiren yapım işleri
+    - Ulaşım altyapısı, enerji sistemleri gibi somut çıktılar üreten projeler
+    - **Bu proje türü için 11 kriterin önem derecelerini belirleyeceksiniz**
+    
+    #### 🎯 11 Değerlendirme Kriteri (Tüm Proje Türlerinde Aynı):
+    
+    | Kriter | Açıklama |
+    |--------|----------|
+    | **A - Finansal Analiz** | Maliyet analizi ve finansal fizibilite |
+    | **B - Çevresel Etki** | GHG azaltımı, enerji verimliliği, hava kalitesi |
+    | **C - İzlenebilirlik** | Süreç takibi ve raporlanabilirlik |
+    | **D - Ölçülebilirlik** | Nicel göstergeler ve objektif ölçüm |
+    | **E - Zaman Etkisi** | Kısa/orta/uzun vade etki süresi |
+    | **F - Risk Yönetimi** | Risk analizi ve azaltıcı stratejiler |
+    | **G - İnovasyon** | Yenilikçilik ve katma değer üretimi |
+    | **H - Yapılabilirlik** | Teknik ve operasyonel gerçekleştirilebilirlik |
+    | **I - Bilgi Transferi** | Kuruma bilgi aktarımı ve sürdürülebilirlik |
+    | **J - Çarpan Etkisi** | Ek ekonomik/sosyal/çevresel faydalar |
+    | **K - Ölçek Ekonomileri** | Etki alanı ve nüfus büyüklüğü |
     
     #### 📝 Değerlendirme Süreci:
     
-    Her proje türü için aynı 11 kriteri ikili karşılaştırma yöntemiyle değerlendireceksiniz.
+    **Her proje türü için aynı 11 kriteri ikili karşılaştırma yöntemiyle değerlendireceksiniz.**
     
-    - Her karşılaştırmada hangi kriterin daha önemli olduğunu seçin
-    - Önem derecesini 1-5 arasında belirleyin (1: Az önemli, 5: Son derece önemli)
-    - Eşit önemde seçeneğini de kullanabilirsiniz
+    - Her karşılaştırmada **hangi kriterin o proje türü için daha önemli** olduğunu seçin
+    - Önem derecesini **1-5** arasında belirleyin:
+      - **1**: Çok az önemli
+      - **2**: Az önemli
+      - **3**: Önemli
+      - **4**: Çok önemli
+      - **5**: Son derece önemli
+    - **Eşit önemde** seçeneğini de kullanabilirsiniz (her iki kriter de aynı öneme sahip)
+    
+    **ÖNEMLİ NOT:** Aynı kriterler (örneğin Finansal Analiz ve Çevresel Etki) farklı proje türlerinde farklı önem derecelerine sahip olabilir. Örneğin:
+    - Ar-Ge projesinde **İnovasyon** çok önemli olabilir
+    - Yapım İşlerinde **Finansal Analiz** ve **Ölçek Ekonomileri** daha önemli olabilir
+    - Teknik Destek'te **Bilgi Transferi** ön plana çıkabilir
     
     #### ⏱️ Süre:
-    Toplam 165 karşılaştırma - Ortalama 45-60 dakika
+    - Her proje türü için: **55 karşılaştırma** (11 kriter kombinasyonu)
+    - **Toplam: 165 karşılaştırma** (3 proje türü × 55)
+    - Ortalama süre: **45-60 dakika**
+    
+    #### 💡 İpuçları:
+    - Her proje türünü değerlendirirken **o proje türünün doğasını** göz önünde bulundurun
+    - Ara ara kaydetme yapılacağı için endişelenmeyin
+    - Tüm karşılaştırmalar bitince sistem **otomatik olarak kaydedecektir**
     
     """)
     
@@ -264,6 +300,7 @@ def welcome_page():
         st.session_state.expert_name = expert_name
         st.session_state.expert_org = expert_org
         st.session_state.current_stage = "evaluation"
+        st.session_state['active_tab'] = 0  # İlk sekmeyi aktif yap
         st.rerun()
     
     if not expert_name:
@@ -288,13 +325,20 @@ def main_evaluation():
     
     st.markdown("---")
     
+    # Active tab için session state
+    if 'active_tab' not in st.session_state:
+        st.session_state['active_tab'] = 0
+    
     # Sekmeler - 3 proje türü + Sonuçlar
-    tabs = st.tabs([
+    tab_names = [
         "🔬 " + PROJECT_TYPES["stage2"]["name"],
         "🛠️ " + PROJECT_TYPES["stage3"]["name"],
         "🏗️ " + PROJECT_TYPES["stage4"]["name"],
         "📊 Sonuçlar"
-    ])
+    ]
+    
+    # Streamlit tabs ile göster
+    tabs = st.tabs(tab_names)
     
     # İnovasyon ve Ar-Ge
     with tabs[0]:
@@ -307,7 +351,12 @@ def main_evaluation():
         completed = display_comparison("stage2", st.session_state['pair_idx_stage2'])
         if completed:
             st.success("✅ İnovasyon ve Ar-Ge Projesi değerlendirmesi tamamlandı!")
-            st.info("📌 Lütfen yukarıdaki **'🛠️ Teknik Destek Projesi'** sekmesine tıklayarak devam edin.")
+            
+            # Eğer bu sekme aktifse ve tamamlandıysa, kullanıcıyı yönlendir
+            if st.session_state.get('active_tab') == 0:
+                st.info("⏭️ Otomatik olarak **Teknik Destek Projesi** sekmesine geçiliyor...")
+                st.session_state['active_tab'] = 1
+                st.rerun()
     
     # Teknik Destek
     with tabs[1]:
@@ -320,7 +369,12 @@ def main_evaluation():
         completed = display_comparison("stage3", st.session_state['pair_idx_stage3'])
         if completed:
             st.success("✅ Teknik Destek Projesi değerlendirmesi tamamlandı!")
-            st.info("📌 Lütfen yukarıdaki **'🏗️ Yapım İşleri / Altyapı Projesi'** sekmesine tıklayarak devam edin.")
+            
+            # Eğer bu sekme aktifse ve tamamlandıysa, kullanıcıyı yönlendir
+            if st.session_state.get('active_tab') == 1:
+                st.info("⏭️ Otomatik olarak **Yapım İşleri / Altyapı Projesi** sekmesine geçiliyor...")
+                st.session_state['active_tab'] = 2
+                st.rerun()
     
     # Yapım İşleri
     with tabs[2]:
@@ -395,10 +449,6 @@ def display_results():
                 st.info("Teşekkür ederiz! Sayfayı kapatabilirsiniz.")
             else:
                 st.error("❌ Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.")
-        
-        # Örnek format göster
-        with st.expander("📄 Kaydedilen Veri Formatı (Önizleme)"):
-            st.json(st.session_state.responses)
     else:
         st.warning("⚠️ Lütfen tüm proje türleri için değerlendirmeyi tamamlayın.")
         
