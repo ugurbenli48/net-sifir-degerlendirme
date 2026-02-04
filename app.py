@@ -13,7 +13,7 @@ except ImportError:
 
 # Sayfa yapılandırması
 st.set_page_config(
-    page_title="Net Zero Proje Değerlendirme",
+    page_title="Net Zero Kriter Değerlendirme",
     page_icon="🌱",
     layout="wide"
 )
@@ -197,7 +197,7 @@ def display_comparison(stage_key, pair_idx):
 
 def welcome_page():
     """Karşılama sayfası"""
-    st.title("🌱 Net Zero Proje Değerlendirme Sistemi")
+    st.title("🌱 Net Zero Kriter Değerlendirme Sistemi")
     st.markdown("---")
     
     st.markdown("""
