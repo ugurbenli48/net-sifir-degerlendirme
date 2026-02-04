@@ -41,16 +41,7 @@ CRITERIA = {
         ]
     },
     "stage3": {
-        "name": "3. Aşama - Olgunluk Değerlendirmesi",
-        "criteria": [
-            ("a", "CAPEX analizi mevcudiyeti", "Açıklama: Projenin sermaye yatırımı (CAPEX) kapsamında; altyapı, üstyapı, araç, ekipman, teknoloji ve inşaat maliyetlerinin detaylı biçimde analiz edilip edilmediğinin ve yatırım kararını destekleyecek finansal çerçevenin oluşturulup oluşturulmadığının değerlendirilmesi."),
-            ("b", "OPEX analizi mevcudiyeti", "Açıklama: Projenin işletme ve bakım (OPEX) maliyetlerinin; personel, enerji, bakım-onarım, yazılım lisansları, yedek parça, sigorta ve operasyon yönetimi gibi kalemler üzerinden kapsamlı biçimde analiz edilip edilmediğinin ve maliyet yapısının netleştirilip netleştirilmediğinin değerlendirilmesi."),
-            ("c", "Finansal analizin varlığı", "Açıklama: Projenin finansal fizibilitesinin ve karar sürecini destekleyecek analizlerin mevcut olup olmadığı değerlendirilir."),
-            ("d", "Risk Yönetimi Planı/Analizi Mevcudiyeti", "Açıklama: Proje risklerinin tanımlanıp yönetim stratejilerinin/analizlerinin oluşturulup oluşturulmadığını değerlendirir."),
-        ]
-    },
-    "stage4": {
-        "name": "4. Aşama - Etki ve Kalite",
+        "name": "3. Aşama - Etki ve Kalite",
         "criteria": [
             ("a", "Ölçek Etkisi", "Açıklama: Projenin etkilediği nüfusun ve coğrafi alanın büyüklüğünü değerlendirir."),
             ("b", "Çevresel Etki", "Açıklama: GHProjenin çevresel etkilerini; GHG azaltımı (CO₂, CH₄, N₂O), enerji tüketimindeki düşüş ve hava kalitesindeki iyileşme (NOx, PM10, NMHC) gibi göstergeler üzerinden değerlendirir."),
@@ -65,8 +56,7 @@ CRITERIA = {
         "name": "Aşamalar Arası Karşılaştırma",
         "criteria": [
             ("a", "2. Aşama - Tema Önceliği", "Açıklama: Projenin hangi temaya odaklandığı ve bu temanın öncelik düzeyi."),
-            ("b", "3. Aşama - Olgunluk Değerlendirmesi", "Açıklama: Projenin teknik, finansal ve operasyonel olgunluk seviyesi."),
-            ("c", "4. Aşama - Etki ve Kalite", "Açıklama: Projenin sosyal, ekonomik, çevresel etkisi ve teknik kalitesi."),
+            ("b", "3. Aşama - Etki ve Kalite", "Açıklama: Projenin sosyal, ekonomik, çevresel etkisi ve teknik kalitesi."),
         ]
     }
 }
@@ -100,11 +90,9 @@ def check_and_auto_save():
         'stage2' in st.session_state.responses and 
         len(st.session_state.responses['stage2']) == 105 and  # 15 kriter: C(15,2) = 105
         'stage3' in st.session_state.responses and 
-        len(st.session_state.responses['stage3']) == 6 and   # 4 kriter: C(4,2) = 6
-        'stage4' in st.session_state.responses and 
-        len(st.session_state.responses['stage4']) == 21 and   # 7 kriter: C(7,2) = 21
+        len(st.session_state.responses['stage3']) == 21 and   # 7 kriter: C(7,2) = 21
         'stage_comparison' in st.session_state.responses and 
-        len(st.session_state.responses['stage_comparison']) == 3  # 3 aşama: C(3,2) = 3
+        len(st.session_state.responses['stage_comparison']) == 1  # 2 aşama: C(2,2) = 1
     )
     
     if all_completed:
@@ -219,9 +207,8 @@ def welcome_page():
     
     #### 📋 Değerlendirme Aşamaları:
     1. **2. Aşama** - Tema Önceliği (15 kriter)
-    2. **3. Aşama** - Olgunluk Değerlendirmesi (4 kriter)
-    3. **4. Aşama** - Etki ve Kalite (5 kriter)
-    4. **Aşamalar Arası** - Aşamaların önem karşılaştırması (3 kriter)
+    2. **3. Aşama** - Etki ve Kalite (7 kriter)
+    3. **Aşamalar Arası** - Aşamaların önem karşılaştırması (2 aşama)
     
     #### 🎯 Nasıl Çalışır?
     - Her adımda iki kriter karşılaştırılır
@@ -231,11 +218,10 @@ def welcome_page():
     
     #### ⏱️ Tahmini Süre:
     - **2. Aşama**: ~17 dakika (105 karşılaştırma)
-    - **3. Aşama**: ~2 dakika (6 karşılaştırma)
-    - **4. Aşama**: ~5 dakika (21 karşılaştırma)
-    - **Aşamalar Arası**: ~1 dakika (3 karşılaştırma)
+    - **3. Aşama**: ~5 dakika (21 karşılaştırma)
+    - **Aşamalar Arası**: ~1 dakika (1 karşılaştırma)
     
-    **Toplam**: Yaklaşık 25 dakika
+    **Toplam**: Yaklaşık 23 dakika
     """)
     
     st.markdown("---")
@@ -267,8 +253,7 @@ def main_evaluation():
     # Aşama seçimi
     tabs = st.tabs([
         "2️⃣ Tema Önceliği",
-        "3️⃣ Olgunluk",
-        "4️⃣ Etki ve Kalite",
+        "3️⃣ Etki ve Kalite",
         "🔗 Aşamalar Arası",
         "📊 Sonuçlar"
     ])
@@ -282,9 +267,9 @@ def main_evaluation():
         completed = display_comparison("stage2", st.session_state['pair_idx_stage2'])
         if completed:
             st.success("✅ 2. Aşama tamamlandı!")
-            st.info("👉 Üstteki **'3️⃣ Olgunluk'** sekmesine tıklayarak devam edin.")
+            st.info("👉 Üstteki **'3️⃣ Etki ve Kalite'** sekmesine tıklayarak devam edin.")
     
-    # 3. Aşama
+    # 3. Aşama (Eski 4. Aşama)
     with tabs[1]:
         st.header(CRITERIA["stage3"]["name"])
         if 'stage2' in st.session_state.responses and len(st.session_state.responses['stage2']) > 0:
@@ -294,28 +279,14 @@ def main_evaluation():
             completed = display_comparison("stage3", st.session_state['pair_idx_stage3'])
             if completed:
                 st.success("✅ 3. Aşama tamamlandı!")
-                st.info("👉 Üstteki **'4️⃣ Etki ve Kalite'** sekmesine tıklayarak devam edin.")
+                st.info("👉 Üstteki **'🔗 Aşamalar Arası'** sekmesine tıklayarak devam edin.")
         else:
             st.warning("⚠️ Önce 2. Aşamayı tamamlayın.")
     
-    # 4. Aşama
-    with tabs[2]:
-        st.header(CRITERIA["stage4"]["name"])
-        if 'stage3' in st.session_state.responses and len(st.session_state.responses['stage3']) > 0:
-            if f'pair_idx_stage4' not in st.session_state:
-                st.session_state['pair_idx_stage4'] = 0
-            
-            completed = display_comparison("stage4", st.session_state['pair_idx_stage4'])
-            if completed:
-                st.success("✅ 4. Aşama tamamlandı!")
-                st.info("👉 Üstteki **'🔗 Aşamalar Arası'** sekmesine tıklayarak devam edin.")
-        else:
-            st.warning("⚠️ Önce 3. Aşamayı tamamlayın.")
-    
     # Aşamalar Arası
-    with tabs[3]:
+    with tabs[2]:
         st.header(CRITERIA["stage_comparison"]["name"])
-        if 'stage4' in st.session_state.responses and len(st.session_state.responses['stage4']) > 0:
+        if 'stage3' in st.session_state.responses and len(st.session_state.responses['stage3']) > 0:
             if f'pair_idx_stage_comparison' not in st.session_state:
                 st.session_state['pair_idx_stage_comparison'] = 0
             
@@ -336,10 +307,10 @@ def main_evaluation():
                 else:
                     st.info("✅ Değerlendirmeniz daha önce kaydedildi.")
         else:
-            st.warning("⚠️ Önce 4. Aşamayı tamamlayın.")
+            st.warning("⚠️ Önce 3. Aşamayı tamamlayın.")
     
     # Sonuçlar
-    with tabs[4]:
+    with tabs[3]:
         st.header("📊 Değerlendirme Sonuçları")
         display_results()
 
@@ -360,7 +331,6 @@ def display_results():
     all_completed = (
         'stage2' in st.session_state.responses and 
         'stage3' in st.session_state.responses and 
-        'stage4' in st.session_state.responses and 
         'stage_comparison' in st.session_state.responses
     )
     
